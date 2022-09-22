@@ -1,12 +1,14 @@
 {
   "name": "set-editor",
   "version": "0.0.0",
+  "license": "MIT",
+  "main": "electron-main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "serve": "tsc -watch ng build --watch",
+    "build": "tsc electron-main.ts && ng build",
+    "test": "ng test",
+    "electron": "tsc electron-main.ts && ng build && electron ."
   },
   "private": true,
   "dependencies": {
@@ -27,6 +29,7 @@
     "@angular/cli": "~14.2.3",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
+    "electron": "^20.2.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
