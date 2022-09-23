@@ -1,0 +1,5 @@
+<h1 [class]="isIntro">Set Editor</h1>
+<ng-container *ngIf="!isIntro">
+    <h1 class="file-name">{{ fileName }}</h1>
+    <h1 class="objects">{{ numObjects }} Objects</h1>
+</ng-container>
