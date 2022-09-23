@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() isIntro = false;
-  @Input() fileName = '';
-  @Input() numObjects = 0;
+  @Input() fileName?: string;
+  @Input() numObjects?: number;
 }

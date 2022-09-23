@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SetEditorComponent } from '../set-editor/set-editor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { SetEditorModule } from '../set-editor/set-editor.module';
 import { HeaderModule } from '../shared/header/header.module';
 
 const routes: Routes = [
@@ -16,9 +18,10 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     HeaderModule,
+    SetEditorModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
