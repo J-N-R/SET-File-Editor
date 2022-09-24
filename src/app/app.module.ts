@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SetEditorModule } from '../set-editor/set-editor.module';
 import { HeaderModule } from '../shared/header/header.module';
+import { FooterModule } from '../shared/footer/footer.module';
 
 const routes: Routes = [
   { path: '', component: SetEditorComponent}
@@ -20,6 +21,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HeaderModule,
+    FooterModule,
     SetEditorModule,
     RouterModule.forRoot(routes),
   ],
