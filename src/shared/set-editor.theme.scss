@@ -1,5 +1,17 @@
-.container {
-    margin-bottom: -60px;
+.content {
     height: calc(100vh - 100px);
+    margin-bottom: -60px;
     min-height: 400px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mdc-fab {
+    align-self: center;
+    flex: initial;
+    margin: 10px;
 }
