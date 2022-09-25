@@ -2,13 +2,22 @@
     border-bottom: solid 2px black;
     display: flex;
     flex: initial;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+
+.mat-display-1 {
+    align-self: center;
+    flex: 1;
+    margin: 0;
+    text-align: right;
 }
 
 .mat-display-2 {
+    flex: 1;
     margin: 0;
-    padding: 20px 10px;
 }
 
 .center {
-    margin: auto;
+    text-align: center;
 }

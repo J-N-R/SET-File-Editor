@@ -1,5 +1,11 @@
 @import "../shared/set-editor.theme.scss";
 
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 mat-icon {
     color: white;
 }
