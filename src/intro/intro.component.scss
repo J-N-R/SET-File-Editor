@@ -1,5 +1,15 @@
 @import "../shared/set-editor.theme.scss";
 
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 .button-container {
-    height: calc(100% - 100px);
+    flex: 1;
+}
+
+.content {
+    min-height: 300px;
 }
