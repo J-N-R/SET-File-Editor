@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.scss']
 })
-export class IntroComponent implements OnInit {
+export class IntroComponent {
 
-  constructor() { }
+  constructor(private readonly router: Router) {}
 
-  ngOnInit(): void {
+  open() {
+    this.router.navigate(['editor']);
+  }
+
+  create() {
+    this.router.navigate(['editor']);
   }
 
 }
