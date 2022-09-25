@@ -5,6 +5,7 @@ import { HeaderModule } from '../shared/header/header.module';
 import { FooterModule } from '../shared/footer/footer.module';
 import { SetObjectComponent } from './set-object.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CommonModule,
     FooterModule,
     HeaderModule,
+    MatButtonModule,
     MatExpansionModule,
   ]
 })
