@@ -12,9 +12,14 @@
             <span class="mdc-fab__label">Add</span>
         </button>
     </div>
-    <ng-container *ngIf="objectsEmitter | async as objects else loading">
-        <app-set-object *ngFor="let object of objects"></app-set-object>
-    </ng-container>
+    <div 
+        *ngIf="objectsEmitter | async as objects else loading"
+        class="objects-container">
+        <app-set-object 
+            *ngFor="let object of objects"
+            [object]="object">
+        </app-set-object>
+    </div>
     <ng-template #loading>
         <h1 class="mat-display-1 center">Loading...</h1>
     </ng-template>
