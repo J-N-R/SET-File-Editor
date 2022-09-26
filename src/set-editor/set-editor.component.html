@@ -3,7 +3,7 @@
     <div class="button-container">
         <button class="save mdc-fab mdc-fab--extended">
             <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">folder</span>
+            <span class="material-icons mdc-fab__icon">save</span>
             <span class="mdc-fab__label">Save</span>
         </button>
         <button class="add mdc-fab mdc-fab--extended">
@@ -12,6 +12,11 @@
             <span class="mdc-fab__label">Add</span>
         </button>
     </div>
-    <app-set-object *ngFor="let object of [1, 2, 3]"></app-set-object>
+    <ng-container *ngIf="objectsEmitter | async as objects else loading">
+        <app-set-object *ngFor="let object of objects"></app-set-object>
+    </ng-container>
+    <ng-template #loading>
+        <h1 class="mat-display-1 center">Loading...</h1>
+    </ng-template>
 </div>
 <app-footer></app-footer>

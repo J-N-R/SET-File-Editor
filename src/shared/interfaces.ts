@@ -1,7 +1,7 @@
 /** Typescript representation of a SET object. */
 export interface SetObject {
     // Internal id for frontend.
-    id: number,
+    id?: number,
     // Sonic adventure 2 id.
     oid: number,
     name: string,

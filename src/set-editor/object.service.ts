@@ -9,11 +9,14 @@ import { SetObject } from '../shared/interfaces';
 })
 export class ObjectService {
   private objectList: SetObject[] = [];
+  private nextID = 1;
 
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
 
   addObject(object: SetObject) {
+    object.id = this.nextID;
+    this.nextID++;
     this.objectList.push(object);
     this.objectSubject.next(this.objectList);
   }
@@ -24,6 +27,9 @@ export class ObjectService {
   }
 
   setObjectList(objectList: SetObject[]) {
+    if (this.nextID < objectList.length) {
+      this.nextID = objectList.length + 1;
+    }
     this.objectList = objectList;
     this.objectSubject.next(this.objectList);
   }
