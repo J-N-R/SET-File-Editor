@@ -7,8 +7,8 @@ function createWindow() {
         width: 800,
         height: 600,
         backgroundColor: '#fff',
-        minWidth: 620,
-        minHeight: 300,
+        minWidth: 650,
+        minHeight: 370,
         icon: `file://${__dirname}/dist/assets/logo.png`,
     });
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { SetObject } from '../shared/interfaces';
 
 @Component({
@@ -13,9 +14,6 @@ export class SetObjectComponent implements OnInit {
     x: 0,
     y: 0,
     z: 0,
-    xRot: 0,
-    yRot: 0,
-    zRot: 0,
   };
 
   constructor() { }

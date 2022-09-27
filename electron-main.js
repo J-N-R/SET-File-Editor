@@ -7,6 +7,8 @@ function createWindow() {
         width: 800,
         height: 600,
         backgroundColor: '#fff',
+        minWidth: 650,
+        minHeight: 370,
         icon: "file://".concat(__dirname, "/dist/assets/logo.png")
     });
     win.loadURL("file://".concat(__dirname, "/dist/set-editor/index.html"));

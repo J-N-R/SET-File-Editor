@@ -2,5 +2,42 @@
     <mat-expansion-panel-header>
         {{ object.name }}
     </mat-expansion-panel-header>
-    <p>This is where the form goes.</p>
+    <div class="form">
+        <mat-form-field appearance="fill">
+            <mat-label>x</mat-label>
+            <input matInput [(ngModel)]="object.x">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>y</mat-label>
+            <input matInput [(ngModel)]="object.y">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>z</mat-label>
+            <input matInput [(ngModel)]="object.z">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.xRot !== undefined" appearance="fill">
+            <mat-label>x Rotation</mat-label>
+            <input matInput [(ngModel)]="object.xRot">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.yRot !== undefined" appearance="fill">
+            <mat-label>y Rotation</mat-label>
+            <input matInput [(ngModel)]="object.yRot">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.zRot !== undefined" appearance="fill">
+            <mat-label>z Rotation</mat-label>
+            <input matInput [(ngModel)]="object.zRot">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.var1 !== undefined" appearance="fill">
+            <mat-label>Var 1</mat-label>
+            <input matInput [(ngModel)]="object.var1">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.var2 !== undefined" appearance="fill">
+            <mat-label>Var 2</mat-label>
+            <input matInput [(ngModel)]="object.var2">
+        </mat-form-field>
+        <mat-form-field *ngIf="object.var3 !== undefined" appearance="fill">
+            <mat-label>Var 3</mat-label>
+            <input matInput [(ngModel)]="object.var3">
+        </mat-form-field>
+    </div>
 </mat-expansion-panel>

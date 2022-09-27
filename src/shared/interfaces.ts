@@ -9,9 +9,9 @@ export interface SetObject {
     y: number,
     z: number,
     // Rotation data stored as degrees, converted to BAMS later.
-    xRot: number,
-    yRot: number,
-    zRot: number,
+    xRot?: number,
+    yRot?: number,
+    zRot?: number,
     var1?: number,
     var2?: number,
     var3?: number,

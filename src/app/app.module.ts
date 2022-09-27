@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { IntroComponent } from '../intro/intro.component';
-import { SetEditorComponent } from '../set-editor/set-editor.component';
-
 import { IntroModule } from '../intro/intro.module';
 import { SetEditorModule } from '../set-editor/set-editor.module';
+
+import { IntroComponent } from '../intro/intro.component';
+import { SetEditorComponent } from '../set-editor/set-editor.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
