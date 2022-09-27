@@ -1,27 +1,19 @@
-# SetEditor
+# Set Adventure 3
+A modern SET object editor for modding the Sonic Adventure series. Inspired by the original [Set Adventure 1.2 by TurtleMan64](https://github.com/TurtleMan64/SetAdventure), this editor allows you to create and modify objects, enemies, and more for levels in Sonic Adventure 1 and 2.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+## Features
+* A modern, sleek interface powered by material design.
+* Simple interactions by using an Object-based approach.
+* Smart attributes that get renamed depending on the type of object.
+    * *(Example, var1 converts into 'Spring Force')*
+* Easy to create, modify, and delete objects.
 
-## Development server
+## Stretch Goals (WIP)
+* Allow exporting to txt
+* Allow importing txt
+* Multi-level object list support
+* Raw View
+* Visualizations (?)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Notes
+This project was made with ElectronJS using Angular, and includes the use of Google-provided material components. If have any questions or requests for this project, please leave an issue or email me directly, and if you have any questions regarding Sonic Adventure, modding, or Set Objects, feel free to ask at the [x-hax discord](https://discord.gg/gqJCF47).
