@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderModule } from '../shared/header/header.module';
 import { FooterModule } from '../shared/footer/footer.module';
 
+import { FileService } from '../shared/file.service';
+
 import { IntroComponent } from './intro.component';
 
 @NgModule({
@@ -16,6 +18,9 @@ import { IntroComponent } from './intro.component';
     FooterModule,
     HeaderModule,
     MatButtonModule,
+  ],
+  providers: [
+    FileService,
   ],
 })
 export class IntroModule { }

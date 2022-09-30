@@ -9,9 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { HeaderModule } from '../shared/header/header.module';
 import { FooterModule } from '../shared/footer/footer.module';
 
+import { ObjectService } from './object.service';
+import { FileService } from '../shared/file.service';
+
 import { SetObjectComponent } from './set-object.component';
 import { SetEditorComponent } from './set-editor.component';
-import { ObjectService } from './object.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { ObjectService } from './object.service';
     MatInputModule,
   ],
   providers: [
+    FileService,
     ObjectService,
   ],
 })
