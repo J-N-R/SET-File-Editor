@@ -1,0 +1,89 @@
+<ng-container *ngIf="error">
+    <h1 mat-dialog-title>Error</h1>
+    <div mat-dialog-content>An error has been detected. Please notify the dev.</div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="!error">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="form">
+            <mat-form-field appearance="fill">
+                <mat-label>File Name</mat-label>
+                <input matInput formControlName="fileName">
+            </mat-form-field>
+            <label id="version-radio-label">Game Version</label>
+            <mat-radio-group
+                aria-labelledby="version-radio-label"
+                formControlName="isSA2Format">
+                <mat-radio-button [value]="false">
+                    Sonic Adventure 1
+                </mat-radio-button>
+                <mat-radio-button [value]="true">
+                    Sonic Adventure 2
+                </mat-radio-button>
+            </mat-radio-group>
+            <ng-container *ngIf="isSA2Format && isSA2Format.value === false">
+                <label id="format-radio-label">SET File Format</label>
+                <mat-radio-group
+                    aria-labelledby="format-radio-label"
+                    formControlName="fileType">
+                    <mat-radio-button 
+                        *ngFor="let format of sa1Formats"
+                        [value]="format">
+                        {{ format }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </ng-container>
+            <ng-container *ngIf="isSA2Format && isSA2Format.value === true">
+                <label id="format-radio-label">SET File Format</label>
+                <mat-radio-group
+                    aria-labelledby="format-radio-label"
+                    formControlName="fileType">
+                    <mat-radio-button 
+                        *ngFor="let format of sa2Formats"
+                        [value]="format">
+                        {{ format }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </ng-container>
+            <div class="dialog-buttons" mat-dialog-actions>
+                <button mat-raised-button mat-dialog-close>Cancel</button>
+                <button mat-raised-button mat-dialog-close
+                    class="save-button"
+                    type="submit"
+                    [disabled]="!form.valid"
+                    [queryParams]="queryParams"
+                    [routerLink]="'editor'">
+                    Save
+                </button>
+            </div>
+            <div class="warnings">
+                <div *ngIf="fileName && fileName.invalid &&
+                    fileName.dirty"
+                    class="alert alert-danger">
+                    <div *ngIf="fileName.errors?.['required']">
+                        File Name is required.
+                    </div>
+                </div>
+                <div *ngIf="isSA2Format && isSA2Format.invalid &&
+                    (isSA2Format.dirty || isSA2Format.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="isSA2Format.errors?.['required']">
+                        Game Version is required.
+                    </div>
+                </div>
+                <div *ngIf="fileType && fileType.invalid &&
+                    (fileType.dirty || fileType.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="fileType.errors?.['required']">
+                        SET File Format is required.
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
+<!-- For add dialog: https://material.angular.io/components/autocomplete/examples -->

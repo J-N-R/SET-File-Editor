@@ -1,0 +1,45 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-radio-group {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+mat-radio-button {
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+mat-form-field {
+    flex: 1;
+}
+
+label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+label#format-radio-label {
+    margin-top: 20px;
+}
+
+.dialog-buttons {
+    display: flex;
+    flex: 1;
+    margin: auto;
+}
+
+.save-button {
+    color: white;
+    background-color: green;
+}
+
+.warnings {
+    flex: 1;
+}

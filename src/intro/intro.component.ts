@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
+import { FileDialogComponent } from '../shared/file-dialog/file-dialog.component';
 
 @Component({
   selector: 'app-intro',
@@ -8,14 +11,21 @@ import { Router } from '@angular/router';
 })
 export class IntroComponent {
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
 
   open() {
-    this.router.navigate(['editor']);
+
   }
 
   create() {
-    this.router.navigate(['editor']);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      isCreatingFile: true,
+    };
+    dialogConfig.autoFocus = false;
+
+    this.dialog.open(FileDialogComponent, dialogConfig);
+    // this.router.navigate(['editor']);
   }
 
 }
