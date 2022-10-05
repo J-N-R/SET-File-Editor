@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Router } from '@angular/router';
+
+import { QueryParams } from '../interfaces';
 
 /** 
  * Dialog that opens when a user wants to save, open,
@@ -45,7 +46,7 @@ export class FileDialogComponent implements OnInit {
       queryParams.fileName = this.fileName.value!;
     }
     if (this.isSA2Format) {
-      queryParams.isSA2Format = this.isSA2Format.value!;
+      queryParams.isSA2Format = String(this.isSA2Format.value!);
     }
     if (this.fileType) {
       queryParams.fileType = this.fileType.value!;
@@ -84,12 +85,6 @@ const SA2_FORMATS = [
   'Decorative',
   'Hard Mode',
 ];
-
-interface QueryParams {
-  fileName?: string,
-  isSA2Format?: boolean,
-  fileType?: string,
-}
 
 interface FileDialogInput {
   isCreatingFile?: boolean,

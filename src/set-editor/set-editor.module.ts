@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +32,7 @@ import { SetEditorComponent } from './set-editor.component';
   ],
   providers: [
     FileService,
+    Location,
     ObjectService,
   ],
 })

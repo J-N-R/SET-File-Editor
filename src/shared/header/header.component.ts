@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
   @Input() isIntro = false;
   @Input() fileName?: string;
-  @Input() numObjects?: number;
+  @Input() numOfObjects?: number;
 }
