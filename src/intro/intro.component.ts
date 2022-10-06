@@ -23,6 +23,7 @@ export class IntroComponent {
       isCreatingFile: true,
     };
     dialogConfig.autoFocus = false;
+    dialogConfig.height = '480px';
 
     this.dialog.open(FileDialogComponent, dialogConfig);
     // this.router.navigate(['editor']);
