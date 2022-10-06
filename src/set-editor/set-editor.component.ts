@@ -29,14 +29,22 @@ export class SetEditorComponent implements OnInit {
 
     console.log(this.location.path());
 
-    if (queryParams.has('fileName')) {
-      this.fileName = queryParams.get('fileName')!;
-    }
     if (queryParams.has('isSA2Format')) {
       this.isSA2Format = queryParams.get('isSA2Format')! === 'true';
     }
     if (queryParams.has('fileType')) {
       this.fileType = queryParams.get('fileType')!;
+    }
+    if (queryParams.has('fileName')) {
+      let fileName = queryParams.get('fileName')!;
+      fileName = fileName.split('.')[0];
+
+      if (this.fileType !== '') {
+        this.fileName = fileName + FILE_NAME_SUFFIX.get(this.fileType) + '.bin';
+      }
+      else {
+        this.fileName = fileName + '.bin';
+      }
     }
 
     this.objectService.setObjectList(OBJECTS);
@@ -44,5 +52,12 @@ export class SetEditorComponent implements OnInit {
       this.numOfObjects = setObjects.length;
     });
   }
-
 }
+
+// Suffixes to add to file name to make it SA2 compatible.
+// May add an option for 'custom' in the future with no suffix.
+const FILE_NAME_SUFFIX = new Map([
+  ['Normal', '_S'],
+  ['Decorative', '_U'],
+  ['Hard Mode', '_HD_S'],
+]);

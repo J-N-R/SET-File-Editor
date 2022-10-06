@@ -13,20 +13,19 @@ export class IntroComponent {
 
   constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
 
-  open() {
+  openFile() {
 
   }
 
-  create() {
+  createFile() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       isCreatingFile: true,
     };
     dialogConfig.autoFocus = false;
     dialogConfig.height = '480px';
+    dialogConfig.panelClass = 'dialog-panel';
 
     this.dialog.open(FileDialogComponent, dialogConfig);
-    // this.router.navigate(['editor']);
   }
-
 }
