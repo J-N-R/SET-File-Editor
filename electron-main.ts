@@ -5,7 +5,7 @@ let win: BrowserWindow|null;
 function createWindow() {
     win = new BrowserWindow({
         width: 800,
-        height: 600,
+        height: 610,
         backgroundColor: '#fff',
         minWidth: 650,
         minHeight: 370,

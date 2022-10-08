@@ -16,11 +16,4 @@ export interface SetObject {
     var2?: number,
     var3?: number,
 };
-
-/** Query Params sent from intro to editor page. */
-export interface QueryParams {
-    fileName?: string,
-    isSA2Format?: string,
-    fileType?: string,
-};
   

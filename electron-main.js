@@ -5,7 +5,7 @@ var win;
 function createWindow() {
     win = new electron_1.BrowserWindow({
         width: 800,
-        height: 600,
+        height: 610,
         backgroundColor: '#fff',
         minWidth: 650,
         minHeight: 370,

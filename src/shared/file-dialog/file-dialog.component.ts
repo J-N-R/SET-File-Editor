@@ -2,8 +2,6 @@ import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
-import { QueryParams } from '../interfaces';
-
 /** 
  * Dialog that opens when a user wants to save, open,
  * or create a file.
@@ -89,6 +87,13 @@ const SA2_FORMATS = [
 interface FileDialogInput {
   isCreatingFile?: boolean,
   isSavingFile?: boolean,
+};
+
+/** Query Params sent from intro to editor page. */
+interface QueryParams {
+  fileName?: string,
+  isSA2Format?: string,
+  fileType?: string,
 };
 
 // https://blog.angular-university.io/angular-material-dialog/

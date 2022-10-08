@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { QueryParams, SetObject } from '../shared/interfaces';
-
 import { OBJECTS } from '../shared/mock-objects';
 import { ObjectService } from './object.service';
 

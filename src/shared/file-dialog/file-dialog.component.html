@@ -48,7 +48,31 @@
                     </mat-radio-button>
                 </mat-radio-group>
             </ng-container>
-            <div class="spacer"></div>
+            <div class="spacer">
+                <div class="warnings">
+                    <div *ngIf="fileName && fileName.invalid &&
+                        fileName.dirty"
+                        class="alert alert-danger center">
+                        <div *ngIf="fileName.errors?.['required']">
+                            File Name is required.
+                        </div>
+                    </div>
+                    <div *ngIf="isSA2Format && isSA2Format.invalid &&
+                        (isSA2Format.dirty || isSA2Format.touched)"
+                        class="alert alert-danger center">
+                        <div *ngIf="isSA2Format.errors?.['required']">
+                            Game Version is required.
+                        </div>
+                    </div>
+                    <div *ngIf="fileType && fileType.invalid &&
+                        (fileType.dirty || fileType.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="fileType.errors?.['required']">
+                            SET File Format is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="dialog-buttons" mat-dialog-actions>
                 <button mat-raised-button mat-dialog-close>Cancel</button>
                 <button mat-raised-button mat-dialog-close
@@ -59,29 +83,6 @@
                     [routerLink]="'editor'">
                     Save
                 </button>
-            </div>
-            <div class="warnings">
-                <div *ngIf="fileName && fileName.invalid &&
-                    fileName.dirty"
-                    class="alert alert-danger center">
-                    <div *ngIf="fileName.errors?.['required']">
-                        File Name is required.
-                    </div>
-                </div>
-                <div *ngIf="isSA2Format && isSA2Format.invalid &&
-                    (isSA2Format.dirty || isSA2Format.touched)"
-                    class="alert alert-danger center">
-                    <div *ngIf="isSA2Format.errors?.['required']">
-                        Game Version is required.
-                    </div>
-                </div>
-                <div *ngIf="fileType && fileType.invalid &&
-                    (fileType.dirty || fileType.touched)"
-                    class="alert alert-danger">
-                    <div *ngIf="fileType.errors?.['required']">
-                        SET File Format is required.
-                    </div>
-                </div>
             </div>
         </form>
     </div>

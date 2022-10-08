@@ -4,6 +4,7 @@ form {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow-y: hidden;
 }
 
 mat-radio-group {
@@ -20,6 +21,11 @@ mat-radio-button {
     height: 100%;
 }
 
+.mat-dialog-actions {
+    min-height: 40px;
+    padding: 0 0 7px;
+}
+
 label {
     font-size: 15px;
     font-weight: bold;
@@ -27,7 +33,7 @@ label {
 }
 
 label#format-radio-label {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .dialog-buttons {
@@ -42,5 +48,12 @@ label#format-radio-label {
 }
 
 .spacer {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.warnings {
+    color: red;
 }
