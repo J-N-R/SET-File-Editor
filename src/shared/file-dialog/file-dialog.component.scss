@@ -4,7 +4,7 @@ form {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow-y: hidden;
+    overflow-x: visible;
 }
 
 mat-radio-group {
@@ -19,6 +19,7 @@ mat-radio-button {
 
 .mat-dialog-content {
     height: 100%;
+    overflow-y: hidden;
 }
 
 .mat-dialog-actions {
