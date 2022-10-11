@@ -1,3 +1,5 @@
+import { ObjectGroup } from './interfaces';
+
 /** Sonic Adventure 2 Objects */
 export enum SA2Object {
     RING = 'Ring',
@@ -231,17 +233,44 @@ export const ZONES: SA2Object[] = [
     SA2Object.TRUCK,
 ];
 
-export const ALL_OBJECTS = new Map<string, SA2Object[]>([
-    ['Collectibles', COLLECTIBLES],
-    ['Enemies', ENEMIES],
-    ['Stage Interactables', STAGE_INTERACTIVE],
-    ['Ball Switch', BALL_SWITCH],
-    ['Mystic Shrine', MYSTIC_SHRINE],
-    ['Actors', ACTORS],
-    ['Stage', STAGE],
-    ['Collision', COLLISIONS],
-    ['Zones', ZONES],
-]);
+export const ALL_OBJECTS: ObjectGroup[] = [
+    {
+        name: 'Collectibles',
+        objects: COLLECTIBLES,
+    },
+    {
+        name: 'Enemies',
+        objects: ENEMIES,
+    },
+    {
+        name: 'Stage Interactables',
+        objects: STAGE_INTERACTIVE,
+    },
+    {
+        name: 'Ball Switch',
+        objects: BALL_SWITCH,
+    },
+    {
+        name: 'Mystic Shrine',
+        objects: MYSTIC_SHRINE,
+    },
+    {
+        name: 'Actors',
+        objects: ACTORS,
+    },
+    {
+        name: 'Stage',
+        objects: STAGE,
+    },
+    {
+        name: 'Collision',
+        objects: COLLISIONS,
+    },
+    {
+        name: 'Zones',
+        objects: ZONES,
+    },
+];
 
 /** A Map from an SA2Object to CityEscapeObjectID. */
 export const CITY_ESCAPE_OBJECTS: Map<SA2Object, number> = new Map([

@@ -15,4 +15,8 @@ export interface SetObject {
     var2?: number,
     var3?: number,
 };
-  
+
+export interface ObjectGroup {
+    name: string,
+    objects: SA2Object[],
+}

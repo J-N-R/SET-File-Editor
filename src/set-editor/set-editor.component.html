@@ -17,6 +17,7 @@
         class="objects-container">
         <app-set-object 
             *ngFor="let object of objects"
+            [levelObjects]="levelObjects"
             [object]="object">
         </app-set-object>
     </div>

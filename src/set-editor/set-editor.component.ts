@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 import { OBJECTS } from '../shared/mock-objects';
 import { ObjectService } from './object.service';
 
+import { ObjectGroup } from '../shared/interfaces';
+import { SA2Object, ALL_OBJECTS, CITY_ESCAPE_OBJECTS } from '../shared/content';
+
 @Component({
   selector: 'app-set-editor',
   templateUrl: './set-editor.component.html',
@@ -14,6 +17,7 @@ export class SetEditorComponent implements OnInit {
   isSA2Format = false;
   fileType = '';
   numOfObjects = 0;
+  levelObjects: ObjectGroup[] = [];
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
 
@@ -38,7 +42,7 @@ export class SetEditorComponent implements OnInit {
       fileName = fileName.split('.')[0];
 
       if (this.fileType !== '') {
-        this.fileName = fileName + FILE_NAME_SUFFIX.get(this.fileType) + '.bin';
+        this.fileName = fileName + SA2_FILE_NAME_SUFFIX.get(this.fileType) + '.bin';
       }
       else {
         this.fileName = fileName + '.bin';
@@ -49,6 +53,8 @@ export class SetEditorComponent implements OnInit {
     this.objectsEmitter.subscribe((setObjects) => {
       this.numOfObjects = setObjects.length;
     });
+
+    this.levelObjects = this.objectService.getLevelObjects(CITY_ESCAPE_OBJECTS);
   }
 
   handleAddClick() {
@@ -58,7 +64,7 @@ export class SetEditorComponent implements OnInit {
 
 // Suffixes to add to file name to make it SA2 compatible.
 // May add an option for 'custom' in the future with no suffix.
-const FILE_NAME_SUFFIX = new Map([
+const SA2_FILE_NAME_SUFFIX = new Map([
   ['Normal', '_S'],
   ['Decorative', '_U'],
   ['Hard Mode', '_HD_S'],

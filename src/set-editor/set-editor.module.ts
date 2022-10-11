@@ -4,6 +4,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
 
 import { HeaderModule } from '../shared/header/header.module';
@@ -25,6 +26,7 @@ import { SetEditorComponent } from './set-editor.component';
     FooterModule,
     FormsModule,
     HeaderModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatExpansionModule,
     MatFormFieldModule,
