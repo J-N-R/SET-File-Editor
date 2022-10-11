@@ -3,7 +3,8 @@ import { first, take } from 'rxjs/operators';
 
 import { ObjectService } from './object.service';
 
-import { SetObject } from '../shared/interfaces'; 
+import { SetObject } from '../shared/interfaces';
+import { SA2Object } from '../shared/content';
 
 describe('ObjectService', () => {
   let service: ObjectService;
@@ -57,11 +58,12 @@ describe('ObjectService', () => {
   });
 });
 
+const MOCK_ID = 1;
+
 function getTestObject(): SetObject {
   return {
     id: MOCK_ID,
-    oid: 1,
-    name: 'test object',
+    object: SA2Object.DMYOBJ,
     x: 1,
     y: 1,
     z: 1,
@@ -70,5 +72,3 @@ function getTestObject(): SetObject {
     zRot: 1,
   }
 }
-
-const MOCK_ID = 1;

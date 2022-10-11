@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { SetObject } from '../shared/interfaces';
-import { SA2Object } from '../shared/content';
-
 import { OBJECTS } from '../shared/mock-objects';
 import { ObjectService } from './object.service';
 
@@ -55,11 +52,7 @@ export class SetEditorComponent implements OnInit {
   }
 
   handleAddClick() {
-    const object: SetObject = {
-      id: this.numOfObjects,
-      object: SA2Object.DMYOBJ,
-    };
-    this.objectService.addObject(object);
+    this.objectService.addBlankObject();
   }
 }
 

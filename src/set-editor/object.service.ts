@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
+import { SA2Object } from 'src/shared/content';
 
 import { SetObject } from '../shared/interfaces'; 
 
@@ -13,6 +14,16 @@ export class ObjectService {
 
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
+
+  addBlankObject() {
+    const object = {
+      id: this.nextID,
+      object: SA2Object.DMYOBJ,
+    }
+    this.nextID++;
+    this.objectList.push(object);
+    this.objectSubject.next(this.objectList);
+  }
 
   addObject(object: SetObject) {
     object.id = this.nextID;
