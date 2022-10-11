@@ -2,8 +2,8 @@
 
 :host {
     flex: 1;
-    margin: 15px;
-    min-width: 150px;
+    margin: 14px;
+    min-width: 225px;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
@@ -31,7 +31,20 @@ mat-label {
     transition: font-size 0.5s;
 }
 
+mat-expansion-panel {
+    border-radius: 16px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 12px 12px !important;
+}
+
 ::ng-deep.mat-form-field-label {
+    text-align: center;
+}
+
+::ng-deep.mat-form-field-hint-wrapper {
+    display: block !important;
     text-align: center;
 }
 
@@ -39,9 +52,22 @@ input.mat-input-element {
     text-align: center;
 }
 
+::ng-deep.mat-content {
+    justify-content: center;
+}
+
+::ng-deep mat-hint {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+::ng-deep.mat-form-field-subscript-wrapper {
+    margin-top: 0.5em;
+}
+
 mat-form-field {
     flex: 1;
-    margin: 5px 10px;
+    margin: 5px 7.5px;
     min-width: 85px !important;
 }
 

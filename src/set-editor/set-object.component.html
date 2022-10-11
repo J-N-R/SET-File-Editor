@@ -1,6 +1,6 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header class="center">
-        {{ object.name }}
+        {{ object.object }}
     </mat-expansion-panel-header>
     <div class="form">
         <mat-form-field appearance="fill">
@@ -15,16 +15,19 @@
             <mat-label>z</mat-label>
             <input matInput [(ngModel)]="object.z">
         </mat-form-field>
-        <mat-form-field *ngIf="object.xRot !== undefined" appearance="fill">
+        <mat-form-field appearance="fill">
             <mat-label>x Rotation</mat-label>
             <input matInput [(ngModel)]="object.xRot">
+            <mat-hint>(optional)</mat-hint>
         </mat-form-field>
-        <mat-form-field *ngIf="object.yRot !== undefined" appearance="fill">
+        <mat-form-field appearance="fill">
             <mat-label>y Rotation</mat-label>
             <input matInput [(ngModel)]="object.yRot">
+            <mat-hint>(optional)</mat-hint>
         </mat-form-field>
-        <mat-form-field *ngIf="object.zRot !== undefined" appearance="fill">
+        <mat-form-field appearance="fill">
             <mat-label>z Rotation</mat-label>
+            <mat-hint>(optional)</mat-hint>
             <input matInput [(ngModel)]="object.zRot">
         </mat-form-field>
         <mat-form-field *ngIf="object.var1 !== undefined" appearance="fill">

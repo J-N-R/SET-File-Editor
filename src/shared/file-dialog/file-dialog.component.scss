@@ -3,7 +3,7 @@
 form {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 95%;
     overflow-x: visible;
 }
 
@@ -18,7 +18,8 @@ mat-radio-button {
 }
 
 .mat-dialog-content {
-    height: 100%;
+    height: 90%;
+    max-height: none;
     overflow-y: hidden;
 }
 
@@ -53,6 +54,7 @@ label#format-radio-label {
     flex-direction: column;
     flex-grow: 1;
     justify-content: flex-end;
+    min-height: 40px;
 }
 
 .warnings {

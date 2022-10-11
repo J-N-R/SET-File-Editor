@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { SetObject } from '../shared/interfaces';
+import { SA2Object } from '../shared/content';
 
 @Component({
   selector: 'app-set-object',
@@ -9,8 +10,8 @@ import { SetObject } from '../shared/interfaces';
 })
 export class SetObjectComponent implements OnInit {
   @Input() object: SetObject = {
-    oid: 0,
-    name: '',
+    id: 0,
+    object: SA2Object.DMYOBJ,
     x: 0,
     y: 0,
     z: 0,
