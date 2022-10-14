@@ -17,7 +17,7 @@ export class SetEditorComponent implements OnInit {
   isSA2Format = false;
   fileType = '';
   numOfObjects = 0;
-  levelObjects: ObjectGroup[] = [];
+  levelObjectGroups: ObjectGroup[] = [];
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
 
@@ -54,7 +54,7 @@ export class SetEditorComponent implements OnInit {
       this.numOfObjects = setObjects.length;
     });
 
-    this.levelObjects = this.objectService.getLevelObjects(CITY_ESCAPE_OBJECTS);
+    this.levelObjectGroups = this.objectService.getLevelObjects(CITY_ESCAPE_OBJECTS);
   }
 
   handleAddClick() {

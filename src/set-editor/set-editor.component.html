@@ -17,7 +17,7 @@
         class="objects-container">
         <app-set-object 
             *ngFor="let object of objects"
-            [levelObjects]="levelObjects"
+            [levelObjectGroups]="levelObjectGroups"
             [object]="object"
             (deleteEvent)="onDelete($event)">
         </app-set-object>

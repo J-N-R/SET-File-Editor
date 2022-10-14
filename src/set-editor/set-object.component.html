@@ -9,10 +9,11 @@
             <input
                 matInput
                 [matAutocomplete]="autoGroup"
-                [(ngModel)]="object.object">
+                [(ngModel)]="userInput"
+                (ngModelChange)="filterOptions(); setObject()">
             <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-optgroup *ngFor="let objectGroup of levelObjects" [label]="objectGroup.name">
-                  <mat-option *ngFor="let object of objectGroup.objects.sort()" [value]="object">
+                <mat-optgroup *ngFor="let objectGroup of filteredObjectGroups" [label]="objectGroup.name">
+                  <mat-option *ngFor="let object of objectGroup.objects" [value]="object">
                     {{ object }}
                   </mat-option>
               </mat-optgroup>
