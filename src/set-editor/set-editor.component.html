@@ -18,7 +18,8 @@
         <app-set-object 
             *ngFor="let object of objects"
             [levelObjects]="levelObjects"
-            [object]="object">
+            [object]="object"
+            (deleteEvent)="onDelete($event)">
         </app-set-object>
     </div>
     <ng-template #loading>

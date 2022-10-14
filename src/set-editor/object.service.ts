@@ -32,13 +32,13 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  removeObject(id: number) {
+  deleteObject(id: number) {
     this.objectList = this.objectList.filter((object) => object.id !== id);
     this.objectSubject.next(this.objectList);
   }
 
   setObjectList(objectList: SetObject[]) {
-    if (this.nextID < objectList.length) {
+    if (this.nextID <= objectList.length) {
       this.nextID = objectList.length + 1;
     }
     this.objectList = objectList;

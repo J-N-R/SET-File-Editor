@@ -60,6 +60,10 @@ export class SetEditorComponent implements OnInit {
   handleAddClick() {
     this.objectService.addBlankObject();
   }
+
+  onDelete(event: number) {
+    this.objectService.deleteObject(event);
+  }
 }
 
 // Suffixes to add to file name to make it SA2 compatible.

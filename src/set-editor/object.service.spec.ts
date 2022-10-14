@@ -24,14 +24,14 @@ describe('ObjectService', () => {
     });
   });
 
-  it('removes an object', (done: DoneFn) => {
+  it('deletes an object', (done: DoneFn) => {
     const mockObject: SetObject = getTestObject();
     
     // Causes first emission.
     service.addObject(mockObject);
 
     // Causes second emission.
-    service.removeObject(MOCK_ID);
+    service.deleteObject(MOCK_ID);
 
     // Skip first emission.
     let firstEmission = true;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 import { SetObject, ObjectGroup } from '../shared/interfaces';
 import { SA2Object } from '../shared/content';
@@ -9,6 +9,8 @@ import { SA2Object } from '../shared/content';
   styleUrls: ['./set-object.component.scss']
 })
 export class SetObjectComponent {
+  @Output() deleteEvent: EventEmitter<number> = new EventEmitter();
+
   @Input() object: SetObject = {
     id: 0,
     object: SA2Object.DMYOBJ,
@@ -17,4 +19,8 @@ export class SetObjectComponent {
     z: 0,
   };
   @Input() levelObjects: ObjectGroup[] = [];
+
+  handleDeleteClick() {
+    this.deleteEvent.emit(this.object.id);
+  }
 }
