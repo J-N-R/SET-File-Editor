@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "dist/set-editor",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "main": "src/root.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",

@@ -1,14 +1,14 @@
 {
   "name": "set-editor",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
-  "main": "electron-main.js",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "serve": "tsc -watch ng build --watch",
-    "build": "tsc electron-main.ts && ng build",
+    "build": "tsc main.ts && ng build",
     "test": "ng test",
-    "electron": "tsc electron-main.ts && ng build && electron ."
+    "electron": "tsc main.ts && ng build && electron ."
   },
   "private": true,
   "dependencies": {
