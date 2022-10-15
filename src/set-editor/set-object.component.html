@@ -4,12 +4,16 @@
         {{ object.object }}
     </mat-expansion-panel-header>
     <div class="form">
-        <mat-form-field appearance="fill" class="object-select">
+        <mat-form-field 
+                appearance="fill"
+                class="object-select"
+                (click)="handleObjectClick()">
             <mat-label>Object</mat-label>
             <input
                 matInput
                 [matAutocomplete]="autoGroup"
                 [(ngModel)]="userInput"
+                (blur)="handleObjectBlur()"
                 (ngModelChange)="filterOptions(); setObject()">
             <mat-autocomplete #autoGroup="matAutocomplete">
                 <mat-optgroup *ngFor="let objectGroup of filteredObjectGroups" [label]="objectGroup.name">
