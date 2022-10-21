@@ -1,9 +1,9 @@
 # SET File Editor
+A modern and simplified tool for adding objects, enemies, and more to levels in Sonic Adventure 2. Inspired by TurtleMan64's [Set Adventure 1.2](https://github.com/TurtleMan64/SetAdventure) and written with Angular and ElectronJS, it has never been easier to mod levels for the Sonic Adventure series of games.
+
 <p align="center">
   <img width=614 height=512 src="https://user-images.githubusercontent.com/80438344/197155614-d91c45d2-fdfc-4eb5-bb32-334af83d3675.PNG">
 </p>
-
-A modern and simplified tool for adding objects, enemies, and more to levels in Sonic Adventure 2. Inspired by TurtleMan64's [Set Adventure 1.2](https://github.com/TurtleMan64/SetAdventure) and written with Angular and ElectronJS, it has never been easier to mod levels for the Sonic Adventure series of games.
 
 Through the use of a new abstract view over traditional tables and modular design, objects have been seperated from each other, allowing the program to customize each object based on its needs. This means being able to hide unused properties from the user, as well as translating confusing property names (for example, if you create a  'Spring' object, the property 'var 1' will be translated to 'Spring Force').
 
@@ -11,7 +11,7 @@ Made possible by the help of the X-Hax community, whose discord you can find her
 
 ## Features
 * A modern, sleek interface powered by Google's material design.
-* Simple interactions pioneered through an abstractified view.
+* Simple interactions pioneered through an abstract view.
 * Smart objects only show properties that they need to, while translating confusing ones. 
     * *(See the footnote)*
 * Easy to create, modify, and delete objects.
