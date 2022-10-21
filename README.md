@@ -31,9 +31,9 @@ This project was made with ElectronJS using Angular, and includes the use of Goo
 
 For any developers who would like to contribute, but are unfamiliar with Angular, see the following:
 
-To make changes to how files are saved, see the FileService.
-To make changes to how the state is stored and handled, see ObjectService.
-To make changes to the interface, see SetEditor and SetObject.
+* To make changes to how files are saved, see the FileService.
+* To make changes to how the state is stored and handled, see ObjectService.
+* To make changes to the interface, see SetEditor and SetObject.
 
 Each folder represents a page of the application. For any components or services that are used by only one page, they are stored in that page folder. Otherwise, they are stored in the shared folder.
 
