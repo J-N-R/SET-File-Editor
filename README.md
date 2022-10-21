@@ -5,7 +5,7 @@
 
 A modern and simplified tool for adding objects, enemies, and more to levels in Sonic Adventure 2. Inspired by TurtleMan64's [Set Adventure 1.2](https://github.com/TurtleMan64/SetAdventure) and written with Angular and ElectronJS, it has never been easier to mod levels for the Sonic Adventure series of games.
 
-Through the use of a new abstract view over traditional tables and modular design, objects have been seperated from eachother, allowing the program to customize each object based on its needs. This means being able to hide unused properties from the user, as well as translating confusing property names (for example, if you create a  'Spring' object, the property 'var 1' will be translated to 'Spring Force').
+Through the use of a new abstract view over traditional tables and modular design, objects have been seperated from each other, allowing the program to customize each object based on its needs. This means being able to hide unused properties from the user, as well as translating confusing property names (for example, if you create a  'Spring' object, the property 'var 1' will be translated to 'Spring Force').
 
 Made possible by the help of the X-Hax community, whose discord you can find here: [X-hax Discord](https://discord.gg/gqJCF47).
 
