@@ -1,12 +1,22 @@
-# Set Adventure 3
-A modern SET object editor for modding the Sonic Adventure series. Inspired by the original [Set Adventure 1.2 by TurtleMan64](https://github.com/TurtleMan64/SetAdventure), this editor allows you to create and modify objects, enemies, and more for levels in Sonic Adventure 1 and 2.
+# SET File Editor
+<p align="center">
+  <img width=614 height=512 src="https://user-images.githubusercontent.com/80438344/197155614-d91c45d2-fdfc-4eb5-bb32-334af83d3675.PNG">
+</p>
+
+A modern and simplified tool for adding objects, enemies, and more to levels in Sonic Adventure 2. Inspired by the TurtleMan64's [Set Adventure 1.2](https://github.com/TurtleMan64/SetAdventure) and written with Angular and ElectronJS, it has never been easier to mod levels for the Sonic Adventure series of games.
+
+Through the use of a new abstract view over traditional tables and modular design, objects have been seperated from eachother, allowing the program to customize each object based on its needs. This means being able to hide unused properties from the user, as well as translating confusing property names (for example, if you create a  'Spring' object, the property 'var 1' will be translated to 'Spring Force').
+
+Made possible by the help of the X-Hax community, whose discord you can find here: [X-hax Discord](https://discord.gg/gqJCF47).
 
 ## Features
-* A modern, sleek interface powered by material design.
-* Simple interactions by using an Object-based approach.
-* Smart attributes that get renamed depending on the type of object.
-    * *(Example, var1 converts into 'Spring Force')*
+* A modern, sleek interface powered by Google's material design.
+* Simple interactions pioneered through an abstractified view.
+* Smart objects only show properties that they need to, while translating confusing ones. 
+    * *(See the footnote)*
 * Easy to create, modify, and delete objects.
+
+*Footnote: Sonic Adventure 2 internally defines properties that are purposefully broad that can change function depending on the context. Properties such as 'var 1,' 'var 2,' and 'var 3' therefore can be difficult for new modders to understand, so a goal of this project is to clear the air by translating these names directly based on the context given.*
 
 ## Stretch Goals (WIP)
 * Allow exporting to txt
@@ -14,6 +24,20 @@ A modern SET object editor for modding the Sonic Adventure series. Inspired by t
 * Multi-level object list support
 * Raw View
 * Visualizations (?)
+* Support for Sonic Adventure 1
 
 ## Notes
 This project was made with ElectronJS using Angular, and includes the use of Google-provided material components. If have any questions or requests for this project, please leave an issue or email me directly, and if you have any questions regarding Sonic Adventure, modding, or Set Objects, feel free to ask at the [x-hax discord](https://discord.gg/gqJCF47).
+
+For any developers who would like to contribute, but are unfamiliar with Angular, see the following:
+
+To make changes to how files are saved, see the FileService.
+To make changes to how the state is stored and handled, see ObjectService.
+To make changes to the interface, see SetEditor and SetObject.
+
+Each folder represents a page of the application. For any components or services that are used by only one page, they are stored in that page folder. Otherwise, they are stored in the shared folder.
+
+## Trademarks
+
+Sega, Sonic, Sonic the Hedgehog, and Sonic Adventure are either
+trademarks or registered trademarks of SEGA of America, Inc.
