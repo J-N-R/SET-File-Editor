@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { first } from 'rxjs/operators';
+import { debounceTime, first } from 'rxjs/operators';
 
 import { OBJECTS } from '../shared/mock-objects';
 import { ObjectService } from './object.service';
@@ -61,7 +61,7 @@ export class SetEditorComponent implements OnInit {
   }
 
   handleSaveClick() {
-    this.objectService.objectsEmitter.pipe(first()).subscribe((objectList) => {
+    this.objectsEmitter.pipe(debounceTime(0), first()).subscribe((objectList) => {
       this.electronService.saveFile({
         fileName: this.fileName,
         isSA2Format: this.isSA2Format,

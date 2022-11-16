@@ -42,10 +42,9 @@ app.on('activate', function() {
 });
 
 function writeDataView(filePath: string, dataview: DataView) {
-    console.log(new Uint8Array(dataview.buffer));
     fs.appendFile(filePath, new Uint8Array(dataview.buffer), (error) => {
         if (error) {
-            console.log("Error writing to file");
+            console.log("Error writing to file.");
             console.log(error);
         }
     });
@@ -87,7 +86,6 @@ ipcMain.handle('saveFile', async (event, setFile: SetFile) => {
     // Write 32 byte header to file.
     let dataview = new DataView(new ArrayBuffer(4));
     dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
-    console.log(new Uint8Array(dataview.buffer));
     // Overwrite if file already exists.
     fs.writeFile(filePath, new Uint8Array(dataview.buffer), (error) => {
         if (error) {
@@ -103,7 +101,6 @@ ipcMain.handle('saveFile', async (event, setFile: SetFile) => {
     for (const setObject of setFile.setObjects) {
         // Write clip & id. If littleEndian, id goes first.
         dataview = new DataView(new ArrayBuffer(2));
-        console.log(allObjects.indexOf(setObject.object));
         if (enableLittleEndian) {
             dataview.setUint8(0, allObjects.indexOf(setObject.object));
         }
@@ -113,7 +110,6 @@ ipcMain.handle('saveFile', async (event, setFile: SetFile) => {
         writeDataView(filePath, dataview);
 
         // Write x, y, and z rotation, in BAMS 2 byte short.
-        console.log(setObject.xRot! * degreesToBams);
         dataview = new DataView(new ArrayBuffer(6));
         dataview.setUint16(0, setObject.xRot ? setObject.xRot * degreesToBams : 0);
         dataview.setUint16(2, setObject.yRot ? setObject.yRot * degreesToBams : 0);

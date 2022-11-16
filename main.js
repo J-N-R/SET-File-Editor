@@ -108,7 +108,6 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) { return __await
                 degreesToBams = 65536.0 / 360.0;
                 dataview = new DataView(new ArrayBuffer(4));
                 dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
-                console.log(new Uint8Array(dataview.buffer));
                 // Overwrite if file already exists.
                 fs.writeFile(filePath, new Uint8Array(dataview.buffer), function (error) {
                     if (error) {
@@ -121,8 +120,9 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) { return __await
                 // Write objects to file. Account for endian differences.
                 for (_i = 0, _a = setFile.setObjects; _i < _a.length; _i++) {
                     setObject = _a[_i];
+                    console.log(setObject);
+                    // Write clip & id. If littleEndian, id goes first.
                     dataview = new DataView(new ArrayBuffer(2));
-                    console.log(allObjects.indexOf(setObject.object));
                     if (enableLittleEndian) {
                         dataview.setUint8(0, allObjects.indexOf(setObject.object));
                     }
@@ -130,12 +130,13 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) { return __await
                         dataview.setUint8(1, allObjects.indexOf(setObject.object));
                     }
                     writeDataView(filePath, dataview);
-                    console.log(setObject.xRot * degreesToBams);
+                    // Write x, y, and z rotation, in BAMS 2 byte short.
                     dataview = new DataView(new ArrayBuffer(6));
                     dataview.setUint16(0, setObject.xRot ? setObject.xRot * degreesToBams : 0);
                     dataview.setUint16(2, setObject.yRot ? setObject.yRot * degreesToBams : 0);
                     dataview.setUint16(4, setObject.zRot ? setObject.zRot * degreesToBams : 0);
                     writeDataView(filePath, dataview);
+                    // Write x, y, z, var1, var2, var3 in 32bit float.
                     dataview = new DataView(new ArrayBuffer(24));
                     dataview.setFloat32(0, (_b = setObject.x) !== null && _b !== void 0 ? _b : 0);
                     dataview.setFloat32(4, (_c = setObject.y) !== null && _c !== void 0 ? _c : 0);
