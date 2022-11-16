@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { first } from 'rxjs/operators';
 
 import { OBJECTS } from '../shared/mock-objects';
 import { ObjectService } from './object.service';
+import { ElectronService } from '../shared/electron.service';
 
 import { ObjectGroup } from '../shared/interfaces';
 import { SA2Object, ALL_OBJECTS, CITY_ESCAPE_OBJECTS } from '../shared/content';
@@ -22,14 +24,11 @@ export class SetEditorComponent implements OnInit {
   readonly objectsEmitter = this.objectService.objectsEmitter;
 
   constructor(private readonly objectService: ObjectService,
+    private readonly electronService: ElectronService,
     private readonly location: Location) {}
 
   ngOnInit() {
     const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
-
-    console.log(...queryParams.keys());
-
-    console.log(this.location.path());
 
     if (queryParams.has('isSA2Format')) {
       this.isSA2Format = queryParams.get('isSA2Format')! === 'true';
@@ -59,6 +58,16 @@ export class SetEditorComponent implements OnInit {
 
   handleAddClick() {
     this.objectService.addBlankObject();
+  }
+
+  handleSaveClick() {
+    this.objectService.objectsEmitter.pipe(first()).subscribe((objectList) => {
+      this.electronService.saveFile({
+        fileName: this.fileName,
+        isSA2Format: this.isSA2Format,
+        setObjects: objectList,
+      });
+    })
   }
 
   onDelete(event: number) {

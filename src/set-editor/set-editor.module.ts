@@ -12,7 +12,7 @@ import { HeaderModule } from '../shared/header/header.module';
 import { FooterModule } from '../shared/footer/footer.module';
 
 import { ObjectService } from './object.service';
-import { FileService } from '../shared/file.service';
+import { ElectronService } from '../shared/electron.service';
 
 import { SetObjectComponent } from './set-object.component';
 import { SetEditorComponent } from './set-editor.component';
@@ -35,7 +35,7 @@ import { SetEditorComponent } from './set-editor.component';
     MatInputModule,
   ],
   providers: [
-    FileService,
+    ElectronService,
     Location,
     ObjectService,
   ],
