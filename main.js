@@ -71,12 +71,7 @@ electron_1.app.on('activate', function () {
 });
 function writeDataView(filePath, dataview) {
     console.log(new Uint8Array(dataview.buffer));
-    fs.appendFile(filePath, new Uint8Array(dataview.buffer), function (error) {
-        if (error) {
-            console.log("Error writing to file");
-            console.log(error);
-        }
-    });
+    fs.appendFileSync(filePath, new Uint8Array(dataview.buffer));
 }
 electron_1.ipcMain.handle('openFile', function (event) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
@@ -102,25 +97,21 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) { return __await
                 if (response.canceled || !response.filePath) {
                     return [2 /*return*/];
                 }
+                console.log(setFile);
                 filePath = response.filePath.replace(/\.bin/gi, '') + '.bin';
                 enableLittleEndian = !setFile.isSA2Format;
                 allObjects = Object.values(content_1.SA2Object);
                 degreesToBams = 65536.0 / 360.0;
                 dataview = new DataView(new ArrayBuffer(4));
                 dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
+                console.log(new Uint8Array(dataview.buffer));
                 // Overwrite if file already exists.
-                fs.writeFile(filePath, new Uint8Array(dataview.buffer), function (error) {
-                    if (error) {
-                        console.log("Error writing to file.");
-                        console.log(error);
-                    }
-                });
+                fs.writeFileSync(filePath, new Uint8Array(dataview.buffer));
                 dataview = new DataView(new ArrayBuffer(28));
                 writeDataView(filePath, dataview);
                 // Write objects to file. Account for endian differences.
                 for (_i = 0, _a = setFile.setObjects; _i < _a.length; _i++) {
                     setObject = _a[_i];
-                    console.log(setObject);
                     // Write clip & id. If littleEndian, id goes first.
                     dataview = new DataView(new ArrayBuffer(2));
                     if (enableLittleEndian) {

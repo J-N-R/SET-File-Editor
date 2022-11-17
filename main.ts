@@ -42,12 +42,8 @@ app.on('activate', function() {
 });
 
 function writeDataView(filePath: string, dataview: DataView) {
-    fs.appendFile(filePath, new Uint8Array(dataview.buffer), (error) => {
-        if (error) {
-            console.log("Error writing to file.");
-            console.log(error);
-        }
-    });
+    console.log(new Uint8Array(dataview.buffer));
+    fs.appendFileSync(filePath, new Uint8Array(dataview.buffer));
 }
 
 ipcMain.handle('openFile', async (event) => {
@@ -55,30 +51,22 @@ ipcMain.handle('openFile', async (event) => {
         filters: [{name: 'SET File (*.bin)', extensions: ['bin']}],
         properties: ['openFile'],
     });
-    /*
-    const userDataPath = app.getPath('userData');
-    const filePath = path.join(userDataPath, `${fileName}.json`);
-  
-    fs.writeFileSync(this.path, '', { flag: 'a' });
-  
-    const data = fs.readFileSync(this.path);
-  
-    return data.length > 0? JSON.parse(data) : null;
-    */
 });
 
-ipcMain.handle('saveFile', async (event, setFile: SetFile) => {
-    const response = await dialog.showSaveDialog({
+ipcMain.handle('saveFile', (event, setFile: SetFile) => {
+    let filePath = dialog.showSaveDialogSync({
         defaultPath: setFile.fileName + '.bin',
         filters: [{name: 'SET File (*.bin)', extensions: ['bin']}],
         properties: ['showOverwriteConfirmation', 'createDirectory'],
     });
 
-    if (response.canceled || !response.filePath) {
+    if (!filePath) {
         return;
     }
 
-    const filePath = response.filePath.replace(/\.bin/gi, '') + '.bin';
+    console.log(setFile);
+
+    filePath = filePath.replace(/\.bin/gi, '') + '.bin';
     const enableLittleEndian = !setFile.isSA2Format;
     const allObjects = Object.values(SA2Object);
     const degreesToBams = 65536.0 / 360.0;
@@ -86,13 +74,9 @@ ipcMain.handle('saveFile', async (event, setFile: SetFile) => {
     // Write 32 byte header to file.
     let dataview = new DataView(new ArrayBuffer(4));
     dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
+    console.log(new Uint8Array(dataview.buffer));
     // Overwrite if file already exists.
-    fs.writeFile(filePath, new Uint8Array(dataview.buffer), (error) => {
-        if (error) {
-            console.log("Error writing to file.");
-            console.log(error);
-        }
-    });
+    fs.writeFileSync(filePath, new Uint8Array(dataview.buffer));
 
     dataview = new DataView(new ArrayBuffer(28));
     writeDataView(filePath, dataview);
