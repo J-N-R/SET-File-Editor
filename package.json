@@ -25,7 +25,9 @@
     "@material-design-icons/font": "^0.12.1",
     "@material/fab": "^14.0.0",
     "rxjs": "~7.5.0",
+    "sqlite3": "^5.1.2",
     "tslib": "^2.3.0",
+    "typeorm": "^0.3.10",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

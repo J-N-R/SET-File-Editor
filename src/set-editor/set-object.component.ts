@@ -3,10 +3,30 @@ import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { SetObject, ObjectGroup } from '../shared/interfaces';
 import { SA2Object } from '../shared/content';
 
+import { CommonModule } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FormsModule } from '@angular/forms';
+
 @Component({
+  standalone: true,
   selector: 'app-set-object',
   templateUrl: './set-object.component.html',
-  styleUrls: ['./set-object.component.scss']
+  styleUrls: ['./set-object.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class SetObjectComponent implements OnInit {
   @Output() deleteEvent: EventEmitter<number> = new EventEmitter();

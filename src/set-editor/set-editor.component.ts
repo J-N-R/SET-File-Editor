@@ -1,18 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { debounceTime, first } from 'rxjs/operators';
 
 import { OBJECTS } from '../shared/mock-objects';
+
+import { ObjectGroup } from '../shared/interfaces';
+import { CITY_ESCAPE_OBJECTS } from '../shared/content';
+
+import { CommonModule, Location } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+import { HeaderComponent } from '../shared/header/header.component';
+import { FooterComponent } from '../shared/footer/footer.component';
+
 import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
 
-import { ObjectGroup } from '../shared/interfaces';
-import { SA2Object, ALL_OBJECTS, CITY_ESCAPE_OBJECTS } from '../shared/content';
+import { SetObjectComponent } from './set-object.component';
 
 @Component({
+  standalone: true,
   selector: 'app-set-editor',
   templateUrl: './set-editor.component.html',
-  styleUrls: ['./set-editor.component.scss']
+  styleUrls: ['./set-editor.component.scss'],
+  imports: [
+    CommonModule,
+    FooterComponent,
+    HeaderComponent,
+    MatButtonModule,
+    MatIconModule,
+    SetObjectComponent,
+  ],
 })
 export class SetEditorComponent implements OnInit {
   fileName = '';

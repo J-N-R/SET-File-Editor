@@ -2,14 +2,34 @@ import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MatRadioModule } from '@angular/material/radio';
+
 /** 
  * Dialog that opens when a user wants to save, open,
  * or create a file.
  */
 @Component({
+  standalone: true,
   selector: 'app-file-dialog',
   templateUrl: './file-dialog.component.html',
-  styleUrls: ['./file-dialog.component.scss']
+  styleUrls: ['./file-dialog.component.scss'],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
 })
 export class FileDialogComponent implements OnInit {
   @Input() isSavingFile = false;

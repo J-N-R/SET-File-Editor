@@ -82,62 +82,55 @@ electron_1.ipcMain.handle('openFile', function (event) { return __awaiter(void 0
         return [2 /*return*/];
     });
 }); });
-electron_1.ipcMain.handle('saveFile', function (event, setFile) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, filePath, enableLittleEndian, allObjects, degreesToBams, dataview, _i, _a, setObject;
-    var _b, _c, _d, _e, _f, _g;
-    return __generator(this, function (_h) {
-        switch (_h.label) {
-            case 0: return [4 /*yield*/, electron_1.dialog.showSaveDialog({
-                    defaultPath: setFile.fileName + '.bin',
-                    filters: [{ name: 'SET File (*.bin)', extensions: ['bin'] }],
-                    properties: ['showOverwriteConfirmation', 'createDirectory']
-                })];
-            case 1:
-                response = _h.sent();
-                if (response.canceled || !response.filePath) {
-                    return [2 /*return*/];
-                }
-                console.log(setFile);
-                filePath = response.filePath.replace(/\.bin/gi, '') + '.bin';
-                enableLittleEndian = !setFile.isSA2Format;
-                allObjects = Object.values(content_1.SA2Object);
-                degreesToBams = 65536.0 / 360.0;
-                dataview = new DataView(new ArrayBuffer(4));
-                dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
-                console.log(new Uint8Array(dataview.buffer));
-                // Overwrite if file already exists.
-                fs.writeFileSync(filePath, new Uint8Array(dataview.buffer));
-                dataview = new DataView(new ArrayBuffer(28));
-                writeDataView(filePath, dataview);
-                // Write objects to file. Account for endian differences.
-                for (_i = 0, _a = setFile.setObjects; _i < _a.length; _i++) {
-                    setObject = _a[_i];
-                    // Write clip & id. If littleEndian, id goes first.
-                    dataview = new DataView(new ArrayBuffer(2));
-                    if (enableLittleEndian) {
-                        dataview.setUint8(0, allObjects.indexOf(setObject.object));
-                    }
-                    else {
-                        dataview.setUint8(1, allObjects.indexOf(setObject.object));
-                    }
-                    writeDataView(filePath, dataview);
-                    // Write x, y, and z rotation, in BAMS 2 byte short.
-                    dataview = new DataView(new ArrayBuffer(6));
-                    dataview.setUint16(0, setObject.xRot ? setObject.xRot * degreesToBams : 0);
-                    dataview.setUint16(2, setObject.yRot ? setObject.yRot * degreesToBams : 0);
-                    dataview.setUint16(4, setObject.zRot ? setObject.zRot * degreesToBams : 0);
-                    writeDataView(filePath, dataview);
-                    // Write x, y, z, var1, var2, var3 in 32bit float.
-                    dataview = new DataView(new ArrayBuffer(24));
-                    dataview.setFloat32(0, (_b = setObject.x) !== null && _b !== void 0 ? _b : 0);
-                    dataview.setFloat32(4, (_c = setObject.y) !== null && _c !== void 0 ? _c : 0);
-                    dataview.setFloat32(8, (_d = setObject.z) !== null && _d !== void 0 ? _d : 0);
-                    dataview.setFloat32(12, (_e = setObject.var1) !== null && _e !== void 0 ? _e : 0);
-                    dataview.setFloat32(16, (_f = setObject.var2) !== null && _f !== void 0 ? _f : 0);
-                    dataview.setFloat32(20, (_g = setObject.var3) !== null && _g !== void 0 ? _g : 0);
-                    writeDataView(filePath, dataview);
-                }
-                return [2 /*return*/];
-        }
+electron_1.ipcMain.handle('saveFile', function (event, setFile) {
+    var _a, _b, _c, _d, _e, _f;
+    var filePath = electron_1.dialog.showSaveDialogSync({
+        defaultPath: setFile.fileName + '.bin',
+        filters: [{ name: 'SET File (*.bin)', extensions: ['bin'] }],
+        properties: ['showOverwriteConfirmation', 'createDirectory']
     });
-}); });
+    if (!filePath) {
+        return;
+    }
+    console.log(setFile);
+    filePath = filePath.replace(/\.bin/gi, '') + '.bin';
+    var enableLittleEndian = !setFile.isSA2Format;
+    var allObjects = Object.values(content_1.SA2Object);
+    var degreesToBams = 65536.0 / 360.0;
+    // Write 32 byte header to file.
+    var dataview = new DataView(new ArrayBuffer(4));
+    dataview.setUint32(0, setFile.setObjects.length, enableLittleEndian);
+    console.log(new Uint8Array(dataview.buffer));
+    // Overwrite if file already exists.
+    fs.writeFileSync(filePath, new Uint8Array(dataview.buffer));
+    dataview = new DataView(new ArrayBuffer(28));
+    writeDataView(filePath, dataview);
+    // Write objects to file. Account for endian differences.
+    for (var _i = 0, _g = setFile.setObjects; _i < _g.length; _i++) {
+        var setObject = _g[_i];
+        // Write clip & id. If littleEndian, id goes first.
+        dataview = new DataView(new ArrayBuffer(2));
+        if (enableLittleEndian) {
+            dataview.setUint8(0, allObjects.indexOf(setObject.object));
+        }
+        else {
+            dataview.setUint8(1, allObjects.indexOf(setObject.object));
+        }
+        writeDataView(filePath, dataview);
+        // Write x, y, and z rotation, in BAMS 2 byte short.
+        dataview = new DataView(new ArrayBuffer(6));
+        dataview.setUint16(0, setObject.xRot ? setObject.xRot * degreesToBams : 0);
+        dataview.setUint16(2, setObject.yRot ? setObject.yRot * degreesToBams : 0);
+        dataview.setUint16(4, setObject.zRot ? setObject.zRot * degreesToBams : 0);
+        writeDataView(filePath, dataview);
+        // Write x, y, z, var1, var2, var3 in 32bit float.
+        dataview = new DataView(new ArrayBuffer(24));
+        dataview.setFloat32(0, (_a = setObject.x) !== null && _a !== void 0 ? _a : 0);
+        dataview.setFloat32(4, (_b = setObject.y) !== null && _b !== void 0 ? _b : 0);
+        dataview.setFloat32(8, (_c = setObject.z) !== null && _c !== void 0 ? _c : 0);
+        dataview.setFloat32(12, (_d = setObject.var1) !== null && _d !== void 0 ? _d : 0);
+        dataview.setFloat32(16, (_e = setObject.var2) !== null && _e !== void 0 ? _e : 0);
+        dataview.setFloat32(20, (_f = setObject.var3) !== null && _f !== void 0 ? _f : 0);
+        writeDataView(filePath, dataview);
+    }
+});
