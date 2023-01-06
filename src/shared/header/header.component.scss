@@ -1,7 +1,7 @@
 @import "../set-editor.theme.scss";
 
 :host {
-    border-bottom: solid 2px black;
+    border-bottom: $border-default;
     display: flex;
     flex: initial;
     justify-content: space-between;

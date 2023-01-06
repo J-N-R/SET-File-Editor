@@ -1,16 +1,46 @@
 <app-header [isIntro]="true"></app-header>
-<div class="content">
-    <div class="button-container">
-        <button class="open mdc-fab mdc-fab--extended" (click)="openFile()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">folder</span>
-            <span class="mdc-fab__label">Open</span>
-        </button>
-        <button class="create mdc-fab mdc-fab--extended" (click)="createFile()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">add</span>
-            <span class="mdc-fab__label">Create</span>
-        </button>
+<div class="container">
+    <div class="card mat-h2">
+        <ng-container *ngIf="!isFormOpen; else formTemplate">
+            <h1 class="mat-h1" tabindex="0">
+                Welcome to the Sonic Adventure 2 Set Editor!
+            </h1>
+            <p tabindex="0">
+                Through this editor, you can add and adjust enemy layouts for
+                any level.
+            </p>
+            <p tabindex="0">Click "New File" to get started!</p>
+            <p tabindex="0">Note:</p>
+            <ul class="mat-h3">
+                <li tabindex="0">
+                    Each level's enemy types are restricted by level.
+                </li>
+                <li tabindex="0">
+                    Blender coordinates are different from game coordinates.
+                </li>
+                <li tabindex="0">
+                    Keep an eye out for 'help' menus to explain object types!
+                </li>
+            </ul>
+            <div class="spacer"></div>
+            <div class="button-container">
+                <button
+                    mat-flat-button
+                    color="accent"
+                    (click)="toggleForm()">
+                    <span class="mat-h2">Open File</span>
+                </button>
+                <button
+                    mat-flat-button
+                    color="primary"
+                    (click)="toggleForm()">
+                    <span class="mat-h2">New File</span>
+                </button>
+            </div>
+        </ng-container>
+        <ng-template #formTemplate>
+            <app-file-form></app-file-form>
+        </ng-template>
     </div>
 </div>
 <app-footer></app-footer>

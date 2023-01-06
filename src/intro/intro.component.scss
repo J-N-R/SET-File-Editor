@@ -6,11 +6,49 @@
     height: 100vh;
 }
 
-.button-container {
-    flex: 1;
-    margin: 0;
+.mat-h2 {
+    font-family: "Roboto";
+    font-size: 18px;
 }
 
-.content {
-    min-height: 300px;
+.container {
+    display: flex;
+    flex: 1;
+    margin: auto;
+    padding: 16px 0;
+    width: 500px;
+}
+
+.card {
+    border: $border-default;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    margin: auto;
+    padding: 16px;
+}
+
+ul {
+    padding-right: 16px;
+    margin-top: 0;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.button-container {
+    align-items: right;
+    margin-right: 16px;
+    text-align: right;
+}
+
+button {
+    height: 40px;
+    width: 120px;
+}
+
+button:first-child {
+    margin-right: 16px;
 }

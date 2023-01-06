@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 
-import { FileDialogComponent } from '../shared/file-dialog/file-dialog.component';
+import { FileFormComponent } from '../shared/file-form/file-form.component';
 
 @Component({
   standalone: true,
@@ -16,30 +16,18 @@ import { FileDialogComponent } from '../shared/file-dialog/file-dialog.component
   styleUrls: ['./intro.component.scss'],
   imports: [
     CommonModule,
-    FileDialogComponent,
+    FileFormComponent,
     FooterComponent,
     HeaderComponent,
     MatButtonModule,
-    MatDialogModule,
   ],
 })
 export class IntroComponent {
+  isFormOpen = false;
 
-  constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
+  constructor(private readonly router: Router) {}
 
-  openFile() {
-
-  }
-
-  createFile() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      isCreatingFile: true,
-    };
-    dialogConfig.autoFocus = false;
-    dialogConfig.height = '480px';
-    dialogConfig.panelClass = 'dialog-panel';
-
-    this.dialog.open(FileDialogComponent, dialogConfig);
+  toggleForm() {
+    this.isFormOpen = !this.isFormOpen;
   }
 }

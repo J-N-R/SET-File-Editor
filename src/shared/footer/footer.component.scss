@@ -1,13 +1,11 @@
 @import "../set-editor.theme.scss";
 
 :host {
-    border-top: solid 2px black;
-    display: flex;
-    flex: initial;
+    border-top: $border-default;
     height: 60px;
+    text-align: center;
 }
 
 p {
-    margin: auto;
     padding: 20px;
 }
