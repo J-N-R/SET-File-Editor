@@ -21,13 +21,39 @@
         </div>
         <div class="select-section">
             <mat-form-field appearance="fill">
-                <mat-label>SET File Format</mat-label>
-                <mat-select formControlName="fileType">
-                    <mat-option *ngFor="let format of sa2Formats" [value]="format">
-                        {{ format }}
-                    </mat-option>
+                <mat-label>Stage</mat-label>
+                <mat-select formControlName="stage">
+                    <!-- TODO: define 'stages' getter to automatically get sa1 vs sa2 to avoid IF statement-->
+                    <ng-container *ngIf="isSA2Format?.value; else sa1Template">
+                        <mat-option *ngFor="let stage of sa2Stages" [value]="stage.id">
+                            {{ stage.name }}
+                        </mat-option>
+                    </ng-container>
+                    <ng-template #sa1Template>
+                        <mat-option *ngFor="let stage of sa1Stages" [value]="stage.id">
+                            {{ stage.name }}
+                        </mat-option>
+                    </ng-template>
                 </mat-select>
             </mat-form-field>
+            <ng-container *ngIf="isSA2Format?.value">
+                <mat-form-field appearance="fill">
+                    <mat-label>SET File Format</mat-label>
+                    <mat-select formControlName="fileType">
+                        <mat-option *ngFor="let format of sa2Formats" [value]="format">
+                            {{ format }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Mode</mat-label>
+                    <mat-select formControlName="mode">
+                        <mat-option *ngFor="let mode of modes" [value]="mode">
+                            {{ mode }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-container>
         </div>
     </div>
     <div class="spacer"></div>

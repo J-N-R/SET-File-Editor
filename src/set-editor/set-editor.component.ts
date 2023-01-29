@@ -55,15 +55,8 @@ export default class SetEditorComponent implements OnInit {
       this.fileType = queryParams.get('fileType')!;
     }
     if (queryParams.has('fileName')) {
-      let fileName = queryParams.get('fileName')!;
-      fileName = fileName.split('.')[0];
-
-      if (this.fileType !== '') {
-        this.fileName = fileName + SA2_FILE_NAME_SUFFIX.get(this.fileType) + '.bin';
-      }
-      else {
-        this.fileName = fileName + '.bin';
-      }
+      let fileName = queryParams.get('fileName')!.split('.')[0];
+      this.fileName = fileName + '.bin';
     }
 
     this.objectService.setObjectList(OBJECTS);
@@ -92,11 +85,3 @@ export default class SetEditorComponent implements OnInit {
     this.objectService.deleteObject(event);
   }
 }
-
-// Suffixes to add to file name to make it SA2 compatible.
-// May add an option for 'custom' in the future with no suffix.
-const SA2_FILE_NAME_SUFFIX = new Map([
-  ['Normal', '_S'],
-  ['Decorative', '_U'],
-  ['Hard Mode', '_HD_S'],
-]);
