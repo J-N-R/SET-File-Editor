@@ -1,44 +1,39 @@
-import { Component, Input, OnInit, Inject } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
-/** 
- * Dialog that opens when a user wants to save, open,
- * or create a file.
- */
+/** Dialog that opens when a user wants to open or create a file. */
 @Component({
   standalone: true,
-  selector: 'app-file-dialog',
-  templateUrl: './file-dialog.component.html',
-  styleUrls: ['./file-dialog.component.scss'],
+  selector: 'app-file-form',
+  templateUrl: './file-form.component.html',
+  styleUrls: ['./file-form.component.scss'],
   imports: [
     CommonModule,
     MatButtonModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatSelectModule,
     ReactiveFormsModule,
     RouterModule,
   ],
 })
-export class FileDialogComponent implements OnInit {
-  @Input() isSavingFile = false;
-  @Input() isCreatingFile = false;
+export class FileFormComponent {
+  @Output() cancelEvent = new EventEmitter();
 
   error = false;
-  title = '';
+  title = 'Create File';
   form = new FormGroup({
-    fileName: new FormControl('', Validators.required),
+    fileName: new FormControl(''),
     isSA2Format: new FormControl(null, Validators.required),
     fileType: new FormControl('', Validators.required),
   });
@@ -73,24 +68,8 @@ export class FileDialogComponent implements OnInit {
     return queryParams;
   }
 
-  constructor(
-      private dialogRef: MatDialogRef<FileDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) data: FileDialogInput) {
-    if ((data.isCreatingFile === undefined && data.isSavingFile === undefined) ||
-        (data.isCreatingFile && data.isSavingFile) ||
-        (!data.isCreatingFile && !data.isSavingFile)) {
-      this.error = true;
-    }
-    if (data.isCreatingFile) {
-      this.isCreatingFile = data.isCreatingFile;
-    }
-    if (data.isSavingFile) {
-      this.isSavingFile = data.isSavingFile;
-    }
-  }
-
-  ngOnInit() {
-    this.title = this.isSavingFile ? 'Save File' : 'Create File';
+  cancel() {
+    this.cancelEvent.emit();
   }
 }
 

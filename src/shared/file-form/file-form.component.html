@@ -1,0 +1,76 @@
+<form [formGroup]="form">
+    <h1 class="mat-h1">{{ title }}</h1>
+    <mat-form-field class="mat-h3" appearance="fill">
+        <mat-label>File Name (optional)</mat-label>
+        <input matInput formControlName="fileName">
+    </mat-form-field>
+    <div class="section-container">
+        <div class="radio-section">
+            <label class="mat-h2" id="version-radio-label">Game Version</label>
+            <mat-radio-group
+                aria-labelledby="version-radio-label"
+                class="mat-h3"
+                color="primary"
+                formControlName="isSA2Format">
+                <mat-radio-button [value]="false">
+                    Sonic Adventure 1
+                </mat-radio-button>
+                <mat-radio-button [value]="true">
+                    Sonic Adventure 2
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="select-section">
+            <mat-form-field appearance="fill">
+                <mat-label>SET File Format</mat-label>
+                <mat-select formControlName="fileType">
+                    <mat-option *ngFor="let format of sa2Formats" [value]="format">
+                        {{ format }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="warnings">
+        <div *ngIf="fileName && fileName.invalid &&
+            fileName.dirty"
+            class="alert alert-danger center">
+            <div *ngIf="fileName.errors?.['required']">
+                File Name is required.
+            </div>
+        </div>
+        <div *ngIf="isSA2Format && isSA2Format.invalid &&
+            (isSA2Format.dirty || isSA2Format.touched)"
+            class="alert alert-danger center">
+            <div *ngIf="isSA2Format.errors?.['required']">
+                Game Version is required.
+            </div>
+        </div>
+        <div *ngIf="fileType && fileType.invalid &&
+            (fileType.dirty || fileType.touched)"
+            class="alert alert-danger">
+            <div *ngIf="fileType.errors?.['required']">
+                SET File Format is required.
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="button-container">
+        <button
+            mat-stroked-button
+            (click)="cancel()">
+            <span class="mat-h2">Cancel</span>
+        </button>
+        <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="!form.valid"
+            [queryParams]="queryParams"
+            [routerLink]="'editor'">
+            <span class="mat-h2">Create File</span>
+        </button>
+    </div>
+</form>
+
+<!-- For add dialog: https://material.angular.io/components/autocomplete/examples -->

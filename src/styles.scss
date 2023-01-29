@@ -5,48 +5,49 @@
 @use "@material/fab";
 
 @include fab.core-styles;
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
 @import "@fontsource/open-sans/400.css";
 @import "@fontsource/open-sans/500.css";
 @import "@fontsource/open-sans/600.css";
-@import "@fontsource/roboto/300.css";
-@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto";
 @import '@material-design-icons/font';
 $material-design-icons-font-path: '~@material-design-icons/font/';
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$set-editor-primary: mat.define-palette(mat.$blue-palette, A400);
-$set-editor-accent: mat.define-palette(mat.$green-palette, A400);
+$primary: mat.define-palette(mat.$blue-palette, A400);
+$accent: mat.define-palette(mat.$green-palette, A400);
+$warn: mat.define-palette(mat.$red-palette);
 
-// The warn palette is optional (defaults to red).
-$set-editor-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$set-editor-theme: mat.define-light-theme((
+$theme: mat.define-light-theme((
   color: (
-    primary: $set-editor-primary,
-    accent: $set-editor-accent,
-    warn: $set-editor-warn,
-  )
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  typography: mat.define-typography-config(),
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($set-editor-theme);
+/** Material component theme imports. */
+@include mat.core-theme($theme);
+@include mat.button-theme($theme);
+@include mat.input-theme($theme);
+@include mat.radio-theme($theme);
+@include mat.select-theme($theme);
+@include mat.form-field-theme($theme);
+@include mat.fab-theme($theme);
+@include mat.expansion-theme($theme);
+@include mat.autocomplete-theme($theme);
+
+/**
+ * Material component typography import.
+ * TODO: figure out how to do this properly.
+*/
+@include mat.all-legacy-component-typographies();
 
 /* You can add global styles to this file, and also import other style files */
-
 html, body { 
   color: #212121;
-  height: 100%;
+  height: 100vh;
 }
 
 body {
@@ -54,7 +55,8 @@ body {
   margin: 0;
 }
 
-.dialog-panel mat-dialog-container {
-  overflow: hidden;
-  padding-bottom: 0;
+/** Material typography adjustments. */
+.mat-headline, .mat-h1, .mat-subheading-1, .mat-display-1, .mat-display-2 {
+  font-family: "Open Sans" !important;
+  font-weight: 600 !important;
 }

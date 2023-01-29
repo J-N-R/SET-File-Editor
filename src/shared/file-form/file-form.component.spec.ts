@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileDialogComponent } from './file-dialog.component';
+import { FileFormComponent } from './file-form.component';
 
-describe('FileDialogComponent', () => {
-  let component: FileDialogComponent;
-  let fixture: ComponentFixture<FileDialogComponent>;
+describe('FileFormComponent', () => {
+  let component: FileFormComponent;
+  let fixture: ComponentFixture<FileFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileDialogComponent ]
+      declarations: [ FileFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FileDialogComponent);
+    fixture = TestBed.createComponent(FileFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,17 +1,14 @@
 $border-default: solid 2px #212121;
 
-.mat-headline, .mat-h1, .mat-subheading-1, .mat-display-1 {
-    font-family: "Open Sans";
-    font-weight: 600;
-}
-
-.mat-headline-2, .mat-h2, .mat-subheading-2, .mat-display-2 {
-    font-family: "Open Sans";
-    font-weight: 400;
-}
-
-.mat-display-1, .mat-display-2 {
-    font-weight: 600; /* Might not be necessary */
+.card {
+    border: $border-default;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 532px;
+    margin: auto;
+    padding: 16px;
+    width: 448px;
 }
 
 .content {
@@ -19,6 +16,20 @@ $border-default: solid 2px #212121;
     flex: 1;
     flex-direction: column;
     min-height: 400px;
+}
+
+.button-container {
+    align-items: right;
+    text-align: right;
+
+    .mat-h2 {
+        font-family: "Roboto";
+        font-size: 18px;
+    }
+}
+
+.button-container button:first-child {
+    margin-right: 16px;
 }
 
 .mdc-fab {
@@ -29,4 +40,18 @@ $border-default: solid 2px #212121;
 
 .center {
     text-align: center !important;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.bold {
+    font-family: 'Open Sans';
+    font-weight: 600 !important;
+}
+
+.semi-bold {
+    font-family: 'Open Sans';
+    font-weight: 500 !important;
 }

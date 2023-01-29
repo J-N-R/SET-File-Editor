@@ -1,27 +1,28 @@
 <app-header [isIntro]="true"></app-header>
 <div class="container">
-    <div class="card mat-h2">
+    <div class="card">
         <ng-container *ngIf="!isFormOpen; else formTemplate">
             <h1 class="mat-h1" tabindex="0">
                 Welcome to the Sonic Adventure 2 Set Editor!
             </h1>
-            <p tabindex="0">
+            <p class="mat-h2" tabindex="0">
                 Through this editor, you can add and adjust enemy layouts for
                 any level.
             </p>
-            <p tabindex="0">Click "New File" to get started!</p>
-            <p tabindex="0">Note:</p>
-            <ul class="mat-h3">
-                <li tabindex="0">
-                    Each level's enemy types are restricted by level.
-                </li>
-                <li tabindex="0">
-                    Blender coordinates are different from game coordinates.
-                </li>
-                <li tabindex="0">
-                    Keep an eye out for 'help' menus to explain object types!
-                </li>
-            </ul>
+            <p class="mat-h2" tabindex="0">Click "New File" to get started!</p>
+            <p class="mat-h2 bold info-header" tabindex="0">
+                Note:
+            </p>
+            <div class="info-card">
+                <div *ngFor="let note of NOTES" class="row">
+                    <div class="icon-container mat-primary">
+                        <mat-icon>{{ note.icon }}</mat-icon>
+                    </div>
+                    <p class="mat-h3" tabindex="0">
+                        {{ note.text }}
+                    </p>
+                </div>
+            </div>
             <div class="spacer"></div>
             <div class="button-container">
                 <button
@@ -39,7 +40,7 @@
             </div>
         </ng-container>
         <ng-template #formTemplate>
-            <app-file-form></app-file-form>
+            <app-file-form (cancelEvent)="toggleForm()"></app-file-form>
         </ng-template>
     </div>
 </div>

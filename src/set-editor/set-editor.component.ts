@@ -32,7 +32,7 @@ import { SetObjectComponent } from './set-object.component';
     SetObjectComponent,
   ],
 })
-export class SetEditorComponent implements OnInit {
+export default class SetEditorComponent implements OnInit {
   fileName = '';
   isSA2Format = false;
   fileType = '';

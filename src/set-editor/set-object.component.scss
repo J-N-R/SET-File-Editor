@@ -25,33 +25,16 @@
     padding: 0 12px 12px !important;
 }
 
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: black !important;
+/**
+ * TODO: Fix labels to be centered through fixed widths
+ * Display block
+ * Unexpanded width: 200 whatever
+ * Expanded width: 250 whatever
+ */
+::ng-deep .mdc-floating-label {
+    /* color: black !important; */
     font-weight: bold;
-}
-
-::ng-deep.mat-form-field-underline {
-    /*change color of underline*/
-    background-color: black !important;
-} 
-
-::ng-deep.mat-form-field-ripple {
-    /*change color of underline when focused*/
-    background-color: black !important;
-}
-
-::ng-deep.mat-form-field-label {
-    text-align: center;
-}
-
-::ng-deep.mat-form-field-hint-wrapper {
-    display: block !important;
-    text-align: center;
-}
-
-::ng-deep.mat-form-field-subscript-wrapper {
-    margin-top: 0.5em;
+    text-align:center !important;
 }
 
 mat-expansion-panel {
@@ -88,13 +71,8 @@ mat-icon {
     font-size: 21px
 }
 
-input.mat-input-element {
-    font-weight: 500;
-    text-align: center;
-}
-
-.mat-form-field-should-float mat-label {
-    font-size: 16px;
+::ng-deep input.mdc-floating-label {
+    text-align: center !important;
 }
 
 .form {
@@ -122,4 +100,9 @@ input.mat-input-element {
 .delete-button:active {
     opacity: 1;
     visibility: visible;
+}
+
+input {
+    font-weight: 500;
+    text-align: center;
 }

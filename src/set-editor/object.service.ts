@@ -6,7 +6,7 @@ import { SA2Object, ALL_OBJECTS } from 'src/shared/content';
 
 /** Handles SET object storage, manipulation, and creation. */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ObjectService {
   private objectList: SetObject[] = [];

@@ -1,14 +1,10 @@
+@use '@angular/material' as mat;
 @import "../shared/set-editor.theme.scss";
 
 :host {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-}
-
-.mat-h2 {
-    font-family: "Roboto";
-    font-size: 18px;
+    height: 100%;
 }
 
 .container {
@@ -16,17 +12,6 @@
     flex: 1;
     margin: auto;
     padding: 16px 0;
-    width: 500px;
-}
-
-.card {
-    border: $border-default;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    margin: auto;
-    padding: 16px;
 }
 
 ul {
@@ -34,21 +19,51 @@ ul {
     margin-top: 0;
 }
 
-.spacer {
-    flex: 1;
-}
-
-.button-container {
-    align-items: right;
-    margin-right: 16px;
-    text-align: right;
-}
-
 button {
-    height: 40px;
+    border-radius: 8px;
+    height: 40px !important;
     width: 120px;
 }
 
-button:first-child {
-    margin-right: 16px;
+.info-header {
+    margin-top: 8px;
+}
+
+.info-card {
+    border: $border-default;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    padding: 16px;
+}
+
+.row {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.row:last-child {
+    margin: 0;
+}
+
+.icon-container {
+    background-color: mat.get-color-from-palette(mat.$blue-palette, 50);
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.icon-container mat-icon {
+    color: mat.get-color-from-palette(mat.$blue-palette, 600);
+    font-size: 24px;
+    height: 24px;
+    padding: 4px;
+    width: 24px;
+}
+
+.info-card .mat-h3 {
+    margin: 0;
+    margin-left: 16px;
 }

@@ -6,7 +6,7 @@ import { SetFile } from './interfaces';
 
 /** Manages interfacing with the operating system using Electron. */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ElectronService {
   private ipcRenderer?: typeof ipcRenderer;
