@@ -1,9 +1,11 @@
 @import "../shared/set-editor.theme.scss";
 
 :host {
-    flex: 1;
-    margin: 14px;
+    flex: auto;
+    margin: 8px;
     min-width: 225px;
+    max-width: 15%;
+    width: 15%;
 }
 
 :host:hover .delete-button {
@@ -34,11 +36,11 @@
 ::ng-deep .mdc-floating-label {
     /* color: black !important; */
     font-weight: bold;
-    text-align:center !important;
+    text-align: center !important;
 }
 
 mat-expansion-panel {
-    border-radius: 16px;
+    border-radius: 8px;
 }
 
 mat-expansion-panel-header {
@@ -69,10 +71,6 @@ mat-label {
 
 mat-icon {
     font-size: 21px
-}
-
-::ng-deep input.mdc-floating-label {
-    text-align: center !important;
 }
 
 .form {

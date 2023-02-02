@@ -18,7 +18,10 @@ export class ObjectService {
   addBlankObject() {
     const object = {
       id: this.nextID,
-      object: SA2Object.DMYOBJ,
+      object: SA2Object.RING,
+      x: 0,
+      y: 0,
+      z: 0,
     }
     this.nextID++;
     this.objectList.push(object);

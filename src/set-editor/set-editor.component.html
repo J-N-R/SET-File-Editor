@@ -1,12 +1,12 @@
 <app-header [isIntro]="false" [fileName]="fileName" [numOfObjects]="numOfObjects"></app-header>
 <div class="content">
-    <div class="button-container">
-        <button class="save mdc-fab mdc-fab--extended" (click)="handleSaveClick()">
+    <div class="fab-container">
+        <button class="save mdc-fab mdc-fab--extended" (click)="saveFile()">
             <div class="mdc-fab__ripple"></div>
             <span class="material-icons mdc-fab__icon">save</span>
             <span class="mdc-fab__label">Save</span>
         </button>
-        <button class="add mdc-fab mdc-fab--extended" (click)="handleAddClick()">
+        <button class="add mdc-fab mdc-fab--extended" (click)="addObject()">
             <div class="mdc-fab__ripple"></div>
             <span class="material-icons mdc-fab__icon">add</span>
             <span class="mdc-fab__label">Add</span>

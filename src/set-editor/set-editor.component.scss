@@ -3,14 +3,28 @@
 :host {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
-mat-icon {
-    color: white;
+.content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.fab-container {
+    margin: 16px 0;
+    text-align: center;
 }
 
 .objects-container {
     display: flex;
     flex-wrap: wrap;
-    margin: 15px;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.spacer {
+    flex: 1;
 }

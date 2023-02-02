@@ -67,11 +67,11 @@ export default class SetEditorComponent implements OnInit {
     this.levelObjectGroups = this.objectService.getLevelObjects(CITY_ESCAPE_OBJECTS);
   }
 
-  handleAddClick() {
+  addObject() {
     this.objectService.addBlankObject();
   }
 
-  handleSaveClick() {
+  saveFile() {
     this.objectsEmitter.pipe(debounceTime(0), first()).subscribe((objectList) => {
       this.electronService.saveFile({
         fileName: this.fileName,

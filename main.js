@@ -43,7 +43,7 @@ var win;
 function createWindow() {
     win = new electron_1.BrowserWindow({
         width: 800,
-        height: 610,
+        height: 750,
         backgroundColor: '#fff',
         minWidth: 650,
         minHeight: 370,
@@ -53,6 +53,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
+    win.maximize();
     win.loadURL("file://".concat(__dirname, "/dist/set-editor/index.html"));
     win.on('closed', function () {
         win = null;
