@@ -1,14 +1,16 @@
+@use '@angular/material' as mat;
 @import "../shared/set-editor.theme.scss";
 
 :host {
     flex: auto;
-    margin: 8px;
+    margin: 8px 12px;
     min-width: 225px;
     max-width: 15%;
     width: 15%;
 }
 
 :host:hover .delete-button {
+    background-color: mat.get-color-from-palette(mat.$red-palette, A200);
     opacity: 1;
     visibility: visible;
 }
@@ -60,7 +62,7 @@ mat-expansion-panel-header.mat-expanded {
 
 mat-form-field {
     flex: 1;
-    margin: 5px 7.5px;
+    margin: 4px 6px;
     min-width: 85px !important;
 }
 
@@ -70,13 +72,14 @@ mat-label {
 }
 
 mat-icon {
+    color: white;
     font-size: 21px
 }
 
 .form {
     display: flex;
     flex-wrap: wrap;
-    margin: 15px 0 -10px;
+    margin: 16px 0 -10px;
 }
 
 .object-select {

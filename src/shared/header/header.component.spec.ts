@@ -30,7 +30,7 @@ describe('HeaderComponent', () => {
   it('displays title, fileName, and object count on editor page', () => {
     component.isIntro = false;
     component.fileName = FILE_NAME;
-    component.numObjects = NUM_OBJECTS;
+    component.numOfObjects = NUM_OBJECTS;
     fixture.detectChanges();
 
     const titleEl = fixture.debugElement.query(By.css(TITLE));

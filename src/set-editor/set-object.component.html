@@ -1,4 +1,6 @@
-<button mat-mini-fab class="delete-button" (click)="handleDeleteClick()"><mat-icon>close</mat-icon></button>
+<button mat-mini-fab class="delete-button" (click)="deleteObject()">
+    <mat-icon color="warning">close</mat-icon>
+</button>
 <mat-expansion-panel>
     <mat-expansion-panel-header class="center">
         {{ object.object }}
@@ -7,13 +9,13 @@
         <mat-form-field 
                 appearance="fill"
                 class="object-select"
-                (click)="handleObjectClick()">
+                (click)="sortAutocomplete()">
             <mat-label>Object</mat-label>
             <input
                 matInput
                 [matAutocomplete]="autoGroup"
                 [(ngModel)]="userInput"
-                (blur)="handleObjectBlur()"
+                (blur)="resetObject()"
                 (ngModelChange)="filterOptions(); setObject()">
             <mat-autocomplete #autoGroup="matAutocomplete">
                 <mat-optgroup *ngFor="let objectGroup of filteredObjectGroups" [label]="objectGroup.name">

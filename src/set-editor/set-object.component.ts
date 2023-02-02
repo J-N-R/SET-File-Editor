@@ -64,16 +64,16 @@ export class SetObjectComponent implements OnInit {
     }
   }
 
-  handleObjectClick() {
+  sortAutocomplete() {
     this.userInput = '';
     this.filterOptions();
   }
 
-  handleObjectBlur() {
+  resetObject() {
     this.userInput = this.object.object;
   }
 
-  handleDeleteClick() {
+  deleteObject() {
     this.deleteEvent.emit(this.object.id);
   }
 

@@ -14,7 +14,7 @@
 }
 
 .fab-container {
-    margin: 16px 0;
+    margin-top: 16px;
     text-align: center;
 }
 
@@ -23,6 +23,7 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow-y: auto;
+    padding-top: 16px;
 }
 
 .spacer {
