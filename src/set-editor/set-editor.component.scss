@@ -18,6 +18,10 @@
     text-align: center;
 }
 
+.mdc-fab {
+    box-shadow: none !important;
+}
+
 .objects-container {
     display: flex;
     flex-wrap: wrap;

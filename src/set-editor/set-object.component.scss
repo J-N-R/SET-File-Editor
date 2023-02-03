@@ -1,12 +1,13 @@
 @use '@angular/material' as mat;
 @import "../shared/set-editor.theme.scss";
 
+$form-field-width: 75px;
+
 :host {
     flex: auto;
-    margin: 8px 12px;
-    min-width: 225px;
-    max-width: 15%;
-    width: 15%;
+    margin: 4px;
+    min-width: 285px;
+    max-width: 285px;
 }
 
 :host:hover .delete-button {
@@ -26,7 +27,8 @@
 }
 
 ::ng-deep .mat-expansion-panel-body {
-    padding: 0 12px 12px !important;
+    background-color: lightgray;
+    padding: 0 8px 8px !important;
 }
 
 /**
@@ -43,6 +45,7 @@
 
 mat-expansion-panel {
     border-radius: 8px;
+    box-shadow: none !important;
 }
 
 mat-expansion-panel-header {
@@ -63,12 +66,31 @@ mat-expansion-panel-header.mat-expanded {
 mat-form-field {
     flex: 1;
     margin: 4px 6px;
-    min-width: 85px !important;
+    min-width: $form-field-width !important;
+}
+
+::ng-deep .mdc-text-field {
+    padding: 0 4px !important;
 }
 
 mat-label {
+    font-size: 14px;
     font-weight: 600;
     transition: font-size 0.5s;
+}
+
+::ng-deep .mdc-floating-label {
+    margin-left: -4px;
+    width: calc(2px + $form-field-width);
+}
+
+::ng-deep .mdc-floating-label--float-above {
+    margin-left: -4px;
+    width: calc(1.38 * $form-field-width) !important;
+
+    mat-label {
+        font-size: 16px;
+    }
 }
 
 mat-icon {
