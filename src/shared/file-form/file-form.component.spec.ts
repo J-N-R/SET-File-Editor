@@ -17,6 +17,9 @@ describe('FileFormComponent', () => {
     fixture.detectChanges();
   });
 
+  /** TODO: Test that form fields are disabled for certain conditions. */
+  /** TODO: Test that input changes the file name. */
+  /** TODO: Test that different form fields pop up for different selections. */
   it('should create', () => {
     expect(component).toBeTruthy();
   });

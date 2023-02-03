@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @import "../shared/set-editor.theme.scss";
+@include card-buttons;
 
 :host {
     display: flex;
@@ -14,18 +15,20 @@
     padding: 16px 0;
 }
 
-ul {
-    padding-right: 16px;
-    margin-top: 0;
-}
-
-button {
+.card {
+    border: $border-default;
     border-radius: 8px;
-    height: 40px !important;
-    width: 120px;
+    display: flex;
+    flex-direction: column;
+    height: 532px;
+    margin: auto;
+    padding: 16px;
+    width: 448px;
 }
 
 .info-header {
+    font-family: 'Open Sans';
+    font-weight: 600 !important;
     margin-top: 8px;
 }
 

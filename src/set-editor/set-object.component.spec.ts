@@ -17,6 +17,10 @@ describe('SetObjectComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * TODO: Test that changes here are reflected in the object list.
+   * (Modifying, Deleting, etc)
+   **/
   it('should create', () => {
     expect(component).toBeTruthy();
   });

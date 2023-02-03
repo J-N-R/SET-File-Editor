@@ -1,16 +1,29 @@
 @import "../shared/set-editor.theme.scss";
+@include card-buttons;
 
-button {
-    border-radius: 8px;
-    height: 40px !important;
-    width: 120px;
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .title {
+    font-family: "Open Sans";
     font-size: 20px;
     font-weight: 600;
+    letter-spacing: normal;
 }
 
 .description {
+    font-family: "Open Sans";
     font-size: 16px;
+    letter-spacing: normal;
+}
+
+.button-container {
+    justify-content: flex-end;
+
+    .continue-button {
+        margin: 0;
+    }
 }

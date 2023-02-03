@@ -8,39 +8,37 @@ $form-field-width: 75px;
     margin: 4px;
     min-width: 285px;
     max-width: 285px;
+
+    &:hover .delete-button {
+        background-color: mat.get-color-from-palette(mat.$red-palette, A200);
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
-:host:hover .delete-button {
-    background-color: mat.get-color-from-palette(mat.$red-palette, A200);
-    opacity: 1;
-    visibility: visible;
-}
+.delete-button {
+    box-shadow: none !important;
+    visibility: hidden;
+    float: left;
+    height: 34px;
+    margin: -14px -40px 0 -14px;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s ease;
+    width: 34px;
+    z-index: 1;
 
-::ng-deep mat-hint {
-    font-size: 11px;
-    font-weight: 500;
-}
+    &:active {
+        opacity: 1;
+        visibility: visible;
+    }
 
-::ng-deep.mat-content {
-    justify-content: center;
-    margin-right: -8px;
-}
-
-::ng-deep .mat-expansion-panel-body {
-    background-color: lightgray;
-    padding: 0 8px 8px !important;
-}
-
-/**
- * TODO: Fix labels to be centered through fixed widths
- * Display block
- * Unexpanded width: 200 whatever
- * Expanded width: 250 whatever
- */
-::ng-deep .mdc-floating-label {
-    /* color: black !important; */
-    font-weight: bold;
-    text-align: center !important;
+    mat-icon {
+        color: white;
+        font-size: 22px;
+        height: 22px;
+        padding: 6px;
+        width: 22px;
+    }
 }
 
 mat-expansion-panel {
@@ -51,16 +49,30 @@ mat-expansion-panel {
 mat-expansion-panel-header {
     background-color: beige !important;
     font-weight: 500;
-    /* Uncomment for expand animation. */
     max-height: 48px;
     transition: border-bottom-right-radius 400ms, border-bottom-left-radius 400ms;
+
+    &.mat-expanded {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        transition: border-bottom-right-radius 0ms, border-bottom-left-radius 0ms !important;
+    }
+
+    ::ng-deep.mat-content {
+        justify-content: center;
+        margin-right: -8px;
+    }
 }
 
-mat-expansion-panel-header.mat-expanded {
-    background-color: beige !important;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    transition: border-bottom-right-radius 0ms, border-bottom-left-radius 0ms !important;
+::ng-deep .mat-expansion-panel-body {
+    background-color: lightgray;
+    padding: 0 8px 8px !important;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0 -10px;
 }
 
 mat-form-field {
@@ -69,8 +81,8 @@ mat-form-field {
     min-width: $form-field-width !important;
 }
 
-::ng-deep .mdc-text-field {
-    padding: 0 4px !important;
+.object-select {
+    flex: 100%;
 }
 
 mat-label {
@@ -79,8 +91,13 @@ mat-label {
     transition: font-size 0.5s;
 }
 
+::ng-deep .mdc-text-field {
+    padding: 0 4px !important;
+}
+
 ::ng-deep .mdc-floating-label {
     margin-left: -4px;
+    text-align: center !important;
     width: calc(2px + $form-field-width);
 }
 
@@ -93,39 +110,11 @@ mat-label {
     }
 }
 
-mat-icon {
-    color: white;
-    font-size: 21px
-}
-
-.form {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 16px 0 -10px;
-}
-
-.object-select {
-    flex: 100%;
-}
-
-.delete-button {
-    box-shadow: none !important;
-    visibility: hidden;
-    float: left;
-    height: 35px;
-    margin: -15px -40px 0 -15px;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s ease;
-    width: 35px;
-    z-index: 1;
-}
-
-.delete-button:active {
-    opacity: 1;
-    visibility: visible;
-}
-
 input {
-    font-weight: 500;
     text-align: center;
+}
+
+::ng-deep mat-hint {
+    font-size: 11px;
+    font-weight: 500;
 }

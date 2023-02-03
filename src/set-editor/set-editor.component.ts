@@ -77,7 +77,7 @@ export default class SetEditorComponent implements OnInit {
   }
 
   clearObjects() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {autoFocus: false, height: '160px', width: '290px'});
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {

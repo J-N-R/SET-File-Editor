@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SetEditorComponent } from './set-editor.component';
+import SetEditorComponent from './set-editor.component';
 
 describe('SetEditorComponent', () => {
   let component: SetEditorComponent;
@@ -17,6 +17,9 @@ describe('SetEditorComponent', () => {
     fixture.detectChanges();
   });
 
+  /** TODO: Test that 'add' adds a new object. */
+  /** TODO: Test that 'clear' asks for permission. */
+  /** TODO: Test that query parameters work properly. */
   it('should create', () => {
     expect(component).toBeTruthy();
   });

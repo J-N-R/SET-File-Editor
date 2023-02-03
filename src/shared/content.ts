@@ -120,7 +120,6 @@ export const COLLECTIBLES: SA2Object[] = [
     SA2Object.GOALRING,
     SA2Object.EMERALD,
     SA2Object.MINIMAL,
-
 ];
 
 export const ENEMIES: SA2Object[] = [

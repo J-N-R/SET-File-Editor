@@ -1,4 +1,5 @@
 @import "../set-editor.theme.scss";
+@include card-buttons;
 
 :host {
     height: 100%;
@@ -8,6 +9,18 @@ form {
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.section-container {
+    display: flex;
+
+    .radio-section {
+        flex: 1;
+    }
+    
+    .select-section {
+        flex: 1;
+    }
 }
 
 label {
@@ -28,34 +41,8 @@ mat-radio-button {
     margin: 0;
 }
 
-button {
-    border-radius: 8px;
-    height: 40px !important;
-    width: 120px;
-}
-
-.spacer-2 {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: flex-end;
-    min-height: 40px;
-}
-
 .warnings {
     color: red;
     margin-bottom: 16px;
     text-align: center;
-}
-
-.section-container {
-    display: flex;
-}
-
-.select-section {
-    flex: 1;
-}
-
-.radio-section {
-    flex: 1;
 }

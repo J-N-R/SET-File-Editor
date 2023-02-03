@@ -20,6 +20,7 @@
 
 .mdc-fab {
     box-shadow: none !important;
+    margin: 10px;
 }
 
 .objects-container {
@@ -28,8 +29,4 @@
     justify-content: center;
     overflow-y: auto;
     padding-top: 16px;
-}
-
-.spacer {
-    flex: 1;
 }
