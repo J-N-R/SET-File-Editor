@@ -1,11 +1,17 @@
-<h1 mat-dialog-title>Are you sure?</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title class="title">Are you sure?</h1>
+<div mat-dialog-content class="description">
     <p>This will delete unsaved data.</p>
 </div>
-<div mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button
+<div mat-dialog-actions class="button-container">
+    <button
+        mat-dialog-close
+        mat-stroked-button>
+        Cancel
+    </button>
+    <button
+        mat-flat-button
         class="continue-button"
+        color="primary"
         [mat-dialog-close]="true">
         Continue
     </button>

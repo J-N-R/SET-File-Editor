@@ -1,0 +1,17 @@
+@import "../shared/set-editor.theme.scss";
+
+button {
+    border-radius: 8px;
+    height: 40px !important;
+    width: 120px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.description {
+    font-size: 16px;
+}
+
