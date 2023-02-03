@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { VERSION } from '../content';
+
 @Component({
   standalone: true,
   selector: 'app-footer',
@@ -11,4 +13,5 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class FooterComponent {
+  readonly VERSION = VERSION;
 }

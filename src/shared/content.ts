@@ -1,5 +1,8 @@
 import { ObjectGroup } from './interfaces';
 
+/** Version of the Set Editor. */
+export const VERSION = 'v1.0.0';
+
 /** Sonic Adventure 2 Objects */
 export enum SA2Object {
     RING = 'Ring',
