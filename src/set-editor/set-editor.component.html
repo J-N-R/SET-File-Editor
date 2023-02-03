@@ -11,6 +11,11 @@
             <span class="material-icons mdc-fab__icon">add</span>
             <span class="mdc-fab__label">Add</span>
         </button>
+        <button class="add mdc-fab mdc-fab--extended" (click)="clearObjects()">
+            <div class="mdc-fab__ripple"></div>
+            <span class="material-icons mdc-fab__icon">delete</span>
+            <span class="mdc-fab__label">Clear</span>
+        </button>
     </div>
     <div 
         *ngIf="objectsEmitter | async as objects else loading"

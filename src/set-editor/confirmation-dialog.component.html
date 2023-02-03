@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Are you sure?</h1>
+<div mat-dialog-content>
+    <p>This will delete unsaved data.</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button
+        class="continue-button"
+        [mat-dialog-close]="true">
+        Continue
+    </button>
+</div>

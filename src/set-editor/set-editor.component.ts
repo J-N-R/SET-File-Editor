@@ -9,6 +9,7 @@ import { CITY_ESCAPE_OBJECTS } from '../shared/content';
 import { CommonModule, Location } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
@@ -17,6 +18,7 @@ import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
 
 import { SetObjectComponent } from './set-object.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
 @Component({
   standalone: true,
@@ -25,9 +27,11 @@ import { SetObjectComponent } from './set-object.component';
   styleUrls: ['./set-editor.component.scss'],
   imports: [
     CommonModule,
+    ConfirmationDialogComponent,
     FooterComponent,
     HeaderComponent,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     SetObjectComponent,
   ],
@@ -43,7 +47,8 @@ export default class SetEditorComponent implements OnInit {
 
   constructor(private readonly objectService: ObjectService,
     private readonly electronService: ElectronService,
-    private readonly location: Location) {}
+    private readonly location: Location,
+    private readonly dialog: MatDialog) {}
 
   ngOnInit() {
     const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
@@ -69,6 +74,16 @@ export default class SetEditorComponent implements OnInit {
 
   addObject() {
     this.objectService.addBlankObject();
+  }
+
+  clearObjects() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+
+    dialogRef.afterClosed().subscribe((confirmation) => {
+      if (confirmation) {
+        this.objectService.setObjectList([]);
+      }
+    });
   }
 
   saveFile() {
