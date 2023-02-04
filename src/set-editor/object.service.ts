@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ObjectGroup, SetObject } from '../shared/interfaces';
-import { SA2Object, ALL_OBJECTS } from 'src/shared/content';
+import { ALL_OBJECTS } from '../shared/content';
+import { SA2Object } from '../shared/objects';
 
 /** Handles SET object storage, manipulation, and creation. */
 @Injectable({

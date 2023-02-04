@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
 import { SetObject, ObjectGroup } from '../shared/interfaces';
-import { SA2Object } from '../shared/content';
+import { SA2Object } from '../shared/objects';
 
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';

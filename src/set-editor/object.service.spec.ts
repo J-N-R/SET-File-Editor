@@ -4,7 +4,7 @@ import { first, take } from 'rxjs/operators';
 import { ObjectService } from './object.service';
 
 import { SetObject } from '../shared/interfaces';
-import { SA2Object } from '../shared/content';
+import { SA2Object } from '../shared/objects';
 
 describe('ObjectService', () => {
   let service: ObjectService;

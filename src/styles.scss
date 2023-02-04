@@ -14,6 +14,7 @@
 @import '@material-design-icons/font';
 $material-design-icons-font-path: '~@material-design-icons/font/';
 
+// Material colors found at: https://m2.material.io/resources/color/
 $primary: mat.define-palette(mat.$blue-palette, A400);
 $accent: mat.define-palette(mat.$green-palette, A400);
 $warn: mat.define-palette(mat.$red-palette);

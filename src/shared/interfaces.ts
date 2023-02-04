@@ -1,4 +1,4 @@
-import { SA2Object } from './content';
+import { SA2Object } from './objects';
 
 /** Typescript representation of a SET object. */
 export interface SetObject {

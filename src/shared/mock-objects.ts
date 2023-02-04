@@ -1,5 +1,5 @@
 import { SetObject } from './interfaces';
-import { SA2Object } from './content';
+import { SA2Object } from './objects';
 
 /** Mock Objects used for initial frontend development. */
 export const OBJECTS: SetObject[] = [
