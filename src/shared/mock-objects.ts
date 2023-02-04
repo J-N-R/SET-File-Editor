@@ -9,22 +9,5 @@ export const OBJECTS: SetObject[] = [
         x: 0,
         y: 0,
         z: 0,
-    },/*
-    {
-        id: 1,
-        object: SA2Object.EKUMI,
-        x: 0,
-        y: 0,
-        z: 0,
     },
-    {
-        id: 2,
-        object: SA2Object.KASOKU,
-        x: 10,
-        y: 0,
-        z: 20,
-        xRot: 0,
-        yRot: 90,
-        zRot: 0,
-    },*/
 ];

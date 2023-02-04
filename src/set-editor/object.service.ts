@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { ObjectGroup, SetObject } from '../shared/interfaces';
-import { ALL_OBJECTS } from '../shared/content';
+import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2Object } from '../shared/objects';
 
 /** Handles SET object storage, manipulation, and creation. */
@@ -51,7 +51,7 @@ export class ObjectService {
 
   getLevelObjects(levelMap: Map<SA2Object, number>): ObjectGroup[] {
     const filteredObjectGroup: ObjectGroup[] = [];
-    ALL_OBJECTS.forEach((objectGroup) => {
+    CATEGORIZED_OBJECTS.forEach((objectGroup) => {
       const filteredList = objectGroup.objects.filter((object) => levelMap.has(object));
       filteredObjectGroup.push({
         name: objectGroup.name,

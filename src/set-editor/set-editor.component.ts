@@ -4,7 +4,7 @@ import { debounceTime, first } from 'rxjs/operators';
 import { OBJECTS } from '../shared/mock-objects';
 
 import { ObjectGroup } from '../shared/interfaces';
-import { CITY_ESCAPE_OBJECTS } from '../shared/content';
+import { CITY_ESCAPE_OBJECTS } from '../shared/sa2-levels';
 
 import { CommonModule, Location } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
