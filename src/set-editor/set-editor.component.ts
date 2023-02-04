@@ -40,6 +40,7 @@ export default class SetEditorComponent implements OnInit {
   fileName = '';
   isSA2Format = false;
   fileType = '';
+  stage = 13;
   numOfObjects = 0;
   levelObjectGroups: ObjectGroup[] = [];
 
@@ -63,13 +64,16 @@ export default class SetEditorComponent implements OnInit {
       let fileName = queryParams.get('fileName')!.split('.')[0];
       this.fileName = fileName + '.bin';
     }
+    if (queryParams.has('stage')) {
+      this.stage = Number(queryParams.get('stage')!);
+    }
 
     this.objectService.setObjectList(OBJECTS);
     this.objectsEmitter.subscribe((setObjects) => {
       this.numOfObjects = setObjects.length;
     });
 
-    this.levelObjectGroups = this.objectService.getLevelObjects(CITY_ESCAPE_OBJECTS);
+    this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
   }
 
   addObject() {
@@ -92,6 +96,7 @@ export default class SetEditorComponent implements OnInit {
         fileName: this.fileName,
         isSA2Format: this.isSA2Format,
         setObjects: objectList,
+        stage: this.stage,
       });
     })
   }

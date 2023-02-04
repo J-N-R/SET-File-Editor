@@ -75,6 +75,9 @@ export class FileFormComponent implements OnInit {
     if (this.fileType) {
       queryParams.fileType = this.fileType.value!;
     }
+    if (this.stage) {
+      queryParams.stage = this.stage.value!;
+    }
     
     return queryParams;
   }
@@ -216,6 +219,7 @@ interface QueryParams {
   fileName?: string,
   isSA2Format?: string,
   fileType?: string,
+  stage?: string,
 };
 
 interface Stage {

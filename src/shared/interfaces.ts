@@ -19,7 +19,7 @@ export interface SetObject {
 /** Groups SA2Objects into categories */
 export interface ObjectGroup {
     name: string,
-    objects: SA2Object[],
+    objects: Set<SA2Object>,
 }
 
 /** Saves SetObject information into a file. */
@@ -27,4 +27,5 @@ export interface SetFile {
     fileName: string,
     isSA2Format: boolean,
     setObjects: SetObject[],
+    stage: number,
 }

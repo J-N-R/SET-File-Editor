@@ -3,6 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { ObjectGroup, SetObject } from '../shared/interfaces';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
+import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
 
 /** Handles SET object storage, manipulation, and creation. */
@@ -49,10 +50,26 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  getLevelObjects(levelMap: Map<SA2Object, number>): ObjectGroup[] {
+  getLevelObjects(stage: number): ObjectGroup[] {
+    // levelObjects: Set<SA2Object>
+    const levelObjects = SA2_LEVELS.get(stage);
+    if (!levelObjects) {
+      console.error('Stage: "' + stage + '" not found.');
+      return [{
+        name: 'Unknown Stage Detected',
+        objects: new Set<SA2Object>([SA2Object.DMYOBJ]),
+      }];
+    }
+
     const filteredObjectGroup: ObjectGroup[] = [];
     CATEGORIZED_OBJECTS.forEach((objectGroup) => {
-      const filteredList = objectGroup.objects.filter((object) => levelMap.has(object));
+      const filteredList = new Set<SA2Object>();
+      objectGroup.objects.forEach((object) => {
+        if (levelObjects.has(object)) {
+          filteredList.add(object);
+        }
+      })
+
       filteredObjectGroup.push({
         name: objectGroup.name,
         objects: filteredList,

@@ -1,7 +1,7 @@
 import { SA2Object } from "./objects";
 import { ObjectGroup } from "./interfaces";
 
-export const COLLECTIBLES: SA2Object[] = [
+export const COLLECTIBLES = new Set<SA2Object>([
     SA2Object.RING,
     SA2Object.RING_LINEAR,
     SA2Object.RING_CIRCLE,
@@ -12,18 +12,18 @@ export const COLLECTIBLES: SA2Object[] = [
     SA2Object.GOALRING,
     SA2Object.EMERALD,
     SA2Object.MINIMAL,
-];
+]);
 
-export const ENEMIES: SA2Object[] = [
+export const ENEMIES = new Set<SA2Object>([
     SA2Object.E_AI,
     SA2Object.E_KUMI,
     SA2Object.E_PATH,
     SA2Object.E_GOLD,
     SA2Object.BUNCHIN,
     SA2Object.IRONBALL2,
-];
+]);
 
-export const STAGE_INTERACTIVE: SA2Object[] = [
+export const STAGE_INTERACTIVE = new Set<SA2Object>([
     SA2Object.SPRA,
     SA2Object.SPRB,
     SA2Object.TRIPLESPRING,
@@ -46,15 +46,15 @@ export const STAGE_INTERACTIVE: SA2Object[] = [
     SA2Object.HAMMER,
     SA2Object.IRONBAR,
     SA2Object.PIC,
-];
+]);
 
-export const BALL_SWITCH: SA2Object[] = [
+export const BALL_SWITCH = new Set<SA2Object>([
     SA2Object.SWITCH,
     SA2Object.SWDRNGL,
     SA2Object.SWDRNGC,
-];
+]);
 
-export const MYSTIC_SHRINE: SA2Object[] = [
+export const MYSTIC_SHRINE = new Set<SA2Object>([
     SA2Object.KNUDAI,
     SA2Object.KDASIBA,
     SA2Object.KDWARPHOLE,
@@ -64,9 +64,9 @@ export const MYSTIC_SHRINE: SA2Object[] = [
     SA2Object.KDDRINGC,
     SA2Object.KDSPRING,
     SA2Object.KDSPRINGB,
-];
+]);
 
-export const ACTORS: SA2Object[] = [
+export const ACTORS = new Set<SA2Object>([
     SA2Object.MSGER,
     SA2Object.CARMAN,
     SA2Object.CARKAZ,
@@ -76,9 +76,9 @@ export const ACTORS: SA2Object[] = [
     SA2Object.CARMAN_NEAR,
     SA2Object.SE_PATCAR,
     SA2Object.SE_KAZE,
-];
+]);
 
-export const STAGE: SA2Object[] = [
+export const STAGE = new Set<SA2Object>([
     SA2Object.DMYOBJ,
     SA2Object.PSKULL,
     SA2Object.MODMOD,
@@ -105,17 +105,17 @@ export const STAGE: SA2Object[] = [
     SA2Object.SARROW,
     SA2Object.TRBACK,
     SA2Object.POSTERM,
-];
+]);
 
-export const COLLISIONS: SA2Object[] = [
+export const COLLISIONS = new Set<SA2Object>([
     SA2Object.SPHERE,
     SA2Object.CCYL,
     SA2Object.CCUBE,
     SA2Object.CWALL,
     SA2Object.CCIRCLE,
-]
+]);
 
-export const ZONES: SA2Object[] = [
+export const ZONES = new Set<SA2Object>([
     SA2Object.BOARD,
     SA2Object.ADXCHG,
     SA2Object.LINKLINK,
@@ -125,7 +125,7 @@ export const ZONES: SA2Object[] = [
     SA2Object.LIGHT_SW,
     SA2Object.BOARDCOL,
     SA2Object.TRUCK,
-];
+]);
 
 export const CATEGORIZED_OBJECTS: ObjectGroup[] = [
     {

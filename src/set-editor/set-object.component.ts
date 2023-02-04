@@ -45,11 +45,16 @@ export class SetObjectComponent implements OnInit {
 
   filterOptions() {
     this.filteredObjectGroups.length = 0;
+
     this.levelObjectGroups.forEach((objectGroup) => {
-      const filteredObjects = objectGroup.objects.filter(
-          (object) => object.toLowerCase().includes(this.userInput.toLowerCase()));
-      
-      if (filteredObjects.length > 0) {
+      const filteredObjects = new Set<SA2Object>();
+      objectGroup.objects.forEach((object) => {
+        if (object.toLowerCase().includes(this.userInput.toLowerCase())) {
+          filteredObjects.add(object);
+        }
+      });
+
+      if (filteredObjects.size > 0) {
         this.filteredObjectGroups.push({
           name: objectGroup.name,
           objects: filteredObjects,
@@ -59,7 +64,7 @@ export class SetObjectComponent implements OnInit {
   }
 
   setObject() {
-    if (SA2_OBJECT_LIST.includes(this.userInput as SA2Object)) {
+    if (SA2_OBJECT_LIST.has(this.userInput as SA2Object)) {
       this.object.object = this.userInput as SA2Object;
     }
   }
@@ -82,4 +87,4 @@ export class SetObjectComponent implements OnInit {
   }
 }
 
-const SA2_OBJECT_LIST = Object.values(SA2Object);
+const SA2_OBJECT_LIST = new Set(Object.values(SA2Object));

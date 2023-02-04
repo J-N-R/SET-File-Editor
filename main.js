@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var electron_1 = require("electron");
 var fs = require("fs");
-var content_1 = require("./src/shared/content");
+var sa2_levels_1 = require("./src/shared/sa2-levels");
 var win;
 function createWindow() {
     win = new electron_1.BrowserWindow({
@@ -91,12 +91,16 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) {
         properties: ['showOverwriteConfirmation', 'createDirectory']
     });
     if (!filePath) {
+        console.log('No file path given, cancelling save.');
         return;
     }
-    console.log(setFile);
+    if (!sa2_levels_1.SA2_LEVELS.has(setFile.stage)) {
+        console.error('Can\'t save! Stage: "' + setFile.stage + '" not found.');
+        return;
+    }
     filePath = filePath.replace(/\.bin/gi, '') + '.bin';
+    var levelObjects = Array.from(sa2_levels_1.SA2_LEVELS.get(setFile.stage));
     var enableLittleEndian = !setFile.isSA2Format;
-    var allObjects = Object.values(content_1.SA2Object);
     var degreesToBams = 65536.0 / 360.0;
     // Write 32 byte header to file.
     var dataview = new DataView(new ArrayBuffer(4));
@@ -112,10 +116,10 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) {
         // Write clip & id. If littleEndian, id goes first.
         dataview = new DataView(new ArrayBuffer(2));
         if (enableLittleEndian) {
-            dataview.setUint8(0, allObjects.indexOf(setObject.object));
+            dataview.setUint8(0, levelObjects.indexOf(setObject.object));
         }
         else {
-            dataview.setUint8(1, allObjects.indexOf(setObject.object));
+            dataview.setUint8(1, levelObjects.indexOf(setObject.object));
         }
         writeDataView(filePath, dataview);
         // Write x, y, and z rotation, in BAMS 2 byte short.

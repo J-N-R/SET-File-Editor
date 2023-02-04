@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as fs from 'fs';
 import { SetObject, SetFile } from './src/shared/interfaces';
-import { SA2Object } from './src/shared/content';
+import { SA2Object } from './src/shared/objects';
+import { SA2_LEVELS } from './src/shared/sa2-levels';
 
 let win: BrowserWindow|null;
 
@@ -63,14 +64,17 @@ ipcMain.handle('saveFile', (event, setFile: SetFile) => {
     });
 
     if (!filePath) {
+        console.log('No file path given, cancelling save.');
+        return;
+    }
+    if (!SA2_LEVELS.has(setFile.stage)) {
+        console.error('Can\'t save! Stage: "' + setFile.stage + '" not found.');
         return;
     }
 
-    console.log(setFile);
-
     filePath = filePath.replace(/\.bin/gi, '') + '.bin';
+    const levelObjects = Array.from(SA2_LEVELS.get(setFile.stage)!);
     const enableLittleEndian = !setFile.isSA2Format;
-    const allObjects = Object.values(SA2Object);
     const degreesToBams = 65536.0 / 360.0;
 
     // Write 32 byte header to file.
@@ -88,10 +92,10 @@ ipcMain.handle('saveFile', (event, setFile: SetFile) => {
         // Write clip & id. If littleEndian, id goes first.
         dataview = new DataView(new ArrayBuffer(2));
         if (enableLittleEndian) {
-            dataview.setUint8(0, allObjects.indexOf(setObject.object));
+            dataview.setUint8(0, levelObjects.indexOf(setObject.object));
         }
         else {
-            dataview.setUint8(1, allObjects.indexOf(setObject.object));
+            dataview.setUint8(1, levelObjects.indexOf(setObject.object));
         }
         writeDataView(filePath, dataview);
 
