@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "serve": "tsc -watch ng build --watch",
+    "serve": "tsc -watch main.ts && ng build --watch",
     "build": "tsc main.ts && ng build",
     "test": "ng test",
     "electron": "tsc main.ts && ng build && electron ."
