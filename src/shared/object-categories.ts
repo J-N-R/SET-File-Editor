@@ -1,6 +1,7 @@
 import { SA2Object } from "./objects";
 import { ObjectGroup } from "./interfaces";
 
+/** Objects that can be collected. */
 export const COLLECTIBLES = new Set<SA2Object>([
     SA2Object.RING,
     SA2Object.RING_LINEAR,
@@ -14,6 +15,7 @@ export const COLLECTIBLES = new Set<SA2Object>([
     SA2Object.MINIMAL,
 ]);
 
+/** Objects that can attack the player. */
 export const ENEMIES = new Set<SA2Object>([
     SA2Object.E_AI,
     SA2Object.E_KUMI,
@@ -23,6 +25,7 @@ export const ENEMIES = new Set<SA2Object>([
     SA2Object.IRONBALL2,
 ]);
 
+/** Objects that the player can use. */
 export const STAGE_INTERACTIVE = new Set<SA2Object>([
     SA2Object.SPRA,
     SA2Object.SPRB,
@@ -32,6 +35,8 @@ export const STAGE_INTERACTIVE = new Set<SA2Object>([
     SA2Object.SAVEPOINT,
     SA2Object.UDREEL,
     SA2Object.ORI,
+    SA2Object.SLIDER,
+    SA2Object.BAR,
     SA2Object.DYNAMITE,
     SA2Object.CONTWOOD,
     SA2Object.CONTIRON,
@@ -48,12 +53,14 @@ export const STAGE_INTERACTIVE = new Set<SA2Object>([
     SA2Object.PIC,
 ]);
 
+/** Ball switch (does this need to be its own category?). */
 export const BALL_SWITCH = new Set<SA2Object>([
     SA2Object.SWITCH,
     SA2Object.SWDRNGL,
     SA2Object.SWDRNGC,
 ]);
 
+/** Mystic shrine and its objects. */
 export const MYSTIC_SHRINE = new Set<SA2Object>([
     SA2Object.KNUDAI,
     SA2Object.KDASIBA,
@@ -66,6 +73,7 @@ export const MYSTIC_SHRINE = new Set<SA2Object>([
     SA2Object.KDSPRINGB,
 ]);
 
+/** Objects that move by themselves. */
 export const ACTORS = new Set<SA2Object>([
     SA2Object.MSGER,
     SA2Object.CARMAN,
@@ -78,8 +86,8 @@ export const ACTORS = new Set<SA2Object>([
     SA2Object.SE_KAZE,
 ]);
 
-export const STAGE = new Set<SA2Object>([
-    SA2Object.DMYOBJ,
+/** Objects that are decorative. */
+export const DECORATION = new Set<SA2Object>([
     SA2Object.PSKULL,
     SA2Object.MODMOD,
     SA2Object.EFFOBJ0,
@@ -92,18 +100,14 @@ export const STAGE = new Set<SA2Object>([
     SA2Object.SBLG,
     SA2Object.ROADOBJ,
     SA2Object.PALM,
-    SA2Object.SLIDER,
     SA2Object.GREEN_B,
-    SA2Object.BAR,
     SA2Object.FENCES,
     SA2Object.FENCEL,
     SA2Object.SIGNBOARD,
     SA2Object.POSTER,
     SA2Object.TREESTNB,
     SA2Object.POSTER3,
-    SA2Object.GUIDANCE,
     SA2Object.SARROW,
-    SA2Object.TRBACK,
     SA2Object.POSTERM,
 ]);
 
@@ -112,6 +116,8 @@ export const COLLISIONS = new Set<SA2Object>([
     SA2Object.CCYL,
     SA2Object.CCUBE,
     SA2Object.CWALL,
+    SA2Object.TRBACK,
+    SA2Object.GUIDANCE,
     SA2Object.CCIRCLE,
 ]);
 
@@ -127,6 +133,8 @@ export const ZONES = new Set<SA2Object>([
     SA2Object.TRUCK,
 ]);
 
+// Should we consider triggers its own category?
+/** Object categories grouped by name. */
 export const CATEGORIZED_OBJECTS: ObjectGroup[] = [
     {
         name: 'Collectibles',
@@ -153,8 +161,8 @@ export const CATEGORIZED_OBJECTS: ObjectGroup[] = [
         objects: ACTORS,
     },
     {
-        name: 'Stage',
-        objects: STAGE,
+        name: 'Decoration',
+        objects: DECORATION,
     },
     {
         name: 'Collision',

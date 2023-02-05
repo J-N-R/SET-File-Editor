@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
 import { SetObject, ObjectGroup } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
+import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -42,6 +43,12 @@ export class SetObjectComponent implements OnInit {
 
   filteredObjectGroups: ObjectGroup[] = [];
   userInput = '';
+  category = '';
+
+  ngOnInit() {
+    this.userInput = this.object.object;
+    this.setCategory();
+  }
 
   filterOptions() {
     this.filteredObjectGroups.length = 0;
@@ -63,9 +70,17 @@ export class SetObjectComponent implements OnInit {
     });
   }
 
+  setCategory() {
+    const objectGroup = CATEGORIZED_OBJECTS.filter((objectGroup) => objectGroup.objects.has(this.object.object));
+    if (objectGroup.length === 1) {
+      this.category = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
+    }
+  }
+
   setObject() {
     if (SA2_OBJECT_LIST.has(this.userInput as SA2Object)) {
       this.object.object = this.userInput as SA2Object;
+      this.setCategory();
     }
   }
 
@@ -81,10 +96,12 @@ export class SetObjectComponent implements OnInit {
   deleteObject() {
     this.deleteEvent.emit(this.object.id);
   }
-
-  ngOnInit() {
-    this.userInput = this.object.object;
-  }
 }
 
 const SA2_OBJECT_LIST = new Set(Object.values(SA2Object));
+const CATEGORY_CLASSLIST = new Map<string, string>([
+  ['Enemies', 'enemy'],
+  ['Collectibles', 'collectible'],
+  ['Stage Interactables', 'interactable'],
+  ['Decoration', 'decoration'],
+]);

@@ -1,6 +1,11 @@
 @use '@angular/material' as mat;
 @import "../shared/set-editor.theme.scss";
 
+$collectible-color: mat.get-color-from-palette(mat.$green-palette, 400);
+$enemy-color: mat.get-color-from-palette(mat.$blue-gray-palette, 400);
+$interactable-color: mat.get-color-from-palette(mat.$blue-palette, 400);
+$decoration-color: mat.get-color-from-palette(mat.$purple-palette, 300);
+
 $form-field-width: 75px;
 
 :host {
@@ -52,13 +57,31 @@ mat-expansion-panel-header {
     max-height: 48px;
     transition: border-bottom-right-radius 400ms, border-bottom-left-radius 400ms;
 
+    &.enemy {
+        background-color: $enemy-color !important;
+    }
+
+    &.collectible {
+        background-color: $collectible-color !important;
+    }
+
+    &.interactable {
+        background-color: $interactable-color !important;
+    }
+
+    &.decoration {
+        background-color: $decoration-color !important;
+    }
+
     &.mat-expanded {
+        background-color: $enemy-color;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         transition: border-bottom-right-radius 0ms, border-bottom-left-radius 0ms !important;
     }
 
     ::ng-deep.mat-content {
+        font: bold 16px 'Open Sans';
         justify-content: center;
         margin-right: -8px;
     }
@@ -83,6 +106,10 @@ mat-form-field {
 
 .object-select {
     flex: 100%;
+}
+
+::ng-deep .mat-mdc-optgroup-label {
+    font-weight: bold;
 }
 
 mat-label {

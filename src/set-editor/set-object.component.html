@@ -2,7 +2,7 @@
     <mat-icon color="warning">close</mat-icon>
 </button>
 <mat-expansion-panel>
-    <mat-expansion-panel-header class="center">
+    <mat-expansion-panel-header class="center" [ngClass]="category">
         {{ object.object }}
     </mat-expansion-panel-header>
     <div class="form">
