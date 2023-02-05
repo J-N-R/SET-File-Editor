@@ -43,11 +43,14 @@ export class SetObjectComponent implements OnInit {
 
   filteredObjectGroups: ObjectGroup[] = [];
   userInput = '';
-  category = '';
+  categoryClass = '';
+  customVariableClass = '';
 
   ngOnInit() {
     this.userInput = this.object.object;
     this.setCategory();
+    this.setCustomVariables();
+    console.log(this.customVariableClass);
   }
 
   filterOptions() {
@@ -70,12 +73,35 @@ export class SetObjectComponent implements OnInit {
     });
   }
 
+  setCustomVariables() {
+    let customVariableCount = 0;
+    if (this.object.var1 !== undefined) {
+      customVariableCount++;
+    }
+    if (this.object.var2 !== undefined) {
+      customVariableCount++;
+    }
+    if (this.object.var3 !== undefined) {
+      customVariableCount++;
+    }
+    switch (customVariableCount) {
+      case 1:
+        this.customVariableClass = 'one-variable';
+        break;
+      case 2:
+        this.customVariableClass = 'two-variables';
+        break;
+      default:
+        this.customVariableClass = '';
+    }
+  }
+
   setCategory() {
     const objectGroup = CATEGORIZED_OBJECTS.filter(
         (objectGroup) => objectGroup.objects.has(this.object.object)
     );
     if (objectGroup.length === 1) {
-      this.category = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
+      this.categoryClass = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
     }
   }
 
@@ -85,6 +111,7 @@ export class SetObjectComponent implements OnInit {
       this.object.object = (this.userInput.charAt(0).toUpperCase() +
                             this.userInput.slice(1).toLowerCase()) as SA2Object;
       this.setCategory();
+      this.setCustomVariables();
     }
   }
 

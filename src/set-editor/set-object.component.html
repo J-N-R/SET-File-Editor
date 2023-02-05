@@ -2,13 +2,13 @@
     <mat-icon color="warning">close</mat-icon>
 </button>
 <mat-expansion-panel>
-    <mat-expansion-panel-header class="center" [ngClass]="category">
+    <mat-expansion-panel-header class="center" [ngClass]="categoryClass">
         {{ object.object }}
     </mat-expansion-panel-header>
     <div class="form">
         <mat-form-field 
                 appearance="fill"
-                class="object-select"
+                class="object-select one-variable"
                 (click)="sortAutocomplete()">
             <mat-label>Object</mat-label>
             <input
@@ -52,15 +52,24 @@
             <mat-hint>(optional)</mat-hint>
             <input matInput [(ngModel)]="object.zRot">
         </mat-form-field>
-        <mat-form-field *ngIf="object.var1 !== undefined" appearance="fill">
+        <mat-form-field
+            *ngIf="object.var1 !== undefined"
+            appearance="fill"
+            [ngClass]="customVariableClass">
             <mat-label>Var 1</mat-label>
             <input matInput [(ngModel)]="object.var1">
         </mat-form-field>
-        <mat-form-field *ngIf="object.var2 !== undefined" appearance="fill">
+        <mat-form-field
+            *ngIf="object.var2 !== undefined"
+            appearance="fill"
+            [ngClass]="customVariableClass">
             <mat-label>Var 2</mat-label>
             <input matInput [(ngModel)]="object.var2">
         </mat-form-field>
-        <mat-form-field *ngIf="object.var3 !== undefined" appearance="fill">
+        <mat-form-field
+            *ngIf="object.var3 !== undefined"
+            appearance="fill"
+            [ngClass]="customVariableClass">
             <mat-label>Var 3</mat-label>
             <input matInput [(ngModel)]="object.var3">
         </mat-form-field>

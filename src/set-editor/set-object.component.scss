@@ -108,6 +108,7 @@ mat-form-field {
     flex: 100%;
 }
 
+// Mat select override (make group labels bold)
 ::ng-deep .mat-mdc-optgroup-label {
     font-weight: bold;
 }
@@ -122,18 +123,40 @@ mat-label {
     padding: 0 4px !important;
 }
 
-::ng-deep .mdc-floating-label {
-    margin-left: -4px;
-    text-align: center !important;
-    width: calc(2px + $form-field-width);
-}
+// Material Form Field label overrides (to center text)
+::ng-deep {
+    .mdc-floating-label {
+        margin-left: -4px;
+        text-align: center !important;
+        width: calc(3px + $form-field-width);
+    }
 
-::ng-deep .mdc-floating-label--float-above {
-    margin-left: -4px;
-    width: calc(1.38 * $form-field-width) !important;
+    .mdc-floating-label--float-above {
+        width: calc(1.38 * $form-field-width) !important;
+    
+        mat-label {
+            font-size: 16px;
+        }
+    }
 
-    mat-label {
-        font-size: 16px;
+    .one-variable {
+        .mdc-floating-label {
+            width: 257px;
+        }
+    
+        .mdc-floating-label--float-above {
+            width: 343px !important;
+        }
+    }
+
+    .two-variables {
+        .mdc-floating-label {
+            width: 123px;
+        }
+    
+        .mdc-floating-label--float-above {
+            width: 164px !important;
+        }
     }
 }
 
