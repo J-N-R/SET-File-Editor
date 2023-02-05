@@ -71,15 +71,19 @@ export class SetObjectComponent implements OnInit {
   }
 
   setCategory() {
-    const objectGroup = CATEGORIZED_OBJECTS.filter((objectGroup) => objectGroup.objects.has(this.object.object));
+    const objectGroup = CATEGORIZED_OBJECTS.filter(
+        (objectGroup) => objectGroup.objects.has(this.object.object)
+    );
     if (objectGroup.length === 1) {
       this.category = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
     }
   }
 
   setObject() {
-    if (SA2_OBJECT_LIST.has(this.userInput as SA2Object)) {
-      this.object.object = this.userInput as SA2Object;
+    if (this.userInput &&
+        SA2_OBJECT_LIST.has(this.userInput.toLowerCase() as SA2Object)) {
+      this.object.object = (this.userInput.charAt(0).toUpperCase() +
+                            this.userInput.slice(1).toLowerCase()) as SA2Object;
       this.setCategory();
     }
   }
@@ -98,7 +102,9 @@ export class SetObjectComponent implements OnInit {
   }
 }
 
-const SA2_OBJECT_LIST = new Set(Object.values(SA2Object));
+const SA2_OBJECT_LIST = new Set(Object.values(SA2Object).map(
+  (objectName) => objectName.toLowerCase()
+));
 const CATEGORY_CLASSLIST = new Map<string, string>([
   ['Enemies', 'enemy'],
   ['Collectibles', 'collectible'],
