@@ -5,7 +5,7 @@ import { SA2Object } from './objects';
 export const OBJECTS: SetObject[] = [
     {   
         id: 0,
-        object: SA2Object.SPRA,
+        type: SA2Object.SPRA,
         x: 0,
         y: 0,
         z: 0,

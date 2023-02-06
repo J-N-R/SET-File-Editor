@@ -34,7 +34,7 @@ export class SetObjectComponent implements OnInit {
 
   @Input() object: SetObject = {
     id: 0,
-    object: SA2Object.DMYOBJ,
+    type: SA2Object.DMYOBJ,
     x: 0,
     y: 0,
     z: 0,
@@ -48,7 +48,7 @@ export class SetObjectComponent implements OnInit {
   customVariableClass = '';
 
   ngOnInit() {
-    this.userInput = this.object.object;
+    this.userInput = this.object.type;
     this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
     this.setCategory();
     this.setCustomVariables();
@@ -99,7 +99,7 @@ export class SetObjectComponent implements OnInit {
 
   setCategory() {
     const objectGroup = CATEGORIZED_OBJECTS.filter(
-        (objectGroup) => objectGroup.objects.has(this.object.object)
+        (objectGroup) => objectGroup.objects.has(this.object.type)
     );
     if (objectGroup.length === 1) {
       this.categoryClass = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
@@ -109,7 +109,7 @@ export class SetObjectComponent implements OnInit {
   setObject() {
     if (this.userInput &&
         SA2_OBJECTS.has(this.userInput.toLowerCase() as SA2Object)) {
-      this.object.object = (this.userInput.charAt(0).toUpperCase() +
+      this.object.type = (this.userInput.charAt(0).toUpperCase() +
                             this.userInput.slice(1).toLowerCase()) as SA2Object;
       this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
       this.setCategory();
@@ -123,7 +123,7 @@ export class SetObjectComponent implements OnInit {
   }
 
   resetObject() {
-    this.userInput = this.object.object;
+    this.userInput = this.object.type;
   }
 
   deleteObject() {

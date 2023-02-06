@@ -63,7 +63,7 @@ const MOCK_ID = 1;
 function getTestObject(): SetObject {
   return {
     id: MOCK_ID,
-    object: SA2Object.DMYOBJ,
+    type: SA2Object.DMYOBJ,
     x: 1,
     y: 1,
     z: 1,

@@ -20,7 +20,7 @@ export class ObjectService {
   addBlankObject() {
     const object = {
       id: this.nextID,
-      object: SA2Object.RING,
+      type: SA2Object.RING,
       x: 0,
       y: 0,
       z: 0,

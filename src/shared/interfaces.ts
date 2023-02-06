@@ -3,7 +3,7 @@ import { SA2Object } from './objects';
 /** Typescript representation of a SET object. */
 export interface SetObject {
     id: number;
-    object: SA2Object, // might want to rename interface to ObjectType
+    type: SA2Object, // might want to rename interface to ObjectType
     x?: number,
     y?: number,
     z?: number,
