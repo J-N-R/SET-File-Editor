@@ -110,7 +110,6 @@ export const CITY_ESCAPE_OBJECTS = new Set<SA2Object>([
 ]);
 
 /** Map from level id to objList. */
-// (Should we revise this and the other sa2Levels variable?)
 export const SA2_LEVELS = new Map<number, Set<SA2Object>>([
     [13, CITY_ESCAPE_OBJECTS],
 ]);

@@ -148,6 +148,7 @@ const SA1_STAGES: Stage[] = [
   {name: 'Unsupported', id: 0},
 ]
 
+/** Map of external stage name to internal level id. */
 const SA2_STAGES: Stage[] = [
   {name: "Basic Test", id: 0},
   {name: "Green Forest", id: 3},
@@ -208,11 +209,6 @@ const SA2_STAGES: Stage[] = [
   {name: "Iron Gate 2P", id: 58},
   {name: "Death Chamber 2P", id: 59},
 ];
-
-interface FileDialogInput {
-  isCreatingFile?: boolean,
-  isSavingFile?: boolean,
-};
 
 /** Query Params sent from intro to editor page. */
 interface QueryParams {

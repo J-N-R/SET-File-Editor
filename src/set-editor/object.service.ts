@@ -51,7 +51,6 @@ export class ObjectService {
   }
 
   getLevelObjects(stage: number): ObjectGroup[] {
-    // levelObjects: Set<SA2Object>
     const levelObjects = SA2_LEVELS.get(stage);
     if (!levelObjects) {
       console.error('Stage: "' + stage + '" not found.');
