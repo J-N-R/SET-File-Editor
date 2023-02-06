@@ -43,14 +43,15 @@ export class SetObjectComponent implements OnInit {
 
   filteredObjectGroups: ObjectGroup[] = [];
   userInput = '';
+  internalName = '';
   categoryClass = '';
   customVariableClass = '';
 
   ngOnInit() {
     this.userInput = this.object.object;
+    this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
     this.setCategory();
     this.setCustomVariables();
-    console.log(this.customVariableClass);
   }
 
   filterOptions() {
@@ -107,9 +108,10 @@ export class SetObjectComponent implements OnInit {
 
   setObject() {
     if (this.userInput &&
-        SA2_OBJECT_LIST.has(this.userInput.toLowerCase() as SA2Object)) {
+        SA2_OBJECTS.has(this.userInput.toLowerCase() as SA2Object)) {
       this.object.object = (this.userInput.charAt(0).toUpperCase() +
                             this.userInput.slice(1).toLowerCase()) as SA2Object;
+      this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
       this.setCategory();
       this.setCustomVariables();
     }
@@ -129,8 +131,8 @@ export class SetObjectComponent implements OnInit {
   }
 }
 
-const SA2_OBJECT_LIST = new Set(Object.values(SA2Object).map(
-  (objectName) => objectName.toLowerCase()
+const SA2_OBJECTS = new Map(Object.entries(SA2Object).map(
+  ([objectIndex, objectName]) => [objectName.toLowerCase(), objectIndex]
 ));
 const CATEGORY_CLASSLIST = new Map<string, string>([
   ['Enemies', 'enemy'],

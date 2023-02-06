@@ -139,6 +139,10 @@ mat-label {
         }
     }
 
+    mat-hint {
+        font-size: 11px;
+    }
+
     .one-variable {
         .mdc-floating-label {
             width: 257px;
@@ -146,6 +150,11 @@ mat-label {
     
         .mdc-floating-label--float-above {
             width: 343px !important;
+        }
+
+        mat-hint {
+            min-width: 100%;
+            text-align: center;
         }
     }
 
@@ -162,9 +171,4 @@ mat-label {
 
 input {
     text-align: center;
-}
-
-::ng-deep mat-hint {
-    font-size: 11px;
-    font-weight: 500;
 }

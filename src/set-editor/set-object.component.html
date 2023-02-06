@@ -11,6 +11,7 @@
                 class="object-select one-variable"
                 (click)="sortAutocomplete()">
             <mat-label>Object</mat-label>
+            <mat-hint>Internal name: {{ internalName }}</mat-hint>
             <input
                 matInput
                 [matAutocomplete]="autoGroup"
