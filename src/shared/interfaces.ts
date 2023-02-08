@@ -16,6 +16,17 @@ export interface SetObject {
     var3?: number,
 };
 
+/** Labels for what each property is used for in an object. */
+export interface SetLabel {
+    y?: string,
+    xRot?: string,
+    yRot?: string,
+    zRot?: string,
+    var1?: string,
+    var2?: string,
+    var3?: string,
+}
+
 /** Groups SA2Objects into categories */
 export interface ObjectGroup {
     name: string,
