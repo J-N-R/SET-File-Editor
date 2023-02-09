@@ -1,8 +1,9 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
-import { SetObject, ObjectGroup } from '../shared/interfaces';
+import { SetObject, ObjectGroup, SetLabel } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
+import { SA2_LABELS } from 'src/shared/object_labels';
 
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -40,18 +41,21 @@ export class SetObjectComponent implements OnInit {
     z: 0,
   };
   @Input() levelObjectGroups: ObjectGroup[] = [];
+  @Input() stage: number = 13;
 
   filteredObjectGroups: ObjectGroup[] = [];
   userInput = '';
   internalName = '';
   categoryClass = '';
   customVariableClass = '';
+  setLabel: SetLabel = {};
 
   ngOnInit() {
     this.userInput = this.object.type;
     this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
     this.setCategory();
     this.setCustomVariables();
+    this.setObjectLabels();
   }
 
   filterOptions() {
@@ -114,7 +118,27 @@ export class SetObjectComponent implements OnInit {
       this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
       this.setCategory();
       this.setCustomVariables();
+      this.setObjectLabels();
     }
+  }
+
+  setObjectLabels() {
+    console.log(this.object.type);
+    console.log(SA2_LABELS.has(this.object.type));
+    if(!SA2_LABELS.has(this.object.type)) {
+      return;
+    }
+
+    const setLabels = SA2_LABELS.get(this.object.type)!;
+    if (setLabels) {
+      if (setLabels.has(-1)) {
+        this.setLabel = setLabels.get(-1)!;
+      }
+      if (setLabels.has(this.stage)) {
+        this.setLabel = {...this.setLabel, ...setLabels.get(this.stage)!};
+      }
+    }
+    console.log(this.setLabel);
   }
 
   sortAutocomplete() {

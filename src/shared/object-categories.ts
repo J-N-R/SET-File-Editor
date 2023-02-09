@@ -67,8 +67,8 @@ export const MYSTIC_SHRINE = new Set<SA2Object>([
     SA2Object.KDWARPHOLE,
     SA2Object.KDDOOR,
     SA2Object.KDITEMBOX,
-    SA2Object.KDDRINGL,
-    SA2Object.KDDRINGC,
+    SA2Object.KDDRNGL,
+    SA2Object.KDDRNGC,
     SA2Object.KDSPRING,
     SA2Object.KDSPRINGB,
 ]);

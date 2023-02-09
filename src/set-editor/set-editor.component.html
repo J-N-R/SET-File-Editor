@@ -24,6 +24,7 @@
             *ngFor="let object of objects"
             [levelObjectGroups]="levelObjectGroups"
             [object]="object"
+            [stage]="stage"
             (deleteEvent)="onDelete($event)">
         </app-set-object>
     </div>

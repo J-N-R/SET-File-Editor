@@ -54,21 +54,21 @@
             <input matInput [(ngModel)]="object.zRot">
         </mat-form-field>
         <mat-form-field
-            *ngIf="object.var1 !== undefined"
+            *ngIf="setLabel.var1 !== undefined"
             appearance="fill"
             [ngClass]="customVariableClass">
             <mat-label>Var 1</mat-label>
             <input matInput [(ngModel)]="object.var1">
         </mat-form-field>
         <mat-form-field
-            *ngIf="object.var2 !== undefined"
+            *ngIf="setLabel.var2 !== undefined"
             appearance="fill"
             [ngClass]="customVariableClass">
             <mat-label>Var 2</mat-label>
             <input matInput [(ngModel)]="object.var2">
         </mat-form-field>
         <mat-form-field
-            *ngIf="object.var3 !== undefined"
+            *ngIf="setLabel.var3 !== undefined"
             appearance="fill"
             [ngClass]="customVariableClass">
             <mat-label>Var 3</mat-label>
