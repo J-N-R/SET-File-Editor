@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VERSION } from '../content';
 
+/** Footer for the Set Editor App. */
 @Component({
   standalone: true,
   selector: 'app-footer',

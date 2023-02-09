@@ -96,12 +96,23 @@ mat-expansion-panel-header {
     display: flex;
     flex-wrap: wrap;
     margin: 16px 0 -10px;
+
+    mat-icon {
+        margin-bottom: -2px;
+    }
 }
 
 mat-form-field {
     flex: 1;
     margin: 4px 6px;
     min-width: $form-field-width !important;
+}
+
+::ng-deep .mdc-tooltip {
+    background-color: white;
+    border: $border-default;
+    border-radius: 8px;
+    padding: 8px;
 }
 
 .object-select {

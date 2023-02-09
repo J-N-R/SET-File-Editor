@@ -15,6 +15,6 @@ export const NOTES: IntroNote[] = [
     },
     {
         icon: 'info',
-        text: 'Keep an eye out for "help" menus to explain object types!',
+        text: 'Keep an eye out for "help" menus to explain object types and variables!',
     },
 ];

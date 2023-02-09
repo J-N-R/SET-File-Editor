@@ -20,6 +20,7 @@ import { ElectronService } from '../shared/electron.service';
 import { SetObjectComponent } from './set-object.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
+/** Main object editing page. */
 @Component({
   standalone: true,
   selector: 'app-set-editor',

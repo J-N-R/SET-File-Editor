@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
+/** Used to double-check if a user wants to perform an action. */
 @Component({
   selector: 'app-confirmation-dialog',
   standalone: true,

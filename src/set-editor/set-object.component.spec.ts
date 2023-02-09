@@ -20,6 +20,9 @@ describe('SetObjectComponent', () => {
   /**
    * TODO: Test that changes here are reflected in the object list.
    * (Modifying, Deleting, etc)
+   * TODO: Test that setting object returns it back to proper capitalized name.
+   * TODO: Test that labels work properly.
+   * TODO: Test that labels work properly with different stages.
    **/
   it('should create', () => {
     expect(component).toBeTruthy();

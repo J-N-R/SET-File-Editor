@@ -13,7 +13,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+/**
+ * TODO: Use reactive forms over template-driven.
+ * TODO: Replace '0' default with null and use '0' placeholder.
+ **/
+
+/** UI Element that represents a single Set Object. */
 @Component({
   standalone: true,
   selector: 'app-set-object',
@@ -28,6 +35,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatTooltipModule,
   ],
 })
 export class SetObjectComponent implements OnInit {
@@ -52,7 +60,7 @@ export class SetObjectComponent implements OnInit {
 
   ngOnInit() {
     this.userInput = this.object.type;
-    this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
+    this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())![1];
     this.setCategory();
     this.setCustomVariables();
     this.setObjectLabels();
@@ -113,9 +121,9 @@ export class SetObjectComponent implements OnInit {
   setObject() {
     if (this.userInput &&
         SA2_OBJECTS.has(this.userInput.toLowerCase() as SA2Object)) {
-      this.object.type = (this.userInput.charAt(0).toUpperCase() +
-                            this.userInput.slice(1).toLowerCase()) as SA2Object;
-      this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
+      const [originalObject, originalName] = SA2_OBJECTS.get(this.userInput.toLowerCase())!;
+      this.object.type = originalName as SA2Object;
+      this.internalName = originalObject;
       this.setCategory();
       this.setCustomVariables();
       this.setObjectLabels();
@@ -123,9 +131,8 @@ export class SetObjectComponent implements OnInit {
   }
 
   setObjectLabels() {
-    console.log(this.object.type);
-    console.log(SA2_LABELS.has(this.object.type));
     if(!SA2_LABELS.has(this.object.type)) {
+      this.setLabel = {};
       return;
     }
 
@@ -155,8 +162,12 @@ export class SetObjectComponent implements OnInit {
   }
 }
 
-const SA2_OBJECTS = new Map(Object.entries(SA2Object).map(
-  ([objectIndex, objectName]) => [objectName.toLowerCase(), objectIndex]
+/**
+ * Map used for select autocomplete search.
+ * Keyed by object name lowercased and returns original object and object name.
+ */
+const SA2_OBJECTS = new Map<string, string[]>(Object.entries(SA2Object).map(
+  ([objectIndex, objectName]) => [objectName.toLowerCase(), [objectIndex, objectName]]
 ));
 const CATEGORY_CLASSLIST = new Map<string, string>([
   ['Enemies', 'enemy'],
