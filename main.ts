@@ -49,8 +49,8 @@ function writeDataView(filePath: string, dataview: DataView) {
     fs.appendFileSync(filePath, new Uint8Array(dataview.buffer));
 }
 
-ipcMain.handle('openFile', async (event) => {
-    dialog.showOpenDialog({
+ipcMain.handle('openFile', (event) => {
+    dialog.showOpenDialogSync({
         filters: [{name: 'SET File (*.bin)', extensions: ['bin']}],
         properties: ['openFile'],
     });

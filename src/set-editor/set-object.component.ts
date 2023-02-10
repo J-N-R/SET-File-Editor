@@ -142,7 +142,6 @@ export class SetObjectComponent implements OnInit {
         this.setLabel = {...this.setLabel, ...setLabels.get(this.stage)!};
       }
     }
-    console.log(this.setLabel);
   }
 
   sortAutocomplete() {
