@@ -28,18 +28,18 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>x</mat-label>
-            <input matInput [(ngModel)]="object.x">
+            <input matInput placeholder="0" [(ngModel)]="object.x">
         </mat-form-field>
         <mat-form-field appearance="fill" [matTooltip]="setLabel.y ?? ''">
             <mat-label>
                 y
                 <mat-icon *ngIf="!!setLabel.y">info</mat-icon>
             </mat-label>
-            <input matInput [(ngModel)]="object.y">
+            <input matInput placeholder="0" [(ngModel)]="object.y">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>z</mat-label>
-            <input matInput [(ngModel)]="object.z">
+            <input matInput placeholder="0" [(ngModel)]="object.z">
         </mat-form-field>
         <mat-form-field appearance="fill" [matTooltip]="setLabel.xRot ?? ''">
             <mat-label>

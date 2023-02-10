@@ -21,9 +21,6 @@ export class ObjectService {
     const object = {
       id: this.nextID,
       type: SA2Object.RING,
-      x: 0,
-      y: 0,
-      z: 0,
     }
     this.nextID++;
     this.objectList.push(object);

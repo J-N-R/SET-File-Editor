@@ -44,9 +44,6 @@ export class SetObjectComponent implements OnInit {
   @Input() object: SetObject = {
     id: 0,
     type: SA2Object.DMYOBJ,
-    x: 0,
-    y: 0,
-    z: 0,
   };
   @Input() levelObjectGroups: ObjectGroup[] = [];
   @Input() stage: number = 13;

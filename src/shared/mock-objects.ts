@@ -6,8 +6,5 @@ export const OBJECTS: SetObject[] = [
     {   
         id: 0,
         type: SA2Object.RING,
-        x: 0,
-        y: 0,
-        z: 0,
     },
 ];

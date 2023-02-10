@@ -92,10 +92,10 @@ ipcMain.handle('saveFile', (event, setFile: SetFile) => {
         // Write clip & id. If littleEndian, id goes first.
         dataview = new DataView(new ArrayBuffer(2));
         if (enableLittleEndian) {
-            dataview.setUint8(0, levelObjects.indexOf(setObject.object));
+            dataview.setUint8(0, levelObjects.indexOf(setObject.type));
         }
         else {
-            dataview.setUint8(1, levelObjects.indexOf(setObject.object));
+            dataview.setUint8(1, levelObjects.indexOf(setObject.type));
         }
         writeDataView(filePath, dataview);
 
