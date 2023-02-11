@@ -51,7 +51,7 @@
                     x Rotation
                 </ng-template>
             </mat-label>
-            <input matInput [(ngModel)]="object.xRot">
+            <input matInput placeholder="0°" [(ngModel)]="object.xRot">
             <mat-hint>(optional)</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="fill" [matTooltip]="setLabel.yRot ?? ''">
@@ -64,7 +64,7 @@
                     y Rotation
                 </ng-template>
             </mat-label>
-            <input matInput [(ngModel)]="object.yRot">
+            <input matInput placeholder="0°" [(ngModel)]="object.yRot">
             <mat-hint>(optional)</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="fill" [matTooltip]="setLabel.zRot ?? ''">
@@ -78,7 +78,7 @@
                 </ng-template>
             </mat-label>
             <mat-hint>(optional)</mat-hint>
-            <input matInput [(ngModel)]="object.zRot">
+            <input matInput placeholder="0°" [(ngModel)]="object.zRot">
         </mat-form-field>
         <mat-form-field
             *ngIf="setLabel.var1 !== undefined"
