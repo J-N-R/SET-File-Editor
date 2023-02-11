@@ -148,7 +148,11 @@ const SA1_STAGES: Stage[] = [
   {name: 'Unsupported', id: 0},
 ]
 
-/** Map of external stage name to internal level id. */
+/**
+ * Map of external stage name to internal level id.
+ * TODO: You can probably merge this and the sa2levels
+ * object list with a custom interface.
+*/
 const SA2_STAGES: Stage[] = [
   {name: "Basic Test", id: 0},
   {name: "Green Forest", id: 3},
