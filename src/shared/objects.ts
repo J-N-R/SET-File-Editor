@@ -131,7 +131,7 @@ export enum SA2Object {
     E_SARU = 'Bomb monkey',
     E_SHOUKO = 'Airplane',
     E_SW_SHOUKO = 'Airplane trigger',
-    E_UNI = 'Unidus',
+    E_UNI = 'Orbinaut',
     EECONT = 'Flying box',
     EFLENSF0 = 'Lens flare',
     EFFLENSF = 'Duplicate lens flare',
