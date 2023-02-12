@@ -21,6 +21,16 @@ form {
     .select-section {
         flex: 1;
     }
+
+    .hidden {
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    .hideable-inputs {
+        transition: opacity 0.5s;
+    }
 }
 
 label {

@@ -36,7 +36,7 @@
                     </ng-template>
                 </mat-select>
             </mat-form-field>
-            <ng-container *ngIf="isSA2Format?.value">
+            <div class="hideable-inputs" [class.hidden]="!isSA2Format?.value">
                 <mat-form-field appearance="fill">
                     <mat-label>SET File Format</mat-label>
                     <mat-select formControlName="fileType">
@@ -53,7 +53,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            </ng-container>
+            </div>
         </div>
     </div>
     <div class="spacer"></div>
