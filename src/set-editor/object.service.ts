@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { ObjectGroup, SetObject } from '../shared/interfaces';
+import { SetObject } from '../shared/interfaces';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
@@ -47,30 +47,46 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  getLevelObjects(stage: number): ObjectGroup[] {
+  // Retrieves an object's levels already categorized.
+  getLevelObjects(stage: number): Map<string, Set<SA2Object>> {
     const levelObjects = SA2_LEVELS.get(stage);
     if (!levelObjects) {
       console.error('Stage: "' + stage + '" not found.');
-      return [{
-        name: 'Unknown Stage Detected',
-        objects: new Set<SA2Object>([SA2Object.DMYOBJ]),
-      }];
+      return new Map([
+        [
+          'Unknown Stage Detected',
+          new Set<SA2Object>([SA2Object.DMYOBJ]),
+        ]
+      ]);
     }
 
-    const filteredObjectGroup: ObjectGroup[] = [];
-    CATEGORIZED_OBJECTS.forEach((objectGroup) => {
-      const filteredList = new Set<SA2Object>();
-      objectGroup.objects.forEach((object) => {
-        if (levelObjects.has(object)) {
-          filteredList.add(object);
+    // Go through every object in a level, and find the category it belongs to.
+    // This generates our own subset of categories for the UI to display.
+    const filteredObjectGroups = new Map<string, Set<SA2Object>>();
+    for (const object of levelObjects) {
+      let found = false;
+      for (const [groupName, objectGroup] of CATEGORIZED_OBJECTS) {
+        if (objectGroup.has(object)) {
+          found = true;
+          if (!filteredObjectGroups.has(groupName)) {
+            filteredObjectGroups.set(groupName, new Set<SA2Object>([object]));
+          }
+          else {
+            filteredObjectGroups.get(groupName)!.add(object);
+          }
+          break;
         }
-      })
-
-      filteredObjectGroup.push({
-        name: objectGroup.name,
-        objects: filteredList,
-      });
-    });
-    return filteredObjectGroup;
+      }
+      if (!found) {
+        if (!filteredObjectGroups.has('Uncategorized')) {
+          filteredObjectGroups.set('Uncategorized', new Set<SA2Object>([object]));
+        }
+        else {
+          filteredObjectGroups.get('Uncategorized')!.add(object);
+        }
+      }
+    }
+    
+    return filteredObjectGroups;
   }
 }

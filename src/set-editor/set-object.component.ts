@@ -1,11 +1,11 @@
 import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
-import { SetObject, ObjectGroup, SetLabel } from '../shared/interfaces';
+import { SetObject, SetLabel } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LABELS } from 'src/shared/object_labels';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, KeyValue } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,10 +45,10 @@ export class SetObjectComponent implements OnInit {
     id: 0,
     type: SA2Object.DMYOBJ,
   };
-  @Input() levelObjectGroups: ObjectGroup[] = [];
+  @Input() levelObjectGroups = new Map<string, Set<SA2Object>>();
   @Input() stage: number = 13;
 
-  filteredObjectGroups: ObjectGroup[] = [];
+  filteredObjectGroups = new Map<string, Set<SA2Object>>();
   userInput = '';
   internalName = '';
   categoryClass = '';
@@ -64,23 +64,20 @@ export class SetObjectComponent implements OnInit {
   }
 
   filterOptions() {
-    this.filteredObjectGroups.length = 0;
+    this.filteredObjectGroups.clear();
 
-    this.levelObjectGroups.forEach((objectGroup) => {
+    for (const [groupName, objectGroup] of this.levelObjectGroups) {
       const filteredObjects = new Set<SA2Object>();
-      objectGroup.objects.forEach((object) => {
+      for (const object of objectGroup) {
         if (object.toLowerCase().includes(this.userInput.toLowerCase())) {
           filteredObjects.add(object);
         }
-      });
+      }
 
       if (filteredObjects.size > 0) {
-        this.filteredObjectGroups.push({
-          name: objectGroup.name,
-          objects: filteredObjects,
-        });
+        this.filteredObjectGroups.set(groupName, filteredObjects);
       }
-    });
+    }
   }
 
   setCustomVariables() {
@@ -107,11 +104,10 @@ export class SetObjectComponent implements OnInit {
   }
 
   setCategory() {
-    const objectGroup = CATEGORIZED_OBJECTS.filter(
-        (objectGroup) => objectGroup.objects.has(this.object.type)
-    );
-    if (objectGroup.length === 1) {
-      this.categoryClass = CATEGORY_CLASSLIST.get(objectGroup[0].name) ?? '';
+    for (const [groupName, objectGroup] of this.levelObjectGroups) {
+      if (objectGroup.has(this.object.type)) {
+        this.categoryClass = CATEGORY_CLASSLIST.get(groupName) ?? '';
+      }
     }
   }
 
@@ -149,6 +145,11 @@ export class SetObjectComponent implements OnInit {
     this.filterOptions();
   }
 
+  // Overrides keyvalue to keep object categories in original order
+  unsortedComparator(a: KeyValue<string, Set<SA2Object>>, b: KeyValue<string, Set<SA2Object>>) {
+    return SORTED_CATEGORY_KEYS.indexOf(a.key) - SORTED_CATEGORY_KEYS.indexOf(b.key);
+  }
+
   resetObject() {
     this.userInput = this.object.type;
   }
@@ -170,4 +171,10 @@ const CATEGORY_CLASSLIST = new Map<string, string>([
   ['Collectibles', 'collectible'],
   ['Stage Interactables', 'interactable'],
   ['Decoration', 'decoration'],
+  ['Triggers', 'trigger'],
+  ['Sunglasses', 'trigger'],
+  ['Ball Switch', 'trigger'],
+  ['Mystic Shrine', 'shrine'],
+  ['Actors', 'decoration'],
 ]);
+const SORTED_CATEGORY_KEYS = Array.from(CATEGORIZED_OBJECTS.keys());

@@ -5,6 +5,8 @@ $collectible-color: mat.get-color-from-palette(mat.$green-palette, 400);
 $enemy-color: mat.get-color-from-palette(mat.$blue-gray-palette, 400);
 $interactable-color: mat.get-color-from-palette(mat.$blue-palette, 400);
 $decoration-color: mat.get-color-from-palette(mat.$purple-palette, 300);
+$trigger-color: mat.get-color-from-palette(mat.$orange-palette, 400);
+$shrine-color: mat.get-color-from-palette(mat.$teal-palette, 400);
 
 $form-field-width: 75px;
 
@@ -71,6 +73,14 @@ mat-expansion-panel-header {
 
     &.decoration {
         background-color: $decoration-color !important;
+    }
+
+    &.trigger {
+        background-color: $trigger-color !important;
+    }
+
+    &.shrine {
+        background-color: $shrine-color !important;
     }
 
     &.mat-expanded {

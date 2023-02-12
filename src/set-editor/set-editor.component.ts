@@ -3,7 +3,7 @@ import { debounceTime, first } from 'rxjs/operators';
 
 import { OBJECTS } from '../shared/mock-objects';
 
-import { ObjectGroup } from '../shared/interfaces';
+import { SA2Object } from '../shared/objects';
 import { CITY_ESCAPE_OBJECTS } from '../shared/sa2-levels';
 
 import { CommonModule, Location } from '@angular/common';
@@ -43,7 +43,7 @@ export default class SetEditorComponent implements OnInit {
   fileType = '';
   stage = 13;
   numOfObjects = 0;
-  levelObjectGroups: ObjectGroup[] = [];
+  levelObjectGroups = new Map<string, Set<SA2Object>>();
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
 

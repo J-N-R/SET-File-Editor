@@ -1,5 +1,4 @@
 import { SA2Object } from "./objects";
-import { ObjectGroup } from "./interfaces";
 
 /** 
  * These object categorizations may be imperfect, feel
@@ -621,45 +620,49 @@ export const TRIGGERS = new Set<SA2Object>([
 
 // Should we consider triggers its own category?
 /** Object categories grouped by name. */
-export const CATEGORIZED_OBJECTS: ObjectGroup[] = [
-    {
-        name: 'Collectibles',
-        objects: COLLECTIBLES,
-    },
-    {
-        name: 'Enemies',
-        objects: ENEMIES,
-    },
-    {
-        name: 'Stage Interactables',
-        objects: STAGE_INTERACTIVE,
-    },
-    {
-        name: 'Ball Switch',
-        objects: BALL_SWITCH,
-    },
-    {
-        name: 'Mystic Shrine',
-        objects: MYSTIC_SHRINE,
-    },
-    {
-        name: 'Sunglasses',
-        objects: SUNGLASSES,
-    },
-    {
-        name: 'Actors',
-        objects: ACTORS,
-    },
-    {
-        name: 'Decoration',
-        objects: DECORATION,
-    },
-    {
-        name: 'Collision',
-        objects: COLLISIONS,
-    },
-    {
-        name: 'Triggers',
-        objects: TRIGGERS,
-    },
-];
+export const CATEGORIZED_OBJECTS = new Map<string, Set<SA2Object>>([
+    [
+        'Collectibles',
+        COLLECTIBLES,
+    ],
+    [
+        'Enemies',
+        ENEMIES,
+    ],
+    [
+        'Stage Interactables',
+        STAGE_INTERACTIVE,
+    ],
+    [
+        'Ball Switch',
+        BALL_SWITCH,
+    ],
+    [
+        'Mystic Shrine',
+        MYSTIC_SHRINE,
+    ],
+    [
+        'Sunglasses',
+        SUNGLASSES,
+    ],
+    [
+        'Actors',
+        ACTORS,
+    ],
+    [
+        'Decoration',
+        DECORATION,
+    ],
+    [
+        'Collision',
+        COLLISIONS,
+    ],
+    [
+        'Triggers',
+        TRIGGERS,
+    ],
+    [
+        'Uncategorized',
+        new Set<SA2Object>(),
+    ],
+]);

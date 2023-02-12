@@ -27,12 +27,6 @@ export interface SetLabel {
     var3?: string,
 }
 
-/** Groups SA2Objects into categories */
-export interface ObjectGroup {
-    name: string,
-    objects: Set<SA2Object>,
-}
-
 /** Saves SetObject information into a file. */
 export interface SetFile {
     fileName: string,

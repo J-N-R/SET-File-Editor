@@ -19,8 +19,8 @@
                 (blur)="resetObject()"
                 (ngModelChange)="filterOptions(); setObject()">
             <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-optgroup *ngFor="let objectGroup of filteredObjectGroups" [label]="objectGroup.name">
-                  <mat-option *ngFor="let object of objectGroup.objects" [value]="object">
+                <mat-optgroup *ngFor="let category of filteredObjectGroups | keyvalue: unsortedComparator" [label]="category.key">
+                  <mat-option *ngFor="let object of category.value" [value]="object">
                     {{ object }}
                   </mat-option>
               </mat-optgroup>
