@@ -5,113 +5,115 @@
     <mat-expansion-panel-header class="center" [ngClass]="categoryClass">
         {{ object.type }}
     </mat-expansion-panel-header>
-    <div class="form">
-        <mat-form-field 
+    <ng-template matExpansionPanelContent>
+        <div class="form">
+            <mat-form-field 
+                    appearance="fill"
+                    class="object-select one-variable"
+                    (click)="sortAutocomplete()">
+                <mat-label>Object</mat-label>
+                <mat-hint>Internal name: {{ internalName }}</mat-hint>
+                <input
+                    matInput
+                    [matAutocomplete]="autoGroup"
+                    [(ngModel)]="userInput"
+                    (blur)="resetObject()"
+                    (ngModelChange)="filterOptions(); setObject()">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                    <mat-optgroup *ngFor="let category of filteredObjectGroups | keyvalue: unsortedComparator" [label]="category.key">
+                    <mat-option *ngFor="let object of category.value" [value]="object">
+                        {{ object }}
+                    </mat-option>
+                </mat-optgroup>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>x</mat-label>
+                <input matInput placeholder="0" [(ngModel)]="object.x">
+            </mat-form-field>
+            <mat-form-field appearance="fill" [matTooltip]="setLabel.y ?? ''">
+                <mat-label>
+                    y
+                    <mat-icon *ngIf="!!setLabel.y">info</mat-icon>
+                </mat-label>
+                <input matInput placeholder="0" [(ngModel)]="object.y">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>z</mat-label>
+                <input matInput placeholder="0" [(ngModel)]="object.z">
+            </mat-form-field>
+            <mat-form-field appearance="fill" [matTooltip]="setLabel.xRot ?? ''">
+                <mat-label>
+                    <ng-container *ngIf="setLabel.xRot !== undefined; else defaultXTemplate">
+                        x Rot
+                        <mat-icon *ngIf="!!setLabel.xRot">info</mat-icon>
+                    </ng-container>
+                    <ng-template #defaultXTemplate>
+                        x Rotation
+                    </ng-template>
+                </mat-label>
+                <input matInput placeholder="0°" [(ngModel)]="object.xRot">
+                <mat-hint>(optional)</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [matTooltip]="setLabel.yRot ?? ''">
+                <mat-label>
+                    <ng-container *ngIf="setLabel.yRot !== undefined; else defaultYTemplate">
+                        y Rot
+                        <mat-icon *ngIf="!!setLabel.yRot">info</mat-icon>
+                    </ng-container>
+                    <ng-template #defaultYTemplate>
+                        y Rotation
+                    </ng-template>
+                </mat-label>
+                <input matInput placeholder="0°" [(ngModel)]="object.yRot">
+                <mat-hint>(optional)</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" [matTooltip]="setLabel.zRot ?? ''">
+                <mat-label>
+                    <ng-container *ngIf="setLabel.zRot !== undefined; else defaultZTemplate">
+                        z Rot
+                        <mat-icon *ngIf="!!setLabel.zRot">info</mat-icon>
+                    </ng-container>
+                    <ng-template #defaultZTemplate>
+                        z Rotation
+                    </ng-template>
+                </mat-label>
+                <mat-hint>(optional)</mat-hint>
+                <input matInput placeholder="0°" [(ngModel)]="object.zRot">
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="setLabel.var1 !== undefined"
                 appearance="fill"
-                class="object-select one-variable"
-                (click)="sortAutocomplete()">
-            <mat-label>Object</mat-label>
-            <mat-hint>Internal name: {{ internalName }}</mat-hint>
-            <input
-                matInput
-                [matAutocomplete]="autoGroup"
-                [(ngModel)]="userInput"
-                (blur)="resetObject()"
-                (ngModelChange)="filterOptions(); setObject()">
-            <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-optgroup *ngFor="let category of filteredObjectGroups | keyvalue: unsortedComparator" [label]="category.key">
-                  <mat-option *ngFor="let object of category.value" [value]="object">
-                    {{ object }}
-                  </mat-option>
-              </mat-optgroup>
-            </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>x</mat-label>
-            <input matInput placeholder="0" [(ngModel)]="object.x">
-        </mat-form-field>
-        <mat-form-field appearance="fill" [matTooltip]="setLabel.y ?? ''">
-            <mat-label>
-                y
-                <mat-icon *ngIf="!!setLabel.y">info</mat-icon>
-            </mat-label>
-            <input matInput placeholder="0" [(ngModel)]="object.y">
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>z</mat-label>
-            <input matInput placeholder="0" [(ngModel)]="object.z">
-        </mat-form-field>
-        <mat-form-field appearance="fill" [matTooltip]="setLabel.xRot ?? ''">
-            <mat-label>
-                <ng-container *ngIf="setLabel.xRot !== undefined; else defaultXTemplate">
-                    x Rot
-                    <mat-icon *ngIf="!!setLabel.xRot">info</mat-icon>
-                </ng-container>
-                <ng-template #defaultXTemplate>
-                    x Rotation
-                </ng-template>
-            </mat-label>
-            <input matInput placeholder="0°" [(ngModel)]="object.xRot">
-            <mat-hint>(optional)</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="fill" [matTooltip]="setLabel.yRot ?? ''">
-            <mat-label>
-                <ng-container *ngIf="setLabel.yRot !== undefined; else defaultYTemplate">
-                    y Rot
-                    <mat-icon *ngIf="!!setLabel.yRot">info</mat-icon>
-                </ng-container>
-                <ng-template #defaultYTemplate>
-                    y Rotation
-                </ng-template>
-            </mat-label>
-            <input matInput placeholder="0°" [(ngModel)]="object.yRot">
-            <mat-hint>(optional)</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="fill" [matTooltip]="setLabel.zRot ?? ''">
-            <mat-label>
-                <ng-container *ngIf="setLabel.zRot !== undefined; else defaultZTemplate">
-                    z Rot
-                    <mat-icon *ngIf="!!setLabel.zRot">info</mat-icon>
-                </ng-container>
-                <ng-template #defaultZTemplate>
-                    z Rotation
-                </ng-template>
-            </mat-label>
-            <mat-hint>(optional)</mat-hint>
-            <input matInput placeholder="0°" [(ngModel)]="object.zRot">
-        </mat-form-field>
-        <mat-form-field
-            *ngIf="setLabel.var1 !== undefined"
-            appearance="fill"
-            [matTooltip]="setLabel.var1"
-            [ngClass]="customVariableClass">
-            <mat-label>
-                Var 1
-                <mat-icon *ngIf="!!setLabel.var1">info</mat-icon>
-            </mat-label>
-            <input matInput [(ngModel)]="object.var1">
-        </mat-form-field>
-        <mat-form-field
-            *ngIf="setLabel.var2 !== undefined"
-            appearance="fill"
-            [matTooltip]="setLabel.var2"
-            [ngClass]="customVariableClass">
-            <mat-label>
-                Var 2
-                <mat-icon *ngIf="!!setLabel.var2">info</mat-icon>
-            </mat-label>
-            <input matInput [(ngModel)]="object.var2">
-        </mat-form-field>
-        <mat-form-field
-            *ngIf="setLabel.var3 !== undefined"
-            appearance="fill"
-            [matTooltip]="setLabel.var3"
-            [ngClass]="customVariableClass">
-            <mat-label>
-                Var 3
-                <mat-icon *ngIf="!!setLabel.var3">info</mat-icon>
-            </mat-label>
-            <input matInput [(ngModel)]="object.var3">
-        </mat-form-field>
-    </div>
+                [matTooltip]="setLabel.var1"
+                [ngClass]="customVariableClass">
+                <mat-label>
+                    Var 1
+                    <mat-icon *ngIf="!!setLabel.var1">info</mat-icon>
+                </mat-label>
+                <input matInput [(ngModel)]="object.var1">
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="setLabel.var2 !== undefined"
+                appearance="fill"
+                [matTooltip]="setLabel.var2"
+                [ngClass]="customVariableClass">
+                <mat-label>
+                    Var 2
+                    <mat-icon *ngIf="!!setLabel.var2">info</mat-icon>
+                </mat-label>
+                <input matInput [(ngModel)]="object.var2">
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="setLabel.var3 !== undefined"
+                appearance="fill"
+                [matTooltip]="setLabel.var3"
+                [ngClass]="customVariableClass">
+                <mat-label>
+                    Var 3
+                    <mat-icon *ngIf="!!setLabel.var3">info</mat-icon>
+                </mat-label>
+                <input matInput [(ngModel)]="object.var3">
+            </mat-form-field>
+        </div>
+    </ng-template>
 </mat-expansion-panel>
