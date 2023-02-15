@@ -1,5 +1,10 @@
 <form [formGroup]="form">
-    <h1 class="mat-h1">{{ title }}</h1>
+    <h1 *ngIf="!setFile; else openFileTemplate" class="mat-h1">
+        Create File
+    </h1>
+    <ng-template #openFileTemplate>
+        <h1 class="mat-h1">Confirm File</h1>
+    </ng-template>
     <mat-form-field class="mat-h3" appearance="fill">
         <mat-label>File Name (optional)</mat-label>
         <input matInput formControlName="fileName">
@@ -93,7 +98,12 @@
             [disabled]="!form.valid"
             [queryParams]="queryParams"
             [routerLink]="'editor'">
-            <span class="mat-h2">Create File</span>
+            <span *ngIf="!setFile; else openFileButtonTemplate" class="mat-h2">
+                Create File
+            </span>
+            <ng-template #openFileButtonTemplate>
+                <span class="mat-h2">Open File</span>
+            </ng-template>
         </button>
     </div>
 </form>

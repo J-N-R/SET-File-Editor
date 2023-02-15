@@ -17,19 +17,24 @@
             <span class="mdc-fab__label">Clear</span>
         </button>
     </div>
-    <div 
-        *ngIf="objectsEmitter | async as objects else loading"
-        class="objects-container">
-        <app-set-object 
-            *ngFor="let object of objects"
-            [levelObjectGroups]="levelObjectGroups"
-            [object]="object"
-            [stage]="stage"
-            (deleteEvent)="onDelete($event)">
-        </app-set-object>
-    </div>
-    <ng-template #loading>
-        <h1 class="mat-display-1 center">Loading...</h1>
+    <ng-container *ngIf="!loading; else loadingTemplate">
+        <div 
+            *ngIf="objectsEmitter | async as objects; else loadingTemplate"
+            class="objects-container">
+            <app-set-object 
+                *ngFor="let object of objects"
+                [levelObjectGroups]="levelObjectGroups"
+                [object]="object"
+                [stage]="stage"
+                (deleteEvent)="onDelete($event)">
+            </app-set-object>
+        </div>
+    </ng-container>
+    <ng-template #loadingTemplate>
+        <div class="center">
+            <mat-spinner></mat-spinner>
+            <h1 class="mat-display-1 center">Loading...</h1>
+        </div>
     </ng-template>
 </div>
 <app-footer></app-footer>

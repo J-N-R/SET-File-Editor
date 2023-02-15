@@ -38,6 +38,7 @@ $theme: mat.define-light-theme((
 @include mat.fab-theme($theme);
 @include mat.expansion-theme($theme);
 @include mat.autocomplete-theme($theme);
+@include mat.progress-spinner-theme($theme);
 
 /**
  * Material component typography import.

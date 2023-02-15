@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { first } from 'rxjs/operators';
+import { SetFile } from '../interfaces';
 
 /** Dialog that opens when a user wants to open or create a file. */
 @Component({
@@ -32,14 +33,15 @@ import { first } from 'rxjs/operators';
 export class FileFormComponent implements OnInit {
   @Output() cancelEvent = new EventEmitter();
 
+  @Input() setFile: SetFile|null = null;
+
   error = false;
-  title = 'Create File';
   form = new FormGroup({
     fileName: new FormControl('(placeholder)'),
-    isSA2Format: new FormControl(null, Validators.required),
+    isSA2Format: new FormControl<boolean|null>(null, Validators.required),
     fileType: new FormControl('Normal'),
-    stage: new FormControl(null, Validators.required),
-    mode: new FormControl(null),
+    stage: new FormControl<number|null>(null, Validators.required),
+    mode: new FormControl<string|null>(null),
   });
   readonly sa1Formats = SA1_FORMATS;
   readonly sa2Formats = SA2_FORMATS;
@@ -66,17 +68,20 @@ export class FileFormComponent implements OnInit {
   get queryParams() {
     const queryParams: QueryParams = {};
 
-    if (this.fileName) {
-      queryParams.fileName = this.fileName.value!;
+    if (this.fileName?.value) {
+      queryParams.fileName = this.fileName.value;
     }
-    if (this.isSA2Format) {
-      queryParams.isSA2Format = String(this.isSA2Format.value!);
+    if (this.isSA2Format?.value) {
+      queryParams.isSA2Format = this.isSA2Format.value;
     }
-    if (this.fileType) {
-      queryParams.fileType = this.fileType.value!;
+    if (this.fileType?.value) {
+      queryParams.fileType = this.fileType.value;
     }
-    if (this.stage) {
-      queryParams.stage = this.stage.value!;
+    if (this.stage?.value) {
+      queryParams.stage = this.stage.value;
+    }
+    if (this.setFile?.filePath) {
+      queryParams.filePath = this.setFile.filePath;
     }
     
     return queryParams;
@@ -117,6 +122,13 @@ export class FileFormComponent implements OnInit {
         this.fileName?.setValue(fileName + fileNameSuffix + '.bin');
       }
     });
+
+    // If a file was opened, prepopulate the forms.
+    if (this.setFile) {
+      this.fileName?.setValue(this.setFile.fileName);
+      this.isSA2Format?.setValue(this.setFile.isSA2Format ?? null);
+      this.stage?.setValue(this.setFile.stage ?? null);
+    }
   }
 
   cancel() {
@@ -217,9 +229,10 @@ const SA2_STAGES: Stage[] = [
 /** Query Params sent from intro to editor page. */
 interface QueryParams {
   fileName?: string,
-  isSA2Format?: string,
+  isSA2Format?: boolean,
   fileType?: string,
-  stage?: string,
+  stage?: number,
+  filePath?: string,
 };
 
 interface Stage {

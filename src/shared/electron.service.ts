@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { ipcRenderer } from 'electron';
 import { Observable, from, of } from 'rxjs';
 
-import { SetFile } from './interfaces';
+import { SetFile, SetObject } from './interfaces';
+import { SA2Object } from './objects';
 
 /** Manages interfacing with the operating system using Electron. */
 @Injectable({
@@ -17,7 +18,8 @@ export class ElectronService {
       this.ipcRenderer = (window).require('electron').ipcRenderer;
     }
     else {
-      console.log("Electron not detected. Some file features will be disabled.");
+      console.warn('Electron not detected. Some file features will be' +
+      'disabled.');
     }
   }
 
@@ -25,11 +27,26 @@ export class ElectronService {
     return !!((window) && (window).process && (window).process.type);
   }
 
-  openFile(): Observable<any> {
-    return this.ipcRenderer ? from(this.ipcRenderer.invoke('openFile')) : of(null);
+  /** Creates an open file dialog and estimates file information. */
+  openFile(): Observable<SetFile|null> {
+    return this.ipcRenderer ? from(this.ipcRenderer.invoke('openFile')) :
+                              of(null);
   }
 
-  saveFile(setFile: SetFile): Observable<any> {
-    return this.ipcRenderer ? from(this.ipcRenderer.invoke('saveFile', setFile)) : of(null);
+  /**
+   * Reads through a file and returns an object list based on given file
+   * information.
+   **/
+  readFile(setFile: SetFile): Observable<SetObject[]|null> {
+    return this.ipcRenderer ?
+                  from(this.ipcRenderer.invoke('readFile', setFile)) :
+                  of(null);
+  }
+
+  /** Saves a binary file from file information and a given object list. */
+  saveFile(setFile: SetFile): Observable<boolean> {
+    return this.ipcRenderer ?
+                  from(this.ipcRenderer.invoke('saveFile', setFile)) :
+                  of(null);
   }
 }

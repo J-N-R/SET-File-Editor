@@ -30,7 +30,8 @@ export interface SetLabel {
 /** Saves SetObject information into a file. */
 export interface SetFile {
     fileName: string,
-    isSA2Format: boolean,
+    isSA2Format?: boolean,
     setObjects: SetObject[],
-    stage: number,
+    stage?: number,
+    filePath?: string,
 }

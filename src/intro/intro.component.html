@@ -28,7 +28,7 @@
                 <button
                     mat-flat-button
                     color="accent"
-                    (click)="toggleForm()">
+                    (click)="openFile()">
                     <span class="mat-h2">Open File</span>
                 </button>
                 <button
@@ -40,7 +40,7 @@
             </div>
         </ng-container>
         <ng-template #formTemplate>
-            <app-file-form (cancelEvent)="toggleForm()"></app-file-form>
+            <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()"></app-file-form>
         </ng-template>
     </div>
 </div>

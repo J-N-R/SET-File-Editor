@@ -4,12 +4,12 @@ import { debounceTime, first } from 'rxjs/operators';
 import { OBJECTS } from '../shared/mock-objects';
 
 import { SA2Object } from '../shared/objects';
-import { CITY_ESCAPE_OBJECTS } from '../shared/sa2-levels';
 
 import { CommonModule, Location } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
@@ -19,6 +19,7 @@ import { ElectronService } from '../shared/electron.service';
 
 import { SetObjectComponent } from './set-object.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
+import { SetFile } from 'src/shared/interfaces';
 
 /** Main object editing page. */
 @Component({
@@ -34,6 +35,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog.component';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     SetObjectComponent,
   ],
 })
@@ -41,6 +43,7 @@ export default class SetEditorComponent implements OnInit {
   fileName = '';
   isSA2Format = false;
   fileType = '';
+  loading = false;
   stage = 13;
   numOfObjects = 0;
   levelObjectGroups = new Map<string, Set<SA2Object>>();
@@ -54,6 +57,7 @@ export default class SetEditorComponent implements OnInit {
 
   ngOnInit() {
     const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
+    this.objectService.setObjectList(OBJECTS);
 
     if (queryParams.has('isSA2Format')) {
       this.isSA2Format = queryParams.get('isSA2Format')! === 'true';
@@ -68,8 +72,27 @@ export default class SetEditorComponent implements OnInit {
     if (queryParams.has('stage')) {
       this.stage = Number(queryParams.get('stage')!);
     }
+    if (queryParams.has('filePath')) {
+      this.loading = true;
+      const setFile: SetFile = {
+        fileName: this.fileName,
+        ...(queryParams.has('isSA2Format') && {isSA2Format: this.isSA2Format}),
+        ...(queryParams.has('stage') && {stage: this.stage}),
+        setObjects: [],
+        filePath: queryParams.get('filePath')!,
+      }
+      this.electronService.readFile(setFile).pipe(first()).subscribe(
+        (objectList) => {
+          if (objectList) {
+            this.objectService.setObjectList(objectList);
+          }
+          else {
+            console.error('Error trying to read the file.');
+          }
+          this.loading = false;
+      });
+    }
 
-    this.objectService.setObjectList(OBJECTS);
     this.objectsEmitter.subscribe((setObjects) => {
       this.numOfObjects = setObjects.length;
     });
