@@ -1,4 +1,4 @@
-# SET File Editor
+# Modern Set Editor
 A modern and simplified tool for adding objects, enemies, and more to levels in Sonic Adventure 2. Inspired by TurtleMan64's [Set Adventure 1.2](https://github.com/TurtleMan64/SetAdventure) and written with Angular and ElectronJS, it has never been easier to mod levels for the Sonic Adventure series of games.
 
 <p align="center">
