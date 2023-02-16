@@ -3,7 +3,7 @@ import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import { SetObject, SetLabel } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
-import { SA2_LABELS } from 'src/shared/object_labels';
+import { SA2_LABELS } from 'src/shared/object-labels';
 
 import { CommonModule, KeyValue } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';

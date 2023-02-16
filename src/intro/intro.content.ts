@@ -17,4 +17,8 @@ export const NOTES: IntroNote[] = [
         icon: 'info',
         text: 'Keep an eye out for "help" menus to explain object types and variables!',
     },
+    {
+        icon: 'tag',
+        text: 'Hex values are supported! Just start your values with an \'x.\' Also, rotation values are in degrees.',
+    },
 ];

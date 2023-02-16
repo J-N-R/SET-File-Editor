@@ -1,19 +1,22 @@
 import { SA2Object } from './objects';
 
-/** Typescript representation of a SET object. */
+/**
+ * Represents an object in Sonic Adventure.
+ * The string values are numbers that can also be represented in hexidecimal.
+*/
 export interface SetObject {
     id: number;
     type: SA2Object, // might want to rename interface to ObjectType
-    x?: number,
-    y?: number,
-    z?: number,
+    x?: string,
+    y?: string,
+    z?: string,
     // Rotation data stored as degrees, converted to BAMS later.
-    xRot?: number,
-    yRot?: number,
-    zRot?: number,
-    var1?: number,
-    var2?: number,
-    var3?: number,
+    xRot?: string,
+    yRot?: string,
+    zRot?: string,
+    var1?: string,
+    var2?: string,
+    var3?: string,
 };
 
 /** Labels for what each property is used for in an object. */

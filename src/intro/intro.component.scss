@@ -20,16 +20,21 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    height: 532px;
+    height: 520px;
     margin: auto;
     padding: 16px;
     width: 448px;
+
+    p.mat-h2 {
+        line-height: 30px;
+        margin-bottom: 14px;
+    }
 }
 
 .info-header {
     font-family: 'Open Sans';
     font-weight: 600 !important;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .info-card {
@@ -37,36 +42,33 @@
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     margin-bottom: 16px;
     padding: 16px;
-}
 
-.row {
-    align-items: center;
-    display: flex;
-    margin-bottom: 16px;
-}
+    .mat-h3 {
+        line-height: 22px;
+        margin: 0;
+        margin-left: 16px;
+    }
 
-.row:last-child {
-    margin: 0;
-}
-
-.icon-container {
-    background-color: mat.get-color-from-palette(mat.$blue-palette, 50);
-    border-radius: 50%;
-    height: 32px;
-    width: 32px;
-}
-
-.icon-container mat-icon {
-    color: mat.get-color-from-palette(mat.$blue-palette, 600);
-    font-size: 24px;
-    height: 24px;
-    padding: 4px;
-    width: 24px;
-}
-
-.info-card .mat-h3 {
-    margin: 0;
-    margin-left: 16px;
+    .row {
+        align-items: center;
+        display: flex;
+    }
+    
+    .icon-container {
+        background-color: mat.get-color-from-palette(mat.$blue-palette, 50);
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+    }
+    
+    .icon-container mat-icon {
+        color: mat.get-color-from-palette(mat.$blue-palette, 600);
+        font-size: 24px;
+        height: 24px;
+        padding: 4px;
+        width: 24px;
+    }
 }
