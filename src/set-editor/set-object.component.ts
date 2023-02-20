@@ -57,7 +57,7 @@ export class SetObjectComponent implements OnInit {
 
   ngOnInit() {
     this.userInput = this.object.type;
-    this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())![1];
+    this.internalName = SA2_OBJECTS.get(this.userInput.toLowerCase())![0];
     this.setCategory();
     this.setCustomVariables();
     this.setObjectLabels();
