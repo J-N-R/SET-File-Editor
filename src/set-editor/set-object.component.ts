@@ -145,9 +145,11 @@ export class SetObjectComponent implements OnInit {
     this.filterOptions();
   }
 
-  // Overrides keyvalue to keep object categories in original order
-  unsortedComparator(a: KeyValue<string, Set<SA2Object>>, b: KeyValue<string, Set<SA2Object>>) {
-    return SORTED_CATEGORY_KEYS.indexOf(a.key) - SORTED_CATEGORY_KEYS.indexOf(b.key);
+  // Overrides keyvalue to keep object categories in original order.
+  unsortedComparator(a: KeyValue<string, Set<SA2Object>>,
+                     b: KeyValue<string, Set<SA2Object>>) {
+    return SORTED_CATEGORY_KEYS.indexOf(a.key) -
+           SORTED_CATEGORY_KEYS.indexOf(b.key);
   }
 
   resetObject() {
