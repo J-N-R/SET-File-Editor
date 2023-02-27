@@ -108,6 +108,7 @@ export class SetObjectComponent implements OnInit {
     for (const [groupName, objectGroup] of this.levelObjectGroups) {
       if (objectGroup.has(this.object.type)) {
         this.categoryClass = CATEGORY_CLASSLIST.get(groupName) ?? '';
+        break;
       }
     }
   }
@@ -149,8 +150,8 @@ export class SetObjectComponent implements OnInit {
   // Overrides keyvalue to keep object categories in original order.
   unsortedComparator(a: KeyValue<string, Set<SA2Object>>,
                      b: KeyValue<string, Set<SA2Object>>) {
-    return SORTED_CATEGORY_KEYS.indexOf(a.key) -
-           SORTED_CATEGORY_KEYS.indexOf(b.key);
+    return (SORTED_CATEGORY_INDEX.get(a.key) ?? Number.MAX_VALUE) -
+           (SORTED_CATEGORY_INDEX.get(b.key) ?? Number.MAX_VALUE);
   }
 
   resetObject() {
@@ -184,4 +185,4 @@ const CATEGORY_CLASSLIST = new Map<string, string>([
   ['Mystic Shrine', 'shrine'],
   ['Actors', 'decoration'],
 ]);
-const SORTED_CATEGORY_KEYS = Array.from(CATEGORIZED_OBJECTS.keys());
+const SORTED_CATEGORY_INDEX = new Map(Array.from(CATEGORIZED_OBJECTS.keys()).map((object, index) => [object, index]));
