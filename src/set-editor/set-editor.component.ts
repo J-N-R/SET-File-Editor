@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { debounceTime, first } from 'rxjs/operators';
-
-import { OBJECTS } from '../shared/mock-objects';
-
-import { SA2Object } from '../shared/objects';
-
 import { CommonModule, Location } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { VirtualScrollerModule } from '@iharbeck/ngx-virtual-scroller';
 
-import { HeaderComponent } from '../shared/header/header.component';
-import { FooterComponent } from '../shared/footer/footer.component';
+import { OBJECTS } from '../shared/mock-objects';
+import { SA2Object } from '../shared/objects';
+import { SetFile, SetObject } from '../shared/interfaces';
 
 import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
 
 import { SetObjectComponent } from './set-object.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
-import { SetFile } from 'src/shared/interfaces';
+import { HeaderComponent } from '../shared/header/header.component';
+import { FooterComponent } from '../shared/footer/footer.component';
 
 /** Main object editing page. */
 @Component({
@@ -27,6 +25,7 @@ import { SetFile } from 'src/shared/interfaces';
   selector: 'app-set-editor',
   templateUrl: './set-editor.component.html',
   styleUrls: ['./set-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ConfirmationDialogComponent,
@@ -37,6 +36,7 @@ import { SetFile } from 'src/shared/interfaces';
     MatIconModule,
     MatProgressSpinnerModule,
     SetObjectComponent,
+    VirtualScrollerModule,
   ],
 })
 export default class SetEditorComponent implements OnInit {
@@ -53,7 +53,8 @@ export default class SetEditorComponent implements OnInit {
   constructor(private readonly objectService: ObjectService,
     private readonly electronService: ElectronService,
     private readonly location: Location,
-    private readonly dialog: MatDialog) {}
+    private readonly dialog: MatDialog,
+    readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
@@ -83,13 +84,14 @@ export default class SetEditorComponent implements OnInit {
       }
       this.electronService.readFile(setFile).pipe(first()).subscribe(
         (objectList) => {
+          this.loading = false;
           if (objectList) {
             this.objectService.setObjectList(objectList);
           }
           else {
             console.error('Error trying to read the file.');
           }
-          this.loading = false;
+          this.changeDetectorRef.detectChanges();
       });
     }
 
@@ -105,7 +107,8 @@ export default class SetEditorComponent implements OnInit {
   }
 
   clearObjects() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {autoFocus: false, height: '160px', width: '290px'});
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,
+        {autoFocus: false, height: '160px', width: '290px'});
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
@@ -127,5 +130,9 @@ export default class SetEditorComponent implements OnInit {
 
   onDelete(event: number) {
     this.objectService.deleteObject(event);
+  }
+
+  trackById(index: number, object: SetObject): number {
+    return object.id;
   }
 }

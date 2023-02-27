@@ -16,7 +16,7 @@ describe('ObjectService', () => {
 
   it('adds an object', (done: DoneFn) => {
     const mockObject: SetObject = getTestObject();
-    service.addObject(mockObject);
+    service.setObjectList([mockObject]);
 
     service.objectsEmitter.pipe(first()).subscribe((objectList) => {
       expect(objectList).toEqual([mockObject]);
@@ -28,7 +28,7 @@ describe('ObjectService', () => {
     const mockObject: SetObject = getTestObject();
     
     // Causes first emission.
-    service.addObject(mockObject);
+    service.setObjectList([mockObject]);
 
     // Causes second emission.
     service.deleteObject(MOCK_ID);
@@ -64,11 +64,11 @@ function getTestObject(): SetObject {
   return {
     id: MOCK_ID,
     type: SA2Object.DMYOBJ,
-    x: 1,
-    y: 1,
-    z: 1,
-    xRot: 1,
-    yRot: 1,
-    zRot: 1,
+    x: '1',
+    y: '1',
+    z: '1',
+    xRot: '1',
+    yRot: '1',
+    zRot: '1',
   }
 }

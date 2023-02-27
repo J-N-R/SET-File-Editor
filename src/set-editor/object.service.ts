@@ -27,13 +27,6 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  addObject(object: SetObject) {
-    object.id = this.nextID;
-    this.nextID++;
-    this.objectList.push(object);
-    this.objectSubject.next(this.objectList);
-  }
-
   deleteObject(id: number) {
     this.objectList = this.objectList.filter((object) => object.id !== id);
     this.objectSubject.next(this.objectList);

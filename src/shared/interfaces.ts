@@ -6,7 +6,7 @@ import { SA2Object } from './objects';
 */
 export interface SetObject {
     id: number;
-    type: SA2Object, // might want to rename interface to ObjectType
+    type: SA2Object,
     x?: string,
     y?: string,
     z?: string,
@@ -17,6 +17,8 @@ export interface SetObject {
     var1?: string,
     var2?: string,
     var3?: string,
+    // Rendering information.
+    isExpanded?: boolean,
 };
 
 /** Labels for what each property is used for in an object. */

@@ -15,6 +15,7 @@ $form-field-width: 75px;
     margin: 4px;
     min-width: 285px;
     max-width: 285px;
+    width: 285px;
 
     &:hover .delete-button {
         background-color: mat.get-color-from-palette(mat.$red-palette, A200);

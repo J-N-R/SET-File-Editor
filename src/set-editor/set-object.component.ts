@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { SetObject, SetLabel } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
@@ -26,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-set-object',
   templateUrl: './set-object.component.html',
   styleUrls: ['./set-object.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     FormsModule,
@@ -158,6 +159,10 @@ export class SetObjectComponent implements OnInit {
 
   deleteObject() {
     this.deleteEvent.emit(this.object.id);
+  }
+
+  togglePanel() {
+    this.object.isExpanded = !this.object.isExpanded;
   }
 }
 

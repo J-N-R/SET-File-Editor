@@ -17,19 +17,21 @@
             <span class="mdc-fab__label">Clear</span>
         </button>
     </div>
-    <ng-container *ngIf="!loading; else loadingTemplate">
-        <div 
-            *ngIf="objectsEmitter | async as objects; else loadingTemplate"
-            class="objects-container">
-            <app-set-object 
-                *ngFor="let object of objects"
+    <virtual-scroller
+        *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
+        [items]="objects"
+        [bufferAmount]="8"
+        [scrollThrottlingTime]="250"
+        [enableUnequalChildrenSizes]="true"
+        #scroll>
+            <app-set-object
+                *ngFor="let object of scroll.viewPortItems; trackBy: trackById"
                 [levelObjectGroups]="levelObjectGroups"
                 [object]="object"
                 [stage]="stage"
                 (deleteEvent)="onDelete($event)">
             </app-set-object>
-        </div>
-    </ng-container>
+    </virtual-scroller>
     <ng-template #loadingTemplate>
         <div class="center">
             <mat-spinner></mat-spinner>

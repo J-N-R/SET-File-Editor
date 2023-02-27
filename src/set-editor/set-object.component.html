@@ -1,16 +1,20 @@
 <button mat-mini-fab class="delete-button" (click)="deleteObject()">
     <mat-icon color="warning">close</mat-icon>
 </button>
-<mat-expansion-panel>
-    <mat-expansion-panel-header class="center" [ngClass]="categoryClass">
+<mat-expansion-panel
+    [expanded]="object.isExpanded">
+    <mat-expansion-panel-header
+        class="center"
+        [ngClass]="categoryClass"
+        (click)="togglePanel()">
         {{ object.type }}
     </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
+    <ng-template matExpansionPanelContent >
         <div class="form">
             <mat-form-field 
                     appearance="fill"
                     class="object-select one-variable"
-                    (click)="sortAutocomplete()">
+                    [floatLabel]="'always'">
                 <mat-label>Object</mat-label>
                 <mat-hint>Internal name: {{ internalName }}</mat-hint>
                 <input
@@ -18,33 +22,49 @@
                     [matAutocomplete]="autoGroup"
                     [(ngModel)]="userInput"
                     (blur)="resetObject()"
+                    (click)="sortAutocomplete()"
                     (ngModelChange)="filterOptions(); setObject()">
                 <mat-autocomplete #autoGroup="matAutocomplete">
-                    <mat-optgroup *ngFor="let category of filteredObjectGroups | keyvalue: unsortedComparator" [label]="category.key">
-                    <mat-option *ngFor="let object of category.value" [value]="object">
+                    <mat-optgroup
+                        *ngFor="let category of filteredObjectGroups | keyvalue: unsortedComparator"
+                        [label]="category.key">
+                    <mat-option
+                        *ngFor="let object of category.value"
+                        [value]="object">
                         {{ object }}
                     </mat-option>
                 </mat-optgroup>
                 </mat-autocomplete>
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.x ? 'always' : 'auto'">
                 <mat-label>x</mat-label>
                 <input matInput placeholder="0" [(ngModel)]="object.x">
             </mat-form-field>
-            <mat-form-field appearance="fill" [matTooltip]="setLabel.y ?? ''">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.y ? 'always' : 'auto'"
+                [matTooltip]="setLabel.y ?? ''">
                 <mat-label>
                     y
                     <mat-icon *ngIf="!!setLabel.y">info</mat-icon>
                 </mat-label>
                 <input matInput placeholder="0" [(ngModel)]="object.y">
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.y ? 'always' : 'auto'">
                 <mat-label>z</mat-label>
                 <input matInput placeholder="0" [(ngModel)]="object.z">
             </mat-form-field>
-            <mat-form-field appearance="fill" [matTooltip]="setLabel.xRot ?? ''">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.xRot ? 'always' : 'auto'"
+                [matTooltip]="setLabel.xRot ?? ''">
                 <mat-label>
-                    <ng-container *ngIf="setLabel.xRot !== undefined; else defaultXTemplate">
+                    <ng-container
+                        *ngIf="setLabel.xRot !== undefined; else defaultXTemplate">
                         x Rot
                         <mat-icon *ngIf="!!setLabel.xRot">info</mat-icon>
                     </ng-container>
@@ -55,9 +75,13 @@
                 <input matInput placeholder="0°" [(ngModel)]="object.xRot">
                 <mat-hint>(optional)</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="fill" [matTooltip]="setLabel.yRot ?? ''">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.yRot ? 'always' : 'auto'"
+                [matTooltip]="setLabel.yRot ?? ''">
                 <mat-label>
-                    <ng-container *ngIf="setLabel.yRot !== undefined; else defaultYTemplate">
+                    <ng-container
+                        *ngIf="setLabel.yRot !== undefined; else defaultYTemplate">
                         y Rot
                         <mat-icon *ngIf="!!setLabel.yRot">info</mat-icon>
                     </ng-container>
@@ -68,9 +92,13 @@
                 <input matInput placeholder="0°" [(ngModel)]="object.yRot">
                 <mat-hint>(optional)</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="fill" [matTooltip]="setLabel.zRot ?? ''">
+            <mat-form-field
+                appearance="fill"
+                [floatLabel]="object.zRot ? 'always' : 'auto'"
+                [matTooltip]="setLabel.zRot ?? ''">
                 <mat-label>
-                    <ng-container *ngIf="setLabel.zRot !== undefined; else defaultZTemplate">
+                    <ng-container
+                        *ngIf="setLabel.zRot !== undefined; else defaultZTemplate">
                         z Rot
                         <mat-icon *ngIf="!!setLabel.zRot">info</mat-icon>
                     </ng-container>
@@ -84,6 +112,7 @@
             <mat-form-field
                 *ngIf="setLabel.var1 !== undefined"
                 appearance="fill"
+                [floatLabel]="object.var1 ? 'always' : 'auto'"
                 [matTooltip]="setLabel.var1"
                 [ngClass]="customVariableClass">
                 <mat-label>
@@ -95,6 +124,7 @@
             <mat-form-field
                 *ngIf="setLabel.var2 !== undefined"
                 appearance="fill"
+                [floatLabel]="object.var2 ? 'always' : 'auto'"
                 [matTooltip]="setLabel.var2"
                 [ngClass]="customVariableClass">
                 <mat-label>
@@ -106,6 +136,7 @@
             <mat-form-field
                 *ngIf="setLabel.var3 !== undefined"
                 appearance="fill"
+                [floatLabel]="object.var3 ? 'always' : 'auto'"
                 [matTooltip]="setLabel.var3"
                 [ngClass]="customVariableClass">
                 <mat-label>
