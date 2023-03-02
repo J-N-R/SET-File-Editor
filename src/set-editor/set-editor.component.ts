@@ -43,7 +43,7 @@ export default class SetEditorComponent implements OnInit {
   fileName = '';
   isSA2Format = false;
   fileType = '';
-  loading = false;
+  loading = true;
   stage = 13;
   numOfObjects = 0;
   levelObjectGroups = new Map<string, Set<SA2Object>>();
@@ -58,9 +58,6 @@ export default class SetEditorComponent implements OnInit {
 
   ngOnInit() {
     const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
-    this.objectService.setObjectList(MOCK_OBJECTS);
-    this.numOfObjects = MOCK_OBJECTS.length;
-
     if (queryParams.has('isSA2Format')) {
       this.isSA2Format = queryParams.get('isSA2Format')! === 'true';
     }
@@ -75,7 +72,6 @@ export default class SetEditorComponent implements OnInit {
       this.stage = Number(queryParams.get('stage')!);
     }
     if (queryParams.has('filePath')) {
-      this.loading = true;
       const setFile: SetFile = {
         fileName: this.fileName,
         ...(queryParams.has('isSA2Format') && {isSA2Format: this.isSA2Format}),
@@ -85,23 +81,28 @@ export default class SetEditorComponent implements OnInit {
       }
       this.electronService.readFile(setFile).pipe(first()).subscribe(
         (objectList) => {
-          this.loading = false;
           if (objectList) {
-            this.objectService.setObjectList(objectList);
+            this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
+            this.objectService.setObjectList(this.levelObjectGroups, this.stage, objectList);
             this.numOfObjects = objectList.length;
           }
           else {
             console.error('Error trying to read the file.');
           }
+          this.loading = false;
           this.changeDetectorRef.detectChanges();
       });
     }
-
-    this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
+    else {
+      this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
+      this.objectService.setObjectList(this.levelObjectGroups, this.stage, MOCK_OBJECTS);
+      this.numOfObjects = MOCK_OBJECTS.length;
+      this.loading = false;
+    }
   }
 
   addObject() {
-    this.objectService.addBlankObject();
+    this.objectService.addBlankObject(this.levelObjectGroups, this.stage);
     this.numOfObjects++;
   }
 
@@ -111,7 +112,7 @@ export default class SetEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
-        this.objectService.setObjectList([]);
+        this.objectService.setObjectList(this.levelObjectGroups, this.stage, []);
         this.numOfObjects = 0;
       }
     });

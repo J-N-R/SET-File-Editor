@@ -2,10 +2,11 @@
     <mat-icon color="warning">close</mat-icon>
 </button>
 <mat-expansion-panel
-    [expanded]="object.isExpanded">
+    *ngIf="object?.displayInfo as displayInfo"
+    [expanded]="displayInfo.isExpanded">
     <mat-expansion-panel-header
         class="center"
-        [ngClass]="categoryClass"
+        [ngClass]="displayInfo.categoryClass"
         (click)="togglePanel()">
         {{ object.type }}
     </mat-expansion-panel-header>
@@ -14,14 +15,14 @@
             <mat-form-field 
                     appearance="fill"
                     class="object-select one-variable"
-                    [floatLabel]="'always'">
+                    [floatLabel]="'always'"
+                    (blur)="resetObject()">
                 <mat-label>Object</mat-label>
-                <mat-hint>Internal name: {{ internalName }}</mat-hint>
+                <mat-hint>Internal name: {{ displayInfo.internalName }}</mat-hint>
                 <input
                     matInput
                     [matAutocomplete]="autoGroup"
                     [(ngModel)]="userInput"
-                    (blur)="resetObject()"
                     (click)="sortAutocomplete()"
                     (ngModelChange)="filterOptions(); setObject()">
                 <mat-autocomplete #autoGroup="matAutocomplete">
@@ -45,10 +46,10 @@
             <mat-form-field
                 appearance="fill"
                 [floatLabel]="object.y ? 'always' : 'auto'"
-                [matTooltip]="setLabel.y ?? ''">
+                [matTooltip]="displayInfo.setLabel?.y ?? ''">
                 <mat-label>
                     y
-                    <mat-icon *ngIf="!!setLabel.y">info</mat-icon>
+                    <mat-icon *ngIf="displayInfo.setLabel?.y">info</mat-icon>
                 </mat-label>
                 <input matInput placeholder="0" [(ngModel)]="object.y">
             </mat-form-field>
@@ -61,12 +62,12 @@
             <mat-form-field
                 appearance="fill"
                 [floatLabel]="object.xRot ? 'always' : 'auto'"
-                [matTooltip]="setLabel.xRot ?? ''">
+                [matTooltip]="displayInfo.setLabel?.xRot ?? ''">
                 <mat-label>
                     <ng-container
-                        *ngIf="setLabel.xRot !== undefined; else defaultXTemplate">
+                        *ngIf="displayInfo.setLabel?.xRot != undefined; else defaultXTemplate">
                         x Rot
-                        <mat-icon *ngIf="!!setLabel.xRot">info</mat-icon>
+                        <mat-icon>info</mat-icon>
                     </ng-container>
                     <ng-template #defaultXTemplate>
                         x Rotation
@@ -78,12 +79,12 @@
             <mat-form-field
                 appearance="fill"
                 [floatLabel]="object.yRot ? 'always' : 'auto'"
-                [matTooltip]="setLabel.yRot ?? ''">
+                [matTooltip]="displayInfo.setLabel?.yRot ?? ''">
                 <mat-label>
                     <ng-container
-                        *ngIf="setLabel.yRot !== undefined; else defaultYTemplate">
+                        *ngIf="displayInfo.setLabel?.yRot != undefined; else defaultYTemplate">
                         y Rot
-                        <mat-icon *ngIf="!!setLabel.yRot">info</mat-icon>
+                        <mat-icon>info</mat-icon>
                     </ng-container>
                     <ng-template #defaultYTemplate>
                         y Rotation
@@ -95,12 +96,12 @@
             <mat-form-field
                 appearance="fill"
                 [floatLabel]="object.zRot ? 'always' : 'auto'"
-                [matTooltip]="setLabel.zRot ?? ''">
+                [matTooltip]="displayInfo.setLabel?.zRot ?? ''">
                 <mat-label>
                     <ng-container
-                        *ngIf="setLabel.zRot !== undefined; else defaultZTemplate">
+                        *ngIf="displayInfo.setLabel?.zRot != undefined; else defaultZTemplate">
                         z Rot
-                        <mat-icon *ngIf="!!setLabel.zRot">info</mat-icon>
+                        <mat-icon>info</mat-icon>
                     </ng-container>
                     <ng-template #defaultZTemplate>
                         z Rotation
@@ -110,38 +111,41 @@
                 <input matInput placeholder="0°" [(ngModel)]="object.zRot">
             </mat-form-field>
             <mat-form-field
-                *ngIf="setLabel.var1 !== undefined"
+                *ngIf="displayInfo.setLabel?.var1 != undefined"
                 appearance="fill"
                 [floatLabel]="object.var1 ? 'always' : 'auto'"
-                [matTooltip]="setLabel.var1"
-                [ngClass]="customVariableClass">
+                [matTooltip]="displayInfo.setLabel?.var1!"
+                [class.one-variable]="displayInfo.customVariableCount === 1"
+                [class.two-variable]="displayInfo.customVariableCount === 2">
                 <mat-label>
                     Var 1
-                    <mat-icon *ngIf="!!setLabel.var1">info</mat-icon>
+                    <mat-icon>info</mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var1">
             </mat-form-field>
             <mat-form-field
-                *ngIf="setLabel.var2 !== undefined"
+                *ngIf="displayInfo.setLabel?.var2 != undefined"
                 appearance="fill"
                 [floatLabel]="object.var2 ? 'always' : 'auto'"
-                [matTooltip]="setLabel.var2"
-                [ngClass]="customVariableClass">
+                [matTooltip]="displayInfo.setLabel?.var2!"
+                [class.one-variable]="displayInfo.customVariableCount === 1"
+                [class.two-variable]="displayInfo.customVariableCount === 2">
                 <mat-label>
                     Var 2
-                    <mat-icon *ngIf="!!setLabel.var2">info</mat-icon>
+                    <mat-icon>info</mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var2">
             </mat-form-field>
             <mat-form-field
-                *ngIf="setLabel.var3 !== undefined"
+                *ngIf="displayInfo.setLabel?.var3 != undefined"
                 appearance="fill"
                 [floatLabel]="object.var3 ? 'always' : 'auto'"
-                [matTooltip]="setLabel.var3"
-                [ngClass]="customVariableClass">
+                [matTooltip]="displayInfo.setLabel?.var3!"
+                [class.one-variable]="displayInfo.customVariableCount === 1"
+                [class.two-variable]="displayInfo.customVariableCount === 2">
                 <mat-label>
                     Var 3
-                    <mat-icon *ngIf="!!setLabel.var3">info</mat-icon>
+                    <mat-icon>info</mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var3">
             </mat-form-field>

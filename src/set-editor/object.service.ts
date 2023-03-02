@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { SetObject } from '../shared/interfaces';
+import { DisplayInfo, SetLabel, SetObject } from '../shared/interfaces';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
+import { SA2_LABELS } from '../shared/object-labels';
+import { CUSTOM_VARIABLE_KEYS } from '../shared/content';
 
 /** Handles SET object storage, manipulation, and creation. */
 @Injectable({
@@ -17,10 +19,12 @@ export class ObjectService {
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
 
-  addBlankObject() {
+  addBlankObject(levelObjectGroups: Map<string, Set<SA2Object>>,
+        stage: number) {
     const object = {
       id: this.nextID,
-      type: SA2Object.RING,
+      type: DEFAULT_ITEM,
+      displayInfo: this.getDisplayInfo(levelObjectGroups, stage, DEFAULT_ITEM),
     }
     this.nextID++;
     this.objectList.push(object);
@@ -32,9 +36,16 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  setObjectList(objectList: SetObject[]) {
+  setObjectList(levelObjectGroups: Map<string, Set<SA2Object>>,
+        stage: number, objectList: SetObject[]) {
     if (this.nextID <= objectList.length) {
       this.nextID = objectList.length + 1;
+    }
+    for (const object of objectList) {
+      if (object.displayInfo) {
+        continue;
+      }
+      object.displayInfo = this.getDisplayInfo(levelObjectGroups, stage, object.type);
     }
     this.objectList = objectList;
     this.objectSubject.next(this.objectList);
@@ -82,4 +93,57 @@ export class ObjectService {
     
     return filteredObjectGroups;
   }
+
+  getDisplayInfo(levelObjectGroups: Map<string, Set<SA2Object>>, stage: number, objectType: SA2Object): DisplayInfo {
+     const setLabel = this.getSetLabel(stage, objectType);
+     return {
+      isExpanded: false,
+      internalName: INTERNAL_NAMES.get(objectType) ?? 'UNKNOWN',
+      categoryClass: this.getCategory(levelObjectGroups, objectType),
+      customVariableCount: this.getCustomVariableCount(setLabel ?? {}),
+      ...(setLabel !== undefined && {setLabel}),
+    };
+  }
+
+  private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>, objectType: SA2Object): string {
+    for (const [groupName, objectGroup] of levelObjectGroups) {
+      if (objectGroup.has(objectType)) {
+        return CATEGORY_CLASSLIST.get(groupName) ?? '';
+      }
+    }
+    return '';
+  }
+
+  private getSetLabel(stage: number, objectType: SA2Object): SetLabel|undefined {
+    if(!SA2_LABELS.has(objectType)) {
+      return undefined;
+    }
+
+    const stageLabels = SA2_LABELS.get(objectType)!;
+    const setLabel: SetLabel = {...stageLabels.get(-1), ...stageLabels.get(stage)};
+    return Object.keys(setLabel).length > 0 ? setLabel : undefined;
+  }
+
+  private getCustomVariableCount(setLabel: SetLabel): number {
+    return CUSTOM_VARIABLE_KEYS.reduce((accumulator, objectKey) =>
+        accumulator + (setLabel[objectKey as keyof SetLabel] != undefined ? 1 : 0),
+        0
+    );
+  }
 }
+
+const INTERNAL_NAMES = new Map<SA2Object, string>(Object.entries(SA2Object).map(
+  ([internalName, objectName]) => [objectName, internalName]
+));
+const CATEGORY_CLASSLIST = new Map<string, string>([
+  ['Enemies', 'enemy'],
+  ['Collectibles', 'collectible'],
+  ['Stage Interactables', 'interactable'],
+  ['Decoration', 'decoration'],
+  ['Triggers', 'trigger'],
+  ['Sunglasses', 'trigger'],
+  ['Ball Switch', 'trigger'],
+  ['Mystic Shrine', 'shrine'],
+  ['Actors', 'decoration'],
+]);
+const DEFAULT_ITEM = SA2Object.RING;

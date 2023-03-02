@@ -92,9 +92,14 @@ mat-expansion-panel-header {
     }
 
     ::ng-deep.mat-content {
+        display: block;
         font: bold 16px 'Open Sans';
         justify-content: center;
         margin-right: -8px;
+        padding: 0 16px;
+        text-overflow: ellipsis;
+        width: 205px;
+        white-space: nowrap;
     }
 }
 

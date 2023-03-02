@@ -20,8 +20,6 @@
     <virtual-scroller
         *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
         [items]="objects"
-        [bufferAmount]="8"
-        [scrollThrottlingTime]="250"
         [enableUnequalChildrenSizes]="true"
         #scroll>
             <app-set-object
