@@ -14,7 +14,7 @@ import { CUSTOM_VARIABLE_KEYS } from '../shared/content';
 })
 export class ObjectService {
   private objectList: SetObject[] = [];
-  private nextID = 1;
+  private nextID = 0;
 
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
@@ -48,6 +48,12 @@ export class ObjectService {
       object.displayInfo = this.getDisplayInfo(levelObjectGroups, stage, object.type);
     }
     this.objectList = objectList;
+    this.objectSubject.next(this.objectList);
+  }
+
+  clearObjectList() {
+    this.objectList.length = 0;
+    this.nextID = 0;
     this.objectSubject.next(this.objectList);
   }
 

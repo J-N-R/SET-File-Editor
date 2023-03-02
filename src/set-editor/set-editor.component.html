@@ -4,26 +4,26 @@
     [numOfObjects]="numOfObjects"
     (add)="addObject()"
     (clear)="clearObjects()"
-    (save)="saveFile()"></app-header>
-<div class="content">
-    <virtual-scroller
-        *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
-        [items]="objects"
-        [enableUnequalChildrenSizes]="true"
-        #scroll>
-            <app-set-object
-                *ngFor="let object of scroll.viewPortItems; trackBy: trackById"
-                [levelObjectGroups]="levelObjectGroups"
-                [object]="object"
-                [stage]="stage"
-                (delete)="deleteObject($event)">
-            </app-set-object>
-    </virtual-scroller>
-    <ng-template #loadingTemplate>
-        <div class="center">
-            <mat-spinner></mat-spinner>
-            <h1 class="mat-display-1 center">Loading...</h1>
-        </div>
-    </ng-template>
-</div>
+    (close)="closeFile()"
+    (save)="saveFile()">
+</app-header>
+<virtual-scroller
+    *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
+    [items]="objects"
+    [enableUnequalChildrenSizes]="true"
+    #scroll>
+        <app-set-object
+            *ngFor="let object of scroll.viewPortItems; trackBy: trackById"
+            [levelObjectGroups]="levelObjectGroups"
+            [object]="object"
+            [stage]="stage"
+            (delete)="deleteObject($event)">
+        </app-set-object>
+</virtual-scroller>
+<ng-template #loadingTemplate>
+    <div class="center">
+        <mat-spinner></mat-spinner>
+        <h1 class="mat-display-1 center">Loading...</h1>
+    </div>
+</ng-template>
 <app-footer></app-footer>

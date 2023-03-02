@@ -16,7 +16,7 @@ describe('ObjectService', () => {
 
   it('adds an object', (done: DoneFn) => {
     const mockObject: SetObject = getTestObject();
-    service.setObjectList([mockObject]);
+    service.setObjectList(LEVEL_OBJECT_GROUPS, CITY_ESCAPE_ID, [mockObject]);
 
     service.objectsEmitter.pipe(first()).subscribe((objectList) => {
       expect(objectList).toEqual([mockObject]);
@@ -28,7 +28,7 @@ describe('ObjectService', () => {
     const mockObject: SetObject = getTestObject();
     
     // Causes first emission.
-    service.setObjectList([mockObject]);
+    service.setObjectList(LEVEL_OBJECT_GROUPS, CITY_ESCAPE_ID, [mockObject]);
 
     // Causes second emission.
     service.deleteObject(MOCK_ID);
@@ -49,7 +49,7 @@ describe('ObjectService', () => {
   it('sets new list', (done: DoneFn) => {
     const mockObject1: SetObject = getTestObject();
     const mockObject2: SetObject = getTestObject();
-    service.setObjectList([mockObject1, mockObject2]);
+    service.setObjectList(LEVEL_OBJECT_GROUPS, CITY_ESCAPE_ID, [mockObject1, mockObject2]);
     
     service.objectsEmitter.pipe(first()).subscribe((objectList) => {
       expect(objectList).toEqual([mockObject1, mockObject2]);
@@ -59,6 +59,8 @@ describe('ObjectService', () => {
 });
 
 const MOCK_ID = 1;
+const CITY_ESCAPE_ID = 13;
+const LEVEL_OBJECT_GROUPS = new Map<string, Set<SA2Object>>();
 
 function getTestObject(): SetObject {
   return {

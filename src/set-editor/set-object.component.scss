@@ -22,6 +22,58 @@ $form-field-width: 75px;
         opacity: 1;
         visibility: visible;
     }
+
+    ::ng-deep {
+
+        // Material Form Field label overrides (to center text)
+        .mdc-floating-label {
+            margin-left: -4px;
+            text-align: center !important;
+            width: calc(3px + $form-field-width);
+        }
+    
+        .mdc-floating-label--float-above {
+            width: calc(1.38 * $form-field-width) !important;
+        
+            mat-label {
+                font-size: 16px;
+            }
+        }
+    
+        mat-hint {
+            font-size: 11px;
+        }
+    
+        .one-variable {
+            .mdc-floating-label {
+                width: 257px;
+            }
+        
+            .mdc-floating-label--float-above {
+                width: 343px !important;
+            }
+    
+            mat-hint {
+                min-width: 100%;
+                text-align: center;
+            }
+        }
+    
+        .two-variables {
+            .mdc-floating-label {
+                width: 123px;
+            }
+        
+            .mdc-floating-label--float-above {
+                width: 164px !important;
+            }
+        }
+
+        // Reduce padding on form fields for higher density.
+        .mdc-text-field {
+            padding: 0 4px !important;
+        }
+    }
 }
 
 .delete-button {
@@ -144,56 +196,6 @@ mat-label {
     font-size: 14px;
     font-weight: 600;
     transition: font-size 0.5s;
-}
-
-::ng-deep .mdc-text-field {
-    padding: 0 4px !important;
-}
-
-// Material Form Field label overrides (to center text)
-::ng-deep {
-    .mdc-floating-label {
-        margin-left: -4px;
-        text-align: center !important;
-        width: calc(3px + $form-field-width);
-    }
-
-    .mdc-floating-label--float-above {
-        width: calc(1.38 * $form-field-width) !important;
-    
-        mat-label {
-            font-size: 16px;
-        }
-    }
-
-    mat-hint {
-        font-size: 11px;
-    }
-
-    .one-variable {
-        .mdc-floating-label {
-            width: 257px;
-        }
-    
-        .mdc-floating-label--float-above {
-            width: 343px !important;
-        }
-
-        mat-hint {
-            min-width: 100%;
-            text-align: center;
-        }
-    }
-
-    .two-variables {
-        .mdc-floating-label {
-            width: 123px;
-        }
-    
-        .mdc-floating-label--float-above {
-            width: 164px !important;
-        }
-    }
 }
 
 input {

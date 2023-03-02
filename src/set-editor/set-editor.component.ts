@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { debounceTime, first } from 'rxjs/operators';
 import { CommonModule, Location } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -54,6 +55,7 @@ export default class SetEditorComponent implements OnInit {
     private readonly electronService: ElectronService,
     private readonly location: Location,
     private readonly dialog: MatDialog,
+    private readonly router: Router,
     readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -112,7 +114,7 @@ export default class SetEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
-        this.objectService.setObjectList(this.levelObjectGroups, this.stage, []);
+        this.objectService.clearObjectList();
         this.numOfObjects = 0;
       }
     });
@@ -127,6 +129,18 @@ export default class SetEditorComponent implements OnInit {
         stage: this.stage,
       });
     })
+  }
+
+  closeFile() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,
+      {autoFocus: false, height: '160px', width: '290px'});
+
+    dialogRef.afterClosed().subscribe((confirmation) => {
+      if (confirmation) {
+        this.objectService.clearObjectList()
+        this.router.navigate(['']);
+      }
+    });
   }
 
   deleteObject(event: number) {

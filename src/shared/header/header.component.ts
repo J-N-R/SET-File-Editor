@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   @Output() save = new EventEmitter();
+  @Output() close = new EventEmitter();
   @Output() add = new EventEmitter();
   @Output() clear = new EventEmitter();
 
@@ -22,6 +23,10 @@ export class HeaderComponent {
 
   emitSave() {
     this.save.emit();
+  }
+
+  emitClose() {
+    this.close.emit();
   }
 
   emitAdd() {
