@@ -1,6 +1,6 @@
-import { Component, Input, EventEmitter, Output, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 
-import { SetObject, SetLabel, DisplayInfo } from '../shared/interfaces';
+import { SetObject } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { ObjectService } from './object.service';
@@ -40,7 +40,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class SetObjectComponent {
-  @Output() deleteEvent: EventEmitter<number> = new EventEmitter();
+  @Output() delete = new EventEmitter<number>();
 
   @Input() levelObjectGroups = new Map<string, Set<SA2Object>>();
   @Input() stage: number = 13;
@@ -58,7 +58,7 @@ export class SetObjectComponent {
   filteredObjectGroups = new Map<string, Set<SA2Object>>();
   userInput = '';
 
-  constructor(private readonly objectService: ObjectService, private readonly changeDetectionRef: ChangeDetectorRef) {}
+  constructor(private readonly objectService: ObjectService) {}
 
   ngOnInit() {
     this.userInput = this.object.type;
@@ -90,7 +90,6 @@ export class SetObjectComponent {
             this.stage, newObjectType),
         isExpanded: true,
       };
-      this.changeDetectionRef.detectChanges();
     }
   }
 
@@ -110,8 +109,8 @@ export class SetObjectComponent {
     this.userInput = this.object.type;
   }
 
-  deleteObject() {
-    this.deleteEvent.emit(this.object.id);
+  emitDelete() {
+    this.delete.emit(this.object.id);
   }
 
   togglePanel() {

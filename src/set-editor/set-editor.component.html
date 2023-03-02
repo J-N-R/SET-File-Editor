@@ -1,22 +1,11 @@
-<app-header [isIntro]="false" [fileName]="fileName" [numOfObjects]="numOfObjects"></app-header>
+<app-header
+    [isIntro]="false"
+    [fileName]="fileName"
+    [numOfObjects]="numOfObjects"
+    (add)="addObject()"
+    (clear)="clearObjects()"
+    (save)="saveFile()"></app-header>
 <div class="content">
-    <div class="fab-container">
-        <button class="save mdc-fab mdc-fab--extended" (click)="saveFile()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">save</span>
-            <span class="mdc-fab__label">Save</span>
-        </button>
-        <button class="add mdc-fab mdc-fab--extended" (click)="addObject()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">add</span>
-            <span class="mdc-fab__label">Add</span>
-        </button>
-        <button class="add mdc-fab mdc-fab--extended" (click)="clearObjects()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">delete</span>
-            <span class="mdc-fab__label">Clear</span>
-        </button>
-    </div>
     <virtual-scroller
         *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
         [items]="objects"
@@ -27,7 +16,7 @@
                 [levelObjectGroups]="levelObjectGroups"
                 [object]="object"
                 [stage]="stage"
-                (deleteEvent)="onDelete($event)">
+                (delete)="deleteObject($event)">
             </app-set-object>
     </virtual-scroller>
     <ng-template #loadingTemplate>

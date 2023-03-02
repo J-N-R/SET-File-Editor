@@ -129,7 +129,7 @@ export default class SetEditorComponent implements OnInit {
     })
   }
 
-  onDelete(event: number) {
+  deleteObject(event: number) {
     this.objectService.deleteObject(event);
     this.numOfObjects--;
   }

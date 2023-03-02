@@ -1,14 +1,34 @@
-<h1
-    class="mat-display-2"
-    [class.center]="isIntro"
-    tabindex="0">
-    Set Editor
-</h1>
+<ng-container *ngIf="isIntro; else editorHeader">
+    <h1 class="center mat-display-2">Set Editor</h1>
+</ng-container>
+<ng-template #editorHeader>
+    <div>
+        <h1 class="mat-display-2">Set Editor</h1>
+        <h1 class="file-name mat-headline center" tabindex="0">
+            {{ fileName }}
+        </h1>
+        <h1 class="objects mat-display-1" tabindex="0">
+            {{ numOfObjects }} Objects
+        </h1>
+    </div>
+    <div class="fab-container">
+        <button class="save mdc-fab mdc-fab--extended" (click)="emitSave()">
+            <div class="mdc-fab__ripple"></div>
+            <span class="material-icons mdc-fab__icon">save</span>
+            <span class="mdc-fab__label">Save</span>
+        </button>
+        <button class="add mdc-fab mdc-fab--extended" (click)="emitAdd()">
+            <div class="mdc-fab__ripple"></div>
+            <span class="material-icons mdc-fab__icon">add</span>
+            <span class="mdc-fab__label">Add</span>
+        </button>
+        <button class="add mdc-fab mdc-fab--extended" (click)="emitClear()">
+            <div class="mdc-fab__ripple"></div>
+            <span class="material-icons mdc-fab__icon">delete</span>
+            <span class="mdc-fab__label">Clear</span>
+        </button>
+    </div>
+</ng-template>
 <ng-container *ngIf="!isIntro">
-    <h1 class="file-name mat-headline center" tabindex="0">
-        {{ fileName }}
-    </h1>
-    <h1 class="objects mat-display-1" tabindex="0">
-        {{ numOfObjects }} Objects
-    </h1>
+    
 </ng-container>

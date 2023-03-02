@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /** Header for the Set Editor App. */
@@ -12,7 +12,23 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class HeaderComponent {
+  @Output() save = new EventEmitter();
+  @Output() add = new EventEmitter();
+  @Output() clear = new EventEmitter();
+
   @Input() isIntro = false;
   @Input() fileName?: string;
   @Input() numOfObjects?: number;
+
+  emitSave() {
+    this.save.emit();
+  }
+
+  emitAdd() {
+    this.add.emit();
+  }
+
+  emitClear() {
+    this.clear.emit();
+  }
 }
