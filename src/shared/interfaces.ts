@@ -48,3 +48,13 @@ export interface SetFile {
     stage?: number,
     filePath?: string,
 }
+
+/** Sorts objects based on attributes. */
+export interface SortingOption {
+    name: string,
+    color?: string,
+    sortingFn: SortingFn
+}
+
+/** Method for sorting objects. */
+export type SortingFn = (a: SetObject, b: SetObject) => number;

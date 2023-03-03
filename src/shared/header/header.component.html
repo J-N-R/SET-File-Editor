@@ -11,27 +11,42 @@
             {{ numOfObjects }} Objects
         </h1>
     </div>
-    <div class="fab-container">
-        <button class="save mdc-fab mdc-fab--extended" (click)="emitSave()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">save</span>
-            <span class="mdc-fab__label">Save</span>
-        </button>
-        <button class="save mdc-fab mdc-fab--extended" (click)="emitClose()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">close</span>
-            <span class="mdc-fab__label">Close</span>
-        </button>
-        <button class="add mdc-fab mdc-fab--extended" (click)="emitAdd()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">add</span>
-            <span class="mdc-fab__label">Add</span>
-        </button>
-        <button class="add mdc-fab mdc-fab--extended" (click)="emitClear()">
-            <div class="mdc-fab__ripple"></div>
-            <span class="material-icons mdc-fab__icon">delete</span>
-            <span class="mdc-fab__label">Clear</span>
-        </button>
+    <div>
+        <div></div>
+        <div class="fab-container">
+            <button class="save mdc-fab mdc-fab--extended" (click)="emitSave()">
+                <div class="mdc-fab__ripple"></div>
+                <span class="material-icons mdc-fab__icon">save</span>
+                <span class="mdc-fab__label">Save</span>
+            </button>
+            <button class="save mdc-fab mdc-fab--extended" (click)="emitClose()">
+                <div class="mdc-fab__ripple"></div>
+                <span class="material-icons mdc-fab__icon">close</span>
+                <span class="mdc-fab__label">Close</span>
+            </button>
+            <button class="add mdc-fab mdc-fab--extended" (click)="emitAdd()">
+                <div class="mdc-fab__ripple"></div>
+                <span class="material-icons mdc-fab__icon">add</span>
+                <span class="mdc-fab__label">Add</span>
+            </button>
+            <button class="add mdc-fab mdc-fab--extended" (click)="emitClear()">
+                <div class="mdc-fab__ripple"></div>
+                <span class="material-icons mdc-fab__icon">delete</span>
+                <span class="mdc-fab__label">Clear</span>
+            </button>
+        </div>
+        <div class="chip-container">
+            <h2 class="mat-heading-2">Sort By</h2>
+            <mat-chip-listbox>
+                <mat-chip-option
+                    *ngFor="let sortingOption of SORTING_OPTIONS; let i = index"
+                    [color]="sortingOption.color"
+                    [selected]="i === 0"
+                    (click)="emitSort(sortingOption)">
+                    {{ sortingOption.name }}
+                </mat-chip-option>
+            </mat-chip-listbox>
+        </div>
     </div>
 </ng-template>
 <ng-container *ngIf="!isIntro">

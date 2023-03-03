@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { DisplayInfo, SetLabel, SetObject } from '../shared/interfaces';
+import { DisplayInfo, SetLabel, SetObject, SortingOption } from '../shared/interfaces';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
 import { SA2_LABELS } from '../shared/object-labels';
 import { CUSTOM_KEYS } from '../shared/content';
+import { SORTING_OPTIONS } from '../shared/content';
 
 /** Handles SET object storage, manipulation, and creation. */
 @Injectable({
@@ -15,6 +16,7 @@ import { CUSTOM_KEYS } from '../shared/content';
 export class ObjectService {
   private objectList: SetObject[] = [];
   private nextID = 0;
+  private sortingOption = SORTING_OPTIONS[0];
 
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
@@ -27,7 +29,20 @@ export class ObjectService {
       displayInfo: this.getDisplayInfo(levelObjectGroups, stage, DEFAULT_ITEM),
     }
     this.nextID++;
-    this.objectList.push(object);
+    // Insert object in ways to avoid resorting.
+    switch (this.sortingOption.name) {
+      case 'Time created':
+        this.objectList.push(object);
+        break;
+      case 'x':
+      case 'y':
+      case 'z':
+        this.objectList.unshift(object);
+        break;
+      default:
+        this.objectList.push(object);
+        this.objectList.sort(this.sortingOption.sortingFn);
+    }
     this.objectSubject.next(this.objectList);
   }
 
@@ -47,7 +62,7 @@ export class ObjectService {
       }
       object.displayInfo = this.getDisplayInfo(levelObjectGroups, stage, object.type);
     }
-    this.objectList = objectList;
+    this.objectList = objectList.sort(this.sortingOption.sortingFn);
     this.objectSubject.next(this.objectList);
   }
 
@@ -109,6 +124,12 @@ export class ObjectService {
       customVariableCount: this.getCustomVariableCount(setLabel ?? {}),
       ...(setLabel !== undefined && {setLabel}),
     };
+  }
+
+  setSortingOption(sortingOption: SortingOption) {
+    this.sortingOption = sortingOption;
+    this.objectList.sort(sortingOption.sortingFn);
+    this.objectSubject.next(this.objectList);
   }
 
   private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>, objectType: SA2Object): string {

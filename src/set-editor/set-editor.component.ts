@@ -10,7 +10,7 @@ import { VirtualScrollerModule } from '@iharbeck/ngx-virtual-scroller';
 
 import { MOCK_OBJECTS } from '../shared/mock-objects';
 import { SA2Object } from '../shared/objects';
-import { SetFile, SetObject } from '../shared/interfaces';
+import { SetFile, SetObject, SortingFn, SortingOption } from '../shared/interfaces';
 
 import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
@@ -162,5 +162,9 @@ export default class SetEditorComponent implements OnInit {
 
   trackById(index: number, object: SetObject): number {
     return object.id;
+  }
+
+  setSortingOption(sortingOption: SortingOption) {
+    this.objectService.setSortingOption(sortingOption);
   }
 }

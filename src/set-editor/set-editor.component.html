@@ -5,7 +5,8 @@
     (add)="addObject()"
     (clear)="clearObjects()"
     (close)="closeFile()"
-    (save)="saveFile()">
+    (save)="saveFile()"
+    (sort)="setSortingOption($event)">
 </app-header>
 <virtual-scroller
     *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
