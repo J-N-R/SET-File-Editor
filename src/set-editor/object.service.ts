@@ -6,7 +6,7 @@ import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
 import { SA2_LABELS } from '../shared/object-labels';
-import { CUSTOM_VARIABLE_KEYS } from '../shared/content';
+import { CUSTOM_KEYS } from '../shared/content';
 
 /** Handles SET object storage, manipulation, and creation. */
 @Injectable({
@@ -114,7 +114,7 @@ export class ObjectService {
   private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>, objectType: SA2Object): string {
     for (const [groupName, objectGroup] of levelObjectGroups) {
       if (objectGroup.has(objectType)) {
-        return CATEGORY_CLASSLIST.get(groupName) ?? '';
+        return CATEGORY_CLASSLIST[groupName];
       }
     }
     return '';
@@ -131,8 +131,8 @@ export class ObjectService {
   }
 
   private getCustomVariableCount(setLabel: SetLabel): number {
-    return CUSTOM_VARIABLE_KEYS.reduce((accumulator, objectKey) =>
-        accumulator + (setLabel[objectKey as keyof SetLabel] != undefined ? 1 : 0),
+    return CUSTOM_KEYS.reduce((accumulator, objectKey) =>
+        accumulator + (setLabel[objectKey] != undefined ? 1 : 0),
         0
     );
   }
@@ -141,15 +141,16 @@ export class ObjectService {
 const INTERNAL_NAMES = new Map<SA2Object, string>(Object.entries(SA2Object).map(
   ([internalName, objectName]) => [objectName, internalName]
 ));
-const CATEGORY_CLASSLIST = new Map<string, string>([
-  ['Enemies', 'enemy'],
-  ['Collectibles', 'collectible'],
-  ['Stage Interactables', 'interactable'],
-  ['Decoration', 'decoration'],
-  ['Triggers', 'trigger'],
-  ['Sunglasses', 'trigger'],
-  ['Ball Switch', 'trigger'],
-  ['Mystic Shrine', 'shrine'],
-  ['Actors', 'decoration'],
-]);
+const CATEGORY_CLASSLIST: Readonly<Record<string, string>> = {
+  'Enemies': 'enemy',
+  'Collectibles': 'collectible',
+  'Stage Interactables': 'interactable',
+  'Decoration': 'decoration',
+  'Triggers': 'trigger',
+  'Sunglasses': 'trigger',
+  'Ball Switch': 'trigger',
+  'Mystic Shrine': 'shrine',
+  'Actors': 'decoration',
+  'Uncategorized': '',
+};
 const DEFAULT_ITEM = SA2Object.RING;
