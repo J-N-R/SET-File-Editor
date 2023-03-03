@@ -15,14 +15,14 @@
             <mat-form-field 
                     appearance="fill"
                     class="object-select one-variable"
-                    [floatLabel]="'always'"
-                    (blur)="resetObject()">
+                    [floatLabel]="'always'">
                 <mat-label>Object</mat-label>
                 <mat-hint>Internal name: {{ displayInfo.internalName }}</mat-hint>
                 <input
                     matInput
                     [matAutocomplete]="autoGroup"
                     [(ngModel)]="userInput"
+                    (blur)="resetObject()"
                     (click)="sortAutocomplete()"
                     (ngModelChange)="filterOptions(); setObject()">
                 <mat-autocomplete #autoGroup="matAutocomplete">
