@@ -1,7 +1,24 @@
-<h1 mat-dialog-title class="title">Are you sure?</h1>
-<div mat-dialog-content class="description">
-    <p>This will delete unsaved data.</p>
-</div>
+<ng-container *ngIf="error">
+    <h1 mat-dialog-title class="title">Save failed.</h1>
+    <div mat-dialog-content class="description">
+        <p>
+            An error occured while saving. If this continues, please contact
+            the developer.
+        </p>
+    </div>
+</ng-container>
+<ng-container *ngIf="hasCompletedTask">
+    <h1 mat-dialog-title class="title">Save complete.</h1>
+    <div mat-dialog-content class="description">
+        <p>You can now continue using the app.</p>
+    </div>
+</ng-container>
+<ng-container *ngIf="!hasCompletedTask && !error">
+    <h1 mat-dialog-title class="title">Are you sure?</h1>
+    <div mat-dialog-content class="description">
+        <p>This will delete unsaved data.</p>
+    </div>
+</ng-container>
 <div mat-dialog-actions class="button-container">
     <button
         mat-dialog-close

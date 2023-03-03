@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,4 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 })
 export class ConfirmationDialogComponent {
+  @Input() hasCompletedTask = false;
+  @Input() error = false;
 }

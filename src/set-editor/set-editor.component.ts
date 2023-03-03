@@ -110,7 +110,8 @@ export default class SetEditorComponent implements OnInit {
 
   clearObjects() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,
-        {autoFocus: false, height: '160px', width: '290px'});
+        {autoFocus: false, width: '360px'});
+    console.log(!dialogRef.componentInstance.error && !dialogRef.componentInstance.hasCompletedTask);
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
@@ -127,13 +128,24 @@ export default class SetEditorComponent implements OnInit {
         isSA2Format: this.isSA2Format,
         setObjects: objectList,
         stage: this.stage,
+      }).pipe(first()).subscribe((result) => {
+        if (result) {
+          const dialogRef = this.dialog.open(ConfirmationDialogComponent,
+            {autoFocus: false, width: '360px'});
+          dialogRef.componentInstance.hasCompletedTask = true;
+        }
+        else {
+          const dialogRef = this.dialog.open(ConfirmationDialogComponent,
+            {autoFocus: false, width: '360px'});
+          dialogRef.componentInstance.error = true;
+        }
       });
     })
   }
 
   closeFile() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,
-      {autoFocus: false, height: '160px', width: '290px'});
+      {autoFocus: false, width: '360px'});
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
