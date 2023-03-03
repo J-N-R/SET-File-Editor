@@ -55,8 +55,8 @@ export class SetObjectComponent {
     }
   };
 
-  filteredObjectGroups = new Map<string, Set<SA2Object>>();
   userInput = '';
+  filteredObjectGroups = new Map<string, Set<SA2Object>>();
 
   constructor(private readonly objectService: ObjectService) {}
 
@@ -124,5 +124,8 @@ export class SetObjectComponent {
  * Map used for select autocomplete search.
  * Keyed by object name lowercased and returns original object and object name.
  */
-const LOWERCASE_TO_OBJECT = new Map(Object.entries(SA2Object).map(([internalName, objectType]) => [objectType.toLowerCase(), objectType]));
-const SORTED_CATEGORY_INDEX = new Map(Array.from(CATEGORIZED_OBJECTS.keys()).map((object, index) => [object, index]));
+const LOWERCASE_TO_OBJECT = new Map(Object.entries(SA2Object).map(
+    ([internalName, objectType]) => [objectType.toLowerCase(), objectType]
+));
+const SORTED_CATEGORY_INDEX = new Map(Array.from(CATEGORIZED_OBJECTS.keys())
+    .map((object, index) => [object, index]));
