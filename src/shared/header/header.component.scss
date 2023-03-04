@@ -6,11 +6,21 @@
     flex-direction: column;
     gap: 16px;
     padding: 16px 20px;
+
+    // Moves chips to the right on really small displays.
+    ::ng-deep .mdc-evolution-chip-set__chips {
+        justify-content: end !important;
+    }
 }
 
 div {
     display: flex;
     flex: 1;
+}
+
+.control-center {
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .mat-display-1 {
@@ -31,7 +41,9 @@ div {
 }
 
 .toggle-container {
+    flex-wrap: wrap;
     height: 48px;
+    min-width: 324px;
 
     h2 {
         align-self: center;
@@ -44,6 +56,7 @@ div {
     flex: 1;
     gap: 12px;
     justify-content: center;
+    min-width: 452px;
     text-align: center;
 
     button {
@@ -53,9 +66,29 @@ div {
 
 .chip-container {
     align-items: center;
+    flex-wrap: wrap;
     justify-content: end;
+    min-width: 324px;
 
     h2 {
-        margin: 0 16px;
+        margin: 0 16px 0 0;
+    }
+}
+
+
+@media only screen and (min-width: 831px) and (max-width: 1171px) {
+    .fab-container {
+        justify-content: end;
+    }
+}
+
+
+@media only screen and (max-width: 831px) {
+    .chip-container {
+        justify-content: center;
+    }
+
+    .toggle-container {
+        justify-content: center;
     }
 }

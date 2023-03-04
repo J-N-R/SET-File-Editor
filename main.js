@@ -22,18 +22,22 @@ var BAMS_TO_DEGREES = 360.0 / 65536.0;
 var DEGREES_TO_BAMS = 65536.0 / 360.0;
 function createWindow() {
     win = new electron_1.BrowserWindow({
-        width: 800,
+        width: 900,
         height: 750,
         backgroundColor: '#fff',
         minWidth: 650,
-        minHeight: 370,
+        minHeight: 425,
         icon: "file://".concat(__dirname, "/dist/assets/logo.png"),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     });
-    // win.setMenu(null);
+    /**
+     * Disable the top file menu. Maybe turn this back on when you implement
+     * more features.
+     */
+    win.setMenu(null);
     win.maximize();
     win.loadURL("file://".concat(__dirname, "/dist/set-editor/index.html"));
     win.on('closed', function () {

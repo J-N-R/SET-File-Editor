@@ -12,11 +12,11 @@ const DEGREES_TO_BAMS = 65536.0 / 360.0;
 
 function createWindow() {
     win = new BrowserWindow({
-        width: 800,
+        width: 900,
         height: 750,
         backgroundColor: '#fff',
         minWidth: 650,
-        minHeight: 370,
+        minHeight: 425,
         icon: `file://${__dirname}/dist/assets/logo.png`,
         webPreferences: {
             nodeIntegration: true,
