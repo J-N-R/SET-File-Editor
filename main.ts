@@ -23,11 +23,6 @@ function createWindow() {
             contextIsolation: false,
         },
     });
-    /**
-     * Disable the top file menu. Maybe turn this back on when you implement
-     * more features.
-     */
-    win.setMenu(null);
     win.maximize();
     win.loadURL(`file://${__dirname}/dist/set-editor/index.html`);
     win.on('closed', function() {
