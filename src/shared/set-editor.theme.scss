@@ -5,6 +5,7 @@ $border-default: solid 2px #212121;
 @mixin card-buttons {
     .button-container {
         display: flex;
+        justify-content: end;
         text-align: right;
     
         .info-text {
