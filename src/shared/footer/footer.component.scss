@@ -11,13 +11,21 @@
     }
 }
 
+.drop-text {
+    flex: 1;
+    text-align: left;
+
+    p {
+        padding-left: 16px;
+    }
+}
+
 .help {
     flex: 2;
 }
 
 .version {
     flex: 1;
-    margin: 0;
     text-align: right;
 
     p {

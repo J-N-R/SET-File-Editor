@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VERSION } from '../content';
@@ -14,5 +14,7 @@ import { VERSION } from '../content';
   ],
 })
 export class FooterComponent {
+  @Input() isIntro = false;
+
   readonly VERSION = VERSION;
 }

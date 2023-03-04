@@ -30,21 +30,18 @@
                 </div>
                 <div class="spacer"></div>
                 <div class="button-container">
-                    <span class="info-text mat-h2">Or, drag and drop file.</span>
-                    <div>
-                        <button
-                            mat-flat-button
-                            color="accent"
-                            (click)="openFile()">
-                            <span class="mat-h2">Open File</span>
-                        </button>
-                        <button
-                            mat-flat-button
-                            color="primary"
-                            (click)="toggleForm()">
-                            <span class="mat-h2">New File</span>
-                        </button>
-                    </div>
+                    <button
+                        mat-flat-button
+                        color="accent"
+                        (click)="openFile()">
+                        <span class="mat-h2">Open File</span>
+                    </button>
+                    <button
+                        mat-flat-button
+                        color="primary"
+                        (click)="toggleForm()">
+                        <span class="mat-h2">New File</span>
+                    </button>
                 </div>
             </ng-container>
             <ng-template #formTemplate>
@@ -52,5 +49,5 @@
             </ng-template>
         </div>
     </div>
-    <app-footer></app-footer>
+    <app-footer [isIntro]="true"></app-footer>
 </ngx-dropzone>
