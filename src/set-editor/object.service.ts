@@ -112,7 +112,9 @@ export class ObjectService {
       }
     }
     
-    return filteredObjectGroups;
+    return new Map([...filteredObjectGroups.entries()].sort(([a], [b]) => 
+        (SORTED_CATEGORY_INDEX.get(a) ?? Number.MAX_VALUE) -
+        (SORTED_CATEGORY_INDEX.get(b) ?? Number.MAX_VALUE)));
   }
 
   getDisplayInfo(levelObjectGroups: Map<string, Set<SA2Object>>, stage: number, objectType: SA2Object): DisplayInfo {
@@ -162,6 +164,8 @@ export class ObjectService {
 const INTERNAL_NAMES = new Map<SA2Object, string>(Object.entries(SA2Object).map(
   ([internalName, objectName]) => [objectName, internalName]
 ));
+const SORTED_CATEGORY_INDEX = new Map(Array.from(CATEGORIZED_OBJECTS.keys())
+    .map((object, index) => [object, index]));
 const CATEGORY_CLASSLIST: Readonly<Record<string, string>> = {
   'Enemies': 'enemy',
   'Collectibles': 'collectible',

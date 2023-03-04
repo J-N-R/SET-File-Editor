@@ -141,6 +141,7 @@ export class FileFormComponent implements OnInit {
     this.cancelEvent.emit();
   }
 
+  // Overrides keyvalue's default sorting behavior.
   noSorting(): number {
     return 0;
   }

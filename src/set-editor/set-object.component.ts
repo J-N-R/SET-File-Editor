@@ -98,13 +98,6 @@ export class SetObjectComponent {
     this.filterOptions();
   }
 
-  // Overrides keyvalue to keep object categories in original order.
-  unsortedComparator(a: KeyValue<string, Set<SA2Object>>,
-                     b: KeyValue<string, Set<SA2Object>>) {
-    return (SORTED_CATEGORY_INDEX.get(a.key) ?? Number.MAX_VALUE) -
-           (SORTED_CATEGORY_INDEX.get(b.key) ?? Number.MAX_VALUE);
-  }
-
   resetObject() {
     this.userInput = this.object.type;
   }
@@ -118,6 +111,11 @@ export class SetObjectComponent {
       this.object.displayInfo.isExpanded = !this.object.displayInfo.isExpanded;
     }
   }
+
+  // Overrides keyvalue's default sorting behavior.
+  noSorting(): number {
+    return 0;
+  }
 }
 
 /**
@@ -127,5 +125,3 @@ export class SetObjectComponent {
 const LOWERCASE_TO_OBJECT = new Map(Object.entries(SA2Object).map(
     ([internalName, objectType]) => [objectType.toLowerCase(), objectType]
 ));
-const SORTED_CATEGORY_INDEX = new Map(Array.from(CATEGORIZED_OBJECTS.keys())
-    .map((object, index) => [object, index]));
