@@ -120,7 +120,7 @@ export class FileFormComponent implements OnInit {
 
     // Change the fileName on mode change.
     this.mode?.valueChanges.subscribe(() => {
-      if (this.mode?.value && this.stage?.value) {
+      if (this.stage?.value) {
         this.setFileName(this.stage.value);
       }
     });
