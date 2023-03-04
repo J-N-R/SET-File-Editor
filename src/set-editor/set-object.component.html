@@ -7,6 +7,7 @@
     <mat-expansion-panel-header
         class="center"
         [ngClass]="displayInfo.categoryClass"
+        [title]="object.type.length > 26 ? object.type : ''"
         (click)="togglePanel()">
         {{ object.type }}
     </mat-expansion-panel-header>
