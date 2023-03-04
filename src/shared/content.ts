@@ -1,4 +1,4 @@
-import { SetObject, SetLabel, SortingOption } from './interfaces';
+import { SetObject, SetLabel, SortingOption, SetFile } from './interfaces';
 
 /** Version of the Set Editor. */
 export const VERSION = 'v1.0.0';
@@ -42,3 +42,18 @@ export const SORTING_OPTIONS: SortingOption[] = [
             (Number(a.z) || 0) - (Number(b.z) || 0),
     },
 ];
+
+/** Estimates file information from name. */
+export function convertToSetFile(filePath: string): SetFile {
+    const fileName = filePath.split('\\').pop() ?? '';
+    const stage = Number(fileName?.match(/\d/g)?.join('') ?? 0);
+    const isSA2Format = fileName.includes('_');
+
+    return {
+        fileName,
+        ...(stage !== 0 && {stage}),
+        isSA2Format,
+        setObjects: [],
+        filePath,
+    };
+}

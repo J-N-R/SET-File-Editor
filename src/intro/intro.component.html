@@ -1,47 +1,56 @@
-<app-header [isIntro]="true"></app-header>
-<div class="container">
-    <div class="card">
-        <ng-container *ngIf="!isFormOpen; else formTemplate">
-            <h1 class="mat-h1" tabindex="0">
-                Welcome to the Modern Set Editor!
-            </h1>
-            <p class="mat-h2" tabindex="0">
-                Through this editor, you can add and adjust enemy layouts for
-                any level.
-            </p>
-            <p class="mat-h2" tabindex="0">Click "New File" to get started!</p>
-            <p class="info-header mat-h2" tabindex="0">
-                Note:
-            </p>
-            <div class="info-card">
-                <div *ngFor="let note of NOTES" class="row">
-                    <div class="icon-container mat-primary">
-                        <mat-icon>{{ note.icon }}</mat-icon>
+<ngx-dropzone
+    class="file-drop"
+    [disableClick]="true"
+    [multiple]="false"
+    (change)="openDroppedFile($event)">
+    <app-header [isIntro]="true"></app-header>
+    <div class="container">
+        <div class="card">
+            <ng-container *ngIf="!isFormOpen; else formTemplate">
+                <h1 class="mat-h1" tabindex="0">
+                    Welcome to the Modern Set Editor!
+                </h1>
+                <p class="mat-h2" tabindex="0">
+                    Through this editor, you can add and adjust enemy layouts for
+                    any level.
+                </p>
+                <p class="mat-h2" tabindex="0">Click "New File" to get started!</p>
+                <p class="info-header mat-h2" tabindex="0">
+                    Note:
+                </p>
+                <div class="info-card">
+                    <div *ngFor="let note of NOTES" class="note">
+                        <div class="icon-container mat-primary">
+                            <mat-icon>{{ note.icon }}</mat-icon>
+                        </div>
+                        <p class="mat-h3" tabindex="0">
+                            {{ note.text }}
+                        </p>
                     </div>
-                    <p class="mat-h3" tabindex="0">
-                        {{ note.text }}
-                    </p>
                 </div>
-            </div>
-            <div class="spacer"></div>
-            <div class="button-container">
-                <button
-                    mat-flat-button
-                    color="accent"
-                    (click)="openFile()">
-                    <span class="mat-h2">Open File</span>
-                </button>
-                <button
-                    mat-flat-button
-                    color="primary"
-                    (click)="toggleForm()">
-                    <span class="mat-h2">New File</span>
-                </button>
-            </div>
-        </ng-container>
-        <ng-template #formTemplate>
-            <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()"></app-file-form>
-        </ng-template>
+                <div class="spacer"></div>
+                <div class="button-container">
+                    <span class="info-text mat-h2">Or, drag and drop file.</span>
+                    <div>
+                        <button
+                            mat-flat-button
+                            color="accent"
+                            (click)="openFile()">
+                            <span class="mat-h2">Open File</span>
+                        </button>
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            (click)="toggleForm()">
+                            <span class="mat-h2">New File</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #formTemplate>
+                <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()"></app-file-form>
+            </ng-template>
+        </div>
     </div>
-</div>
-<app-footer></app-footer>
+    <app-footer></app-footer>
+</ngx-dropzone>

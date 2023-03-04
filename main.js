@@ -16,6 +16,7 @@ var fs = require("fs");
 var objects_1 = require("./src/shared/objects");
 var sa2_levels_1 = require("./src/shared/sa2-levels");
 var object_labels_1 = require("./src/shared/object-labels");
+var content_1 = require("./src/shared/content");
 var win;
 var BAMS_TO_DEGREES = 360.0 / 65536.0;
 var DEGREES_TO_BAMS = 65536.0 / 360.0;
@@ -119,7 +120,6 @@ function readDataView(fd, size) {
 }
 /** Open a file dialog, and try to estimate stage info. */
 electron_1.ipcMain.handle('openFile', function (event) {
-    var _a, _b, _c;
     var filePath = electron_1.dialog.showOpenDialogSync({
         filters: [{ name: 'SET File (*.bin)', extensions: ['bin'] }],
         properties: ['openFile']
@@ -128,10 +128,7 @@ electron_1.ipcMain.handle('openFile', function (event) {
         console.warn('No file path given, cancelling open.');
         return null;
     }
-    var fileName = (_a = filePath[0].split('\\').pop()) !== null && _a !== void 0 ? _a : '';
-    var stage = Number((_c = (_b = fileName === null || fileName === void 0 ? void 0 : fileName.match(/\d/g)) === null || _b === void 0 ? void 0 : _b.join('')) !== null && _c !== void 0 ? _c : 0);
-    var isSA2Format = fileName.includes('_');
-    return __assign(__assign({ fileName: fileName }, (stage !== 0 && { stage: stage })), { isSA2Format: isSA2Format, setObjects: [], filePath: filePath[0] });
+    return (0, content_1.convertToSetFile)(filePath[0]);
 });
 /** Read an object list from a file. */
 // If ReadStream doesnt work, use fileHandle.read

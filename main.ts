@@ -4,6 +4,7 @@ import { SetObject, SetFile, SetLabel } from './src/shared/interfaces';
 import { SA2Object } from './src/shared/objects';
 import { SA2_LEVELS } from './src/shared/sa2-levels';
 import { SA2_LABELS } from './src/shared/object-labels';
+import { convertToSetFile } from './src/shared/content';
 
 let win: BrowserWindow|null;
 const BAMS_TO_DEGREES = 360.0 / 65536.0;
@@ -134,17 +135,7 @@ ipcMain.handle('openFile', (event): SetFile|null => {
         return null;
     }
 
-    const fileName = filePath[0].split('\\').pop() ?? '';
-    const stage = Number(fileName?.match(/\d/g)?.join('') ?? 0);
-    const isSA2Format = fileName.includes('_');
-
-    return {
-        fileName,
-        ...(stage !== 0 && {stage}),
-        isSA2Format,
-        setObjects: [],
-        filePath: filePath[0],
-    };
+    return convertToSetFile(filePath[0]);
 });
 
 /** Read an object list from a file. */

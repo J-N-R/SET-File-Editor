@@ -2,10 +2,16 @@
 @import "../shared/set-editor.theme.scss";
 @include card-buttons;
 
-:host {
+.file-drop {
+    all: unset;
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    &.ngx-dz-hovered {
+        border: 8px dashed #717386;
+        height: calc(100% - 16px);
+    }
 }
 
 .container {
@@ -52,7 +58,7 @@
         margin-left: 16px;
     }
 
-    .row {
+    .note {
         align-items: center;
         display: flex;
     }

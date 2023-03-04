@@ -1,10 +1,21 @@
+@use '@angular/material' as mat;
+
 $border-default: solid 2px #212121;
 
 @mixin card-buttons {
     .button-container {
-        align-items: right;
+        display: flex;
         text-align: right;
     
+        .info-text {
+            align-self: center;
+            color: mat.get-color-from-palette(mat.$gray-palette, 600);
+            flex: 1;
+            font-style: italic;
+            margin: 0;
+            padding-right: 16px;
+        }
+
         .mat-h2 {
             font-family: "Roboto";
             font-size: 18px;

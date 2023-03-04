@@ -27,6 +27,7 @@
     "@iharbeck/ngx-virtual-scroller": "^15.2.0",
     "@material-design-icons/font": "^0.12.1",
     "@material/fab": "^14.0.0",
+    "ngx-dropzone": "^3.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.10",

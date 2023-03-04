@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxDropzoneModule, NgxDropzoneChangeEvent } from 'ngx-dropzone';
+import { convertToSetFile } from '../shared/content';
+import { first } from 'rxjs/operators';
+
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ElectronService } from '../shared/electron.service';
@@ -25,6 +27,7 @@ import { SetFile } from 'src/shared/interfaces';
     HeaderComponent,
     MatButtonModule,
     MatIconModule,
+    NgxDropzoneModule,
   ],
 })
 export default class IntroComponent {
@@ -51,5 +54,12 @@ export default class IntroComponent {
         'running electron?');
       }
     });
+  }
+
+  openDroppedFile(event: NgxDropzoneChangeEvent) {
+    if (event.addedFiles) {
+      this.openedFile = convertToSetFile(event.addedFiles[0].path);
+      this.isFormOpen = true;
+    }
   }
 }
