@@ -33,6 +33,7 @@ function createWindow() {
             contextIsolation: false
         }
     });
+    // win.setMenu(null);
     win.maximize();
     win.loadURL("file://".concat(__dirname, "/dist/set-editor/index.html"));
     win.on('closed', function () {
