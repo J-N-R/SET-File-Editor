@@ -42,9 +42,9 @@ import { FooterComponent } from '../shared/footer/footer.component';
 })
 export default class SetEditorComponent implements OnInit {
   fileName = '';
-  isSA2Format = false;
   fileType = '';
   loading = true;
+  isSA2Format = false;
   stage = 13;
   numOfObjects = 0;
   coordinateStyle: CoordinateStyle = 'game';
@@ -68,7 +68,7 @@ export default class SetEditorComponent implements OnInit {
       this.fileType = queryParams.get('fileType')!;
     }
     if (queryParams.has('fileName')) {
-      let fileName = queryParams.get('fileName')!.split('.')[0];
+      const fileName = queryParams.get('fileName')!.split('.')[0];
       this.fileName = fileName + '.bin';
     }
     if (queryParams.has('stage')) {
@@ -112,7 +112,6 @@ export default class SetEditorComponent implements OnInit {
   clearObjects() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,
         {autoFocus: false, width: '360px'});
-    console.log(!dialogRef.componentInstance.error && !dialogRef.componentInstance.hasCompletedTask);
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {

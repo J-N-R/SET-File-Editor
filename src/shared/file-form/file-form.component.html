@@ -45,16 +45,16 @@
                 <mat-form-field appearance="fill">
                     <mat-label>SET File Format</mat-label>
                     <mat-select formControlName="fileType">
-                        <mat-option *ngFor="let format of sa2Formats" [value]="format">
-                            {{ format }}
+                        <mat-option *ngFor="let format of sa2Formats | keyvalue: noSorting" [value]="format.value">
+                            {{ format.key }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Mode</mat-label>
                     <mat-select formControlName="mode">
-                        <mat-option *ngFor="let mode of modes" [value]="mode">
-                            {{ mode }}
+                        <mat-option *ngFor="let mode of modes | keyvalue: noSorting" [value]="mode.value">
+                            {{ mode.key }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

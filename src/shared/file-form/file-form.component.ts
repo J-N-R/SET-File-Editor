@@ -39,12 +39,12 @@ export class FileFormComponent implements OnInit {
   form = new FormGroup({
     fileName: new FormControl('(placeholder)'),
     isSA2Format: new FormControl<boolean|null>(null, Validators.required),
-    fileType: new FormControl('Normal'),
+    fileType: new FormControl('S'),
     stage: new FormControl<number|null>(null, Validators.required),
     mode: new FormControl<string|null>(null),
   });
   readonly sa1Formats = SA1_FORMATS;
-  readonly sa2Formats = SA2_FORMATS;
+  readonly sa2Formats = SA2_FILE_SUFFIXES;
   readonly sa1Stages = SA1_STAGES;
   readonly sa2Stages = SA2_STAGES;
   readonly modes = SA2_MODES;
@@ -63,6 +63,10 @@ export class FileFormComponent implements OnInit {
 
   get stage() {
     return this.form.get('stage');
+  }
+
+  get mode() {
+    return this.form.get('mode');
   }
 
   get queryParams() {
@@ -101,10 +105,8 @@ export class FileFormComponent implements OnInit {
 
     // Change the fileName on fileType change.
     this.fileType?.valueChanges.subscribe(() => {
-      if (this.fileType?.value) {
-        const fileNameFormatted = this.fileName?.value?.split('_')[0] ?? '';
-        const fileNameSuffix = SA2_FILE_SUFFIXES.get(this.fileType.value) ?? '';
-        this.fileName?.setValue(fileNameFormatted + fileNameSuffix + '.bin');
+      if (this.fileType?.value && this.stage?.value) {
+        this.setFileName(this.stage.value);
       }
     });
     
@@ -112,14 +114,14 @@ export class FileFormComponent implements OnInit {
     this.stage?.valueChanges.subscribe(() => {
       if (this.stage?.value) {
         this.fileName?.enable();
-        let fileName = 'SET00';
-        if (this.stage.value < 10) {
-          fileName += '0';
-        }
-        fileName += this.stage.value;
-        let fileNameSuffix = this.fileName?.value?.split('_')[1] ?? '';
-        fileNameSuffix = '_' + fileNameSuffix.split('.')[0];
-        this.fileName?.setValue(fileName + fileNameSuffix + '.bin');
+        this.setFileName(this.stage.value);
+      }
+    });
+
+    // Change the fileName on mode change.
+    this.mode?.valueChanges.subscribe(() => {
+      if (this.mode?.value && this.stage?.value) {
+        this.setFileName(this.stage.value);
       }
     });
 
@@ -128,34 +130,43 @@ export class FileFormComponent implements OnInit {
       this.fileName?.setValue(this.setFile.fileName);
       this.isSA2Format?.setValue(this.setFile.isSA2Format ?? null);
       this.stage?.setValue(this.setFile.stage ?? null);
+      
+      if (this.setFile.fileName.toLowerCase().includes('_u')) {
+        this.fileType?.setValue('Decorative');
+      }
     }
   }
 
   cancel() {
     this.cancelEvent.emit();
   }
+
+  noSorting(): number {
+    return 0;
+  }
+
+  private setFileName(stage: number) {
+    const fileName = stage < 10 ? 'SET000' + stage : 'SET00' + stage;
+    this.fileName?.setValue([
+      fileName,
+      this.mode?.value || [],
+      this.fileType?.value || [],
+    ].flat().join('_') + '.bin');
+  }
 }
 
 const SA1_FORMATS = [
   'Unsupported',
 ];
-
-const SA2_FORMATS = [
-  'Normal',
-  'Decorative',
-];
-
-const SA2_MODES = [
-  null,
-  '2 Player',
-  'Hard Mode',
-]
-
-const SA2_FILE_SUFFIXES = new Map<string, string>([
-  ['Normal', '_S'],
-  ['Decorative', '_U'],
+const SA2_MODES = new Map<string|null, string>([
+  [null, ''],
+  ['2 Player', '2P'],
+  ['Hard Mode', 'HD'],
 ]);
-
+const SA2_FILE_SUFFIXES = new Map<string, string>([
+  ['Normal', 'S'],
+  ['Decorative', 'U'],
+]);
 const SA1_STAGES: Stage[] = [
   {name: 'Unsupported', id: 0},
 ]
