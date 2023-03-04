@@ -12,7 +12,19 @@
         </h1>
     </div>
     <div>
-        <div></div>
+        <div class="toggle-container">
+            <h2 class="mat-heading-2">Coordinates Style</h2>
+            <mat-button-toggle-group
+                value="game"
+                (change)="emitCoordinateStyle($event)">
+                <mat-button-toggle value="game">
+                    Game Coordinates
+                </mat-button-toggle>
+                <mat-button-toggle value="blender">
+                    Blender Coordinates
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+        </div>
         <div class="fab-container">
             <button class="save mdc-fab mdc-fab--extended" (click)="emitSave()">
                 <div class="mdc-fab__ripple"></div>
@@ -37,12 +49,12 @@
         </div>
         <div class="chip-container">
             <h2 class="mat-heading-2">Sort By</h2>
-            <mat-chip-listbox>
+            <mat-chip-listbox (change)="emitSort($event)">
                 <mat-chip-option
                     *ngFor="let sortingOption of SORTING_OPTIONS; let i = index"
                     [color]="sortingOption.color"
                     [selected]="i === 0"
-                    (click)="emitSort(sortingOption)">
+                    [value]="sortingOption">
                     {{ sortingOption.name }}
                 </mat-chip-option>
             </mat-chip-listbox>

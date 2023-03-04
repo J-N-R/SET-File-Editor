@@ -209,6 +209,7 @@ electron_1.ipcMain.handle('readFile', function (event, setFile) {
  * (append).
 */
 electron_1.ipcMain.handle('saveFile', function (event, setFile) {
+    var _a;
     var filePath = electron_1.dialog.showSaveDialogSync({
         defaultPath: setFile.fileName + '.bin',
         filters: [{ name: 'SET File (*.bin)', extensions: ['bin'] }],
@@ -235,8 +236,8 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) {
     dataview = new DataView(new ArrayBuffer(28));
     writeDataView(fd, dataview);
     // Write objects to file. Account for endian differences.
-    for (var _i = 0, _a = setFile.setObjects; _i < _a.length; _i++) {
-        var setObject = _a[_i];
+    for (var _i = 0, _b = setFile.setObjects; _i < _b.length; _i++) {
+        var setObject = _b[_i];
         // Write clip & id. If littleEndian, id goes first.
         dataview = new DataView(new ArrayBuffer(2));
         if (enableLittleEndian) {
@@ -246,6 +247,12 @@ electron_1.ipcMain.handle('saveFile', function (event, setFile) {
             dataview.setUint8(1, levelObjects.indexOf(setObject.type));
         }
         writeDataView(fd, dataview);
+        // If coordinate style is blender, swap y and z.
+        if (setFile.coordinateStyle === 'blender') {
+            var temp = setObject.y;
+            setObject.y = -((_a = setObject.z) !== null && _a !== void 0 ? _a : 0) + '';
+            setObject.z = temp;
+        }
         // Write x, y, and z rotation, in BAMS 2 byte short.
         dataview = new DataView(new ArrayBuffer(6));
         dataview.setUint16(0, convertToBams(setObject.xRot), enableLittleEndian);

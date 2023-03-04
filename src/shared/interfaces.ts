@@ -40,13 +40,18 @@ export interface DisplayInfo {
     setLabel?: SetLabel,
 }
 
-/** Saves SetObject information into a file. */
+/**
+ * Saves SetObject information into a file.
+ * TODO: This feels like two interfaces in one, some info is used just for
+ * reading, while other info is just used for saving. Maybe split this up?
+ **/
 export interface SetFile {
     fileName: string,
     isSA2Format?: boolean,
     setObjects: SetObject[],
     stage?: number,
     filePath?: string,
+    coordinateStyle?: CoordinateStyle,
 }
 
 /** Sorts objects based on attributes. */
@@ -58,3 +63,6 @@ export interface SortingOption {
 
 /** Method for sorting objects. */
 export type SortingFn = (a: SetObject, b: SetObject) => number;
+
+/** Different ways of handle coordinates. */
+export type CoordinateStyle = 'game' | 'blender';

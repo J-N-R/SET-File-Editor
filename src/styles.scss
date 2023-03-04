@@ -41,6 +41,7 @@ $theme: mat.define-light-theme((
 @include mat.autocomplete-theme($theme);
 @include mat.progress-spinner-theme($theme);
 @include mat.chips-theme($theme);
+@include mat.button-toggle-theme($theme);
 
 /**
  * Material component typography import.

@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule } from '@angular/forms';
+import { MatButtonToggleModule, MatButtonToggleChange } from '@angular/material/button-toggle';
+import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
+
 import { SORTING_OPTIONS } from '../content';
-import { SortingFn, SortingOption } from '../interfaces';
 
 /** Header for the Set Editor App. Doubles as a control center for objects. */
 @Component({
@@ -12,6 +14,8 @@ import { SortingFn, SortingOption } from '../interfaces';
   styleUrls: ['./header.component.scss'],
   imports: [
     CommonModule,
+    FormsModule,
+    MatButtonToggleModule,
     MatChipsModule,
   ],
 })
@@ -21,11 +25,13 @@ export class HeaderComponent {
   @Output() add = new EventEmitter();
   @Output() clear = new EventEmitter();
   @Output() sort = new EventEmitter();
+  @Output() coordinates = new EventEmitter();
 
   @Input() isIntro = false;
   @Input() fileName?: string;
   @Input() numOfObjects?: number;
 
+  coordinatesStyle = 'game';
   readonly SORTING_OPTIONS = SORTING_OPTIONS;
 
   emitSave() {
@@ -44,7 +50,11 @@ export class HeaderComponent {
     this.clear.emit();
   }
 
-  emitSort(sortingOption: SortingOption) {
-    this.sort.emit(sortingOption);
+  emitSort(event: MatChipListboxChange) {
+    this.sort.emit(event.source.value);
+  }
+
+  emitCoordinateStyle(event: MatButtonToggleChange) {
+    this.coordinates.emit(event.source.value);
   }
 }

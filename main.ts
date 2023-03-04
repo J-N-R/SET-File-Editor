@@ -287,6 +287,13 @@ ipcMain.handle('saveFile', (event, setFile: SetFile): boolean => {
         }
         writeDataView(fd, dataview);
 
+        // If coordinate style is blender, swap y and z.
+        if (setFile.coordinateStyle === 'blender') {
+            const temp = setObject.y;
+            setObject.y = -(setObject.z ?? 0) + '';
+            setObject.z = temp;
+        }
+
         // Write x, y, and z rotation, in BAMS 2 byte short.
         dataview = new DataView(new ArrayBuffer(6));
         dataview.setUint16(0, convertToBams(setObject.xRot), enableLittleEndian);

@@ -10,7 +10,7 @@ import { VirtualScrollerModule } from '@iharbeck/ngx-virtual-scroller';
 
 import { MOCK_OBJECTS } from '../shared/mock-objects';
 import { SA2Object } from '../shared/objects';
-import { SetFile, SetObject, SortingFn, SortingOption } from '../shared/interfaces';
+import { CoordinateStyle, SetFile, SetObject, SortingFn, SortingOption } from '../shared/interfaces';
 
 import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
@@ -47,6 +47,7 @@ export default class SetEditorComponent implements OnInit {
   loading = true;
   stage = 13;
   numOfObjects = 0;
+  coordinateStyle: CoordinateStyle = 'game';
   levelObjectGroups = new Map<string, Set<SA2Object>>();
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
@@ -128,6 +129,7 @@ export default class SetEditorComponent implements OnInit {
         isSA2Format: this.isSA2Format,
         setObjects: objectList,
         stage: this.stage,
+        coordinateStyle: this.coordinateStyle,
       }).pipe(first()).subscribe((result) => {
         if (result) {
           const dialogRef = this.dialog.open(ConfirmationDialogComponent,
@@ -166,5 +168,9 @@ export default class SetEditorComponent implements OnInit {
 
   setSortingOption(sortingOption: SortingOption) {
     this.objectService.setSortingOption(sortingOption);
+  }
+
+  setCoordinateStyle(coordinateStyle: CoordinateStyle) {
+    this.coordinateStyle = coordinateStyle;
   }
 }

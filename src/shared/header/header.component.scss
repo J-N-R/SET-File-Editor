@@ -30,6 +30,15 @@ div {
     margin: 0;
 }
 
+.toggle-container {
+    height: 48px;
+
+    h2 {
+        align-self: center;
+        margin: 0 16px 0 0;
+    }
+}
+
 .fab-container {
     display: flex;
     flex: 1;
