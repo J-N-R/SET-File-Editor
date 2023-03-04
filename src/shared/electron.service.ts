@@ -18,7 +18,7 @@ export class ElectronService {
       this.ipcRenderer = (window).require('electron').ipcRenderer;
     }
     else {
-      console.warn('Electron not detected. Some file features will be' +
+      console.warn('Electron not detected. Some file features will be ' +
       'disabled.');
     }
   }

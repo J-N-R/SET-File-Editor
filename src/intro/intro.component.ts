@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { ElectronService } from '../shared/electron.service';
 import { FileFormComponent } from '../shared/file-form/file-form.component';
 import { NOTES } from './intro.content';
 import { SetFile } from 'src/shared/interfaces';
+import { UpdateCheckerService } from 'src/shared/update-checker.service';
 
 @Component({
   standalone: true,
@@ -30,13 +31,22 @@ import { SetFile } from 'src/shared/interfaces';
     NgxDropzoneModule,
   ],
 })
-export default class IntroComponent {
+export default class IntroComponent implements OnInit {
   isFormOpen = false;
+  updateDetected = false;
   openedFile: SetFile|null = null;
   readonly NOTES = NOTES;
 
   constructor(private readonly router: Router,
-    private readonly electronService: ElectronService) {}
+    private readonly electronService: ElectronService,
+    private readonly updateCheckerService: UpdateCheckerService) {}
+
+  ngOnInit() {
+    this.updateCheckerService.checkForUpdate().pipe(first()).subscribe(
+      (updateDetected) => {
+        this.updateDetected = updateDetected;
+      });
+  }
 
   toggleForm() {
     this.isFormOpen = !this.isFormOpen;

@@ -11,10 +11,12 @@
                     Welcome to the Modern Set Editor!
                 </h1>
                 <p class="mat-h2" tabindex="0">
-                    Through this editor, you can add and adjust enemy layouts for
-                    any level.
+                    Through this editor, you can add and adjust enemy layouts
+                    for any level.
                 </p>
-                <p class="mat-h2" tabindex="0">Click "New File" to get started!</p>
+                <p class="mat-h2" tabindex="0">
+                    Click "New File" to get started!
+                </p>
                 <p class="info-header mat-h2" tabindex="0">
                     Note:
                 </p>
@@ -45,9 +47,12 @@
                 </div>
             </ng-container>
             <ng-template #formTemplate>
-                <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()"></app-file-form>
+                <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()">
+                </app-file-form>
             </ng-template>
         </div>
     </div>
-    <app-footer [isIntro]="true"></app-footer>
+    <app-footer [isIntro]="true" [updateDetected]="updateDetected">
+
+    </app-footer>
 </ngx-dropzone>

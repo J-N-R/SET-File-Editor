@@ -1,10 +1,13 @@
 import { SetObject, SetLabel, SortingOption, SetFile } from './interfaces';
 
 /** Version of the Set Editor. */
-export const VERSION = 'v1.0.0';
+export const VERSION = '1.00';
 
 /** Keys used to iterate over an object's custom properties. */
 export const CUSTOM_KEYS: (keyof SetLabel)[] = ['var1', 'var2', 'var3'];
+
+/** Link to this project's latest release. */
+export const RELEASES_URL = 'https://github.com/J-N-R/SET-File-Editor/releases';
 
 export const SORTING_OPTIONS: SortingOption[] = [
     {
