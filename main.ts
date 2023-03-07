@@ -284,11 +284,20 @@ ipcMain.handle('saveFile', (event, setFile: SetFile): boolean => {
         }
         writeDataView(fd, dataview);
 
-        // If coordinate style is blender, swap y and z.
+        /**
+         * If coordinate style is blender, swap y and z. (But only if they
+         * don't have an meaning via set labels)
+         **/
         if (setFile.coordinateStyle === 'blender') {
-            const temp = setObject.y;
-            setObject.y = -(setObject.z ?? 0) + '';
-            setObject.z = temp;
+            if (setObject.displayInfo?.setLabel?.y == undefined) {
+                [setObject.y, setObject.z] = [setObject.z, '-' + setObject.y];
+            }
+            [setObject.yRot, setObject.zRot] = [
+                setObject.zRot,
+                setObject.yRot?.includes('x') ? 
+                        setObject.yRot :
+                        (65536.0 - Number(setObject.yRot)).toString(),
+            ];
         }
 
         // Write x, y, and z rotation, in BAMS 2 byte short.

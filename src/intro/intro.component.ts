@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxDropzoneModule, NgxDropzoneChangeEvent } from 'ngx-dropzone';
-import { convertToSetFile } from '../shared/content';
 import { first } from 'rxjs/operators';
 
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
-import { ElectronService } from '../shared/electron.service';
-
 import { FileFormComponent } from '../shared/file-form/file-form.component';
-import { NOTES } from './intro.content';
-import { SetFile } from 'src/shared/interfaces';
+import { ElectronService } from '../shared/electron.service';
 import { UpdateCheckerService } from 'src/shared/update-checker.service';
+import { convertToSetFile } from '../shared/content';
+import { SetFile } from '../shared/interfaces';
+import { NOTES } from './intro.content';
 
 @Component({
   standalone: true,
@@ -37,8 +35,7 @@ export default class IntroComponent implements OnInit {
   openedFile: SetFile|null = null;
   readonly NOTES = NOTES;
 
-  constructor(private readonly router: Router,
-    private readonly electronService: ElectronService,
+  constructor(private readonly electronService: ElectronService,
     private readonly updateCheckerService: UpdateCheckerService) {}
 
   ngOnInit() {

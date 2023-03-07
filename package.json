@@ -1,5 +1,7 @@
 {
   "name": "set-editor",
+  "author": "Jonathan N Rivera",
+  "description": "A modern editor to aid in modding Sonic Adventure 2, used to edit and add objects to Sonic Adventure levels.",
   "version": "1.0.0",
   "license": "MIT",
   "main": "main.js",
@@ -8,7 +10,10 @@
     "serve": "tsc -watch main.ts && ng build --watch",
     "build": "tsc main.ts && ng build",
     "test": "ng test",
-    "electron": "tsc main.ts && ng build && electron ."
+    "electron": "tsc main.ts && ng build && electron .",
+    "make": "electron-forge make",
+    "start": "electron-forge start",
+    "package": "electron-forge package"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +32,7 @@
     "@iharbeck/ngx-virtual-scroller": "^15.2.0",
     "@material-design-icons/font": "^0.12.1",
     "@material/fab": "^14.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "ngx-dropzone": "^3.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
@@ -37,6 +43,11 @@
     "@angular-devkit/build-angular": "^15.1.3",
     "@angular/cli": "~15.1.3",
     "@angular/compiler-cli": "^15.1.2",
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
     "@types/jasmine": "~4.0.0",
     "electron": "^23.1.0",
     "jasmine-core": "~4.3.0",

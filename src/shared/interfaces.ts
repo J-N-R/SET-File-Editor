@@ -1,9 +1,9 @@
 import { SA2Object } from './objects';
 
 /**
- * Represents an object in Sonic Adventure.
- * The string values are numbers that can also be represented in hexidecimal.
-*/
+ * Represents an object in Sonic Adventure. Properties such as x, y, and z are
+ * string to support hex values, and are converted to number at save time.
+ */
 export interface SetObject {
     id: number,
     type: SA2Object,
@@ -14,15 +14,17 @@ export interface SetObject {
     xRot?: string,
     yRot?: string,
     zRot?: string,
+    // An object's custom variables, which must have its own set label.
     var1?: string,
     var2?: string,
     var3?: string,
     displayInfo?: DisplayInfo,
 };
 
-/** Labels for what each property is used for in an object. */
+/** Labels describing the purpose of each object property. */
 export interface SetLabel {
     y?: string,
+    z?: string,
     xRot?: string,
     yRot?: string,
     zRot?: string,

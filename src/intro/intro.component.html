@@ -7,17 +7,17 @@
     <div class="container">
         <div class="card">
             <ng-container *ngIf="!isFormOpen; else formTemplate">
-                <h1 class="mat-h1" tabindex="0">
+                <h1 class="mat-h1">
                     Welcome to the Modern Set Editor!
                 </h1>
-                <p class="mat-h2" tabindex="0">
+                <p class="mat-h2">
                     Through this editor, you can add and adjust enemy layouts
                     for any level.
                 </p>
-                <p class="mat-h2" tabindex="0">
+                <p class="mat-h2">
                     Click "New File" to get started!
                 </p>
-                <p class="info-header mat-h2" tabindex="0">
+                <p class="info-header mat-h2">
                     Note:
                 </p>
                 <div class="info-card">
@@ -47,12 +47,13 @@
                 </div>
             </ng-container>
             <ng-template #formTemplate>
-                <app-file-form [setFile]="openedFile" (cancelEvent)="toggleForm()">
+                <app-file-form
+                    [setFile]="openedFile"
+                    (cancelEvent)="toggleForm()">
                 </app-file-form>
             </ng-template>
         </div>
     </div>
     <app-footer [isIntro]="true" [updateDetected]="updateDetected">
-
     </app-footer>
 </ngx-dropzone>

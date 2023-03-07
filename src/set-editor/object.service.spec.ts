@@ -6,6 +6,10 @@ import { ObjectService } from './object.service';
 import { SetObject } from '../shared/interfaces';
 import { SA2Object } from '../shared/objects';
 
+/**
+ * TODOS: Test object sorting, test category setting, test display info
+ * setting, and clearing objects.
+ **/
 describe('ObjectService', () => {
   let service: ObjectService;
 

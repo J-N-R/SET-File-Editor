@@ -30,12 +30,16 @@
                 <mat-select formControlName="stage">
                     <!-- TODO: define 'stages' getter to automatically get sa1 vs sa2 to avoid IF statement-->
                     <ng-container *ngIf="isSA2Format?.value; else sa1Template">
-                        <mat-option *ngFor="let stage of sa2Stages" [value]="stage.id">
+                        <mat-option
+                            *ngFor="let stage of SA2_STAGES"
+                            [value]="stage.id">
                             {{ stage.name }}
                         </mat-option>
                     </ng-container>
                     <ng-template #sa1Template>
-                        <mat-option *ngFor="let stage of sa1Stages" [value]="stage.id">
+                        <mat-option
+                            *ngFor="let stage of SA1_STAGES"
+                            [value]="stage.id">
                             {{ stage.name }}
                         </mat-option>
                     </ng-template>
@@ -45,7 +49,9 @@
                 <mat-form-field appearance="fill">
                     <mat-label>SET File Format</mat-label>
                     <mat-select formControlName="fileType">
-                        <mat-option *ngFor="let format of sa2Formats | keyvalue: noSorting" [value]="format.value">
+                        <mat-option
+                            *ngFor="let format of SA2_FORMATS | keyvalue: noSorting"
+                            [value]="format.value">
                             {{ format.key }}
                         </mat-option>
                     </mat-select>
@@ -53,7 +59,9 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Mode</mat-label>
                     <mat-select formControlName="mode">
-                        <mat-option *ngFor="let mode of modes | keyvalue: noSorting" [value]="mode.value">
+                        <mat-option
+                            *ngFor="let mode of SA2_MODES | keyvalue: noSorting"
+                            [value]="mode.value">
                             {{ mode.key }}
                         </mat-option>
                     </mat-select>
@@ -107,5 +115,3 @@
         </button>
     </div>
 </form>
-
-<!-- For add dialog: https://material.angular.io/components/autocomplete/examples -->

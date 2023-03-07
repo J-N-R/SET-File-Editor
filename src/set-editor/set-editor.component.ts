@@ -1,24 +1,20 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { debounceTime, first } from 'rxjs/operators';
 import { CommonModule, Location } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { VirtualScrollerModule } from '@iharbeck/ngx-virtual-scroller';
+import { debounceTime, first } from 'rxjs/operators';
 
 import { MOCK_OBJECTS } from '../shared/mock-objects';
 import { SA2Object } from '../shared/objects';
-import { CoordinateStyle, SetFile, SetObject, SortingFn, SortingOption } from '../shared/interfaces';
-
-import { ObjectService } from './object.service';
-import { ElectronService } from '../shared/electron.service';
-
+import { CoordinateStyle, SetFile, SetObject, SortingOption } from '../shared/interfaces';
 import { SetObjectComponent } from './set-object.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { ObjectService } from './object.service';
+import { ElectronService } from '../shared/electron.service';
 
 /** Main object editing page. */
 @Component({
@@ -32,9 +28,7 @@ import { FooterComponent } from '../shared/footer/footer.component';
     ConfirmationDialogComponent,
     FooterComponent,
     HeaderComponent,
-    MatButtonModule,
     MatDialogModule,
-    MatIconModule,
     MatProgressSpinnerModule,
     SetObjectComponent,
     VirtualScrollerModule,
@@ -48,7 +42,7 @@ export default class SetEditorComponent implements OnInit {
   stage = 13;
   numOfObjects = 0;
   coordinateStyle: CoordinateStyle = 'game';
-  levelObjectGroups = new Map<string, Set<SA2Object>>();
+  levelObjectCategories = new Map<string, Set<SA2Object>>();
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
 
@@ -85,9 +79,11 @@ export default class SetEditorComponent implements OnInit {
       this.electronService.readFile(setFile).pipe(first()).subscribe(
         (objectList) => {
           if (objectList) {
-            this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
-            this.objectService.setObjectList(this.levelObjectGroups, this.stage, objectList);
             this.numOfObjects = objectList.length;
+            this.levelObjectCategories = this.objectService.getLevelObjects(
+                this.stage);
+            this.objectService.setObjectList(this.levelObjectCategories,
+                this.stage, objectList);
           }
           else {
             console.error('Error trying to read the file.');
@@ -97,15 +93,17 @@ export default class SetEditorComponent implements OnInit {
       });
     }
     else {
-      this.levelObjectGroups = this.objectService.getLevelObjects(this.stage);
-      this.objectService.setObjectList(this.levelObjectGroups, this.stage, MOCK_OBJECTS);
+      this.levelObjectCategories = this.objectService.getLevelObjects(
+          this.stage);
+      this.objectService.setObjectList(this.levelObjectCategories, this.stage,
+          MOCK_OBJECTS);
       this.numOfObjects = MOCK_OBJECTS.length;
       this.loading = false;
     }
   }
 
   addObject() {
-    this.objectService.addBlankObject(this.levelObjectGroups, this.stage);
+    this.objectService.addBlankObject(this.levelObjectCategories, this.stage);
     this.numOfObjects++;
   }
 
@@ -122,25 +120,24 @@ export default class SetEditorComponent implements OnInit {
   }
 
   saveFile() {
-    this.objectsEmitter.pipe(debounceTime(0), first()).subscribe((objectList) => {
-      this.electronService.saveFile({
-        fileName: this.fileName,
-        isSA2Format: this.isSA2Format,
-        setObjects: objectList,
-        stage: this.stage,
-        coordinateStyle: this.coordinateStyle,
-      }).pipe(first()).subscribe((result) => {
-        if (result) {
+    this.objectsEmitter.pipe(debounceTime(0), first()).subscribe(
+      (objectList) => {
+        this.electronService.saveFile({
+          fileName: this.fileName,
+          isSA2Format: this.isSA2Format,
+          setObjects: objectList,
+          stage: this.stage,
+          coordinateStyle: this.coordinateStyle,
+        }).pipe(first()).subscribe((result) => {
           const dialogRef = this.dialog.open(ConfirmationDialogComponent,
             {autoFocus: false, width: '360px'});
-          dialogRef.componentInstance.hasCompletedTask = true;
-        }
-        else {
-          const dialogRef = this.dialog.open(ConfirmationDialogComponent,
-            {autoFocus: false, width: '360px'});
-          dialogRef.componentInstance.error = true;
-        }
-      });
+          if (result) {
+            dialogRef.componentInstance.hasCompletedTask = true;
+          }
+          else {
+            dialogRef.componentInstance.error = true;
+          }
+        });
     })
   }
 
@@ -150,15 +147,15 @@ export default class SetEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmation) => {
       if (confirmation) {
-        this.objectService.clearObjectList()
+        this.objectService.clearObjectList();
         this.router.navigate(['']);
       }
     });
   }
 
   deleteObject(event: number) {
-    this.objectService.deleteObject(event);
     this.numOfObjects--;
+    this.objectService.deleteObject(event);
   }
 
   trackById(index: number, object: SetObject): number {
@@ -171,5 +168,6 @@ export default class SetEditorComponent implements OnInit {
 
   setCoordinateStyle(coordinateStyle: CoordinateStyle) {
     this.coordinateStyle = coordinateStyle;
+    this.objectService.setCoordinateStyle(coordinateStyle);
   }
 }

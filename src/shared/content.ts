@@ -9,6 +9,7 @@ export const CUSTOM_KEYS: (keyof SetLabel)[] = ['var1', 'var2', 'var3'];
 /** Link to this project's latest release. */
 export const RELEASES_URL = 'https://github.com/J-N-R/SET-File-Editor/releases';
 
+/** Different ways of sorting objects in the editor. */
 export const SORTING_OPTIONS: SortingOption[] = [
     {
         name: 'Time created',

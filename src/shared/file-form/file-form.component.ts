@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms'
-
 import { CommonModule } from '@angular/common';
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,8 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-
 import { first } from 'rxjs/operators';
+
 import { SetFile } from '../interfaces';
 
 /** Dialog that opens when a user wants to open or create a file. */
@@ -43,11 +42,11 @@ export class FileFormComponent implements OnInit {
     stage: new FormControl<number|null>(null, Validators.required),
     mode: new FormControl<string|null>(null),
   });
-  readonly sa1Formats = SA1_FORMATS;
-  readonly sa2Formats = SA2_FILE_SUFFIXES;
-  readonly sa1Stages = SA1_STAGES;
-  readonly sa2Stages = SA2_STAGES;
-  readonly modes = SA2_MODES;
+  readonly SA1_FORMATS = SA1_FORMATS;
+  readonly SA2_FORMATS = SA2_FORMATS;
+  readonly SA1_STAGES = SA1_STAGES;
+  readonly SA2_STAGES = SA2_STAGES;
+  readonly SA2_MODES = SA2_MODES;
 
   get fileName() {
     return this.form.get('fileName');
@@ -164,7 +163,7 @@ const SA2_MODES = new Map<string|null, string>([
   ['2 Player', '2P'],
   ['Hard Mode', 'HD'],
 ]);
-const SA2_FILE_SUFFIXES = new Map<string, string>([
+const SA2_FORMATS = new Map<string, string>([
   ['Normal', 'S'],
   ['Decorative', 'U'],
 ]);
@@ -174,8 +173,9 @@ const SA1_STAGES: Stage[] = [
 
 /**
  * Map of external stage name to internal level id.
- * TODO: You can probably merge this and the sa2levels
- * object list with a custom interface.
+ * TODO: You can probably merge this and the sa2levels object list with a
+ * custom interface.
+ * TODO: Do we want a stage enum? Could be useful here and other places
 */
 const SA2_STAGES: Stage[] = [
   {name: "Basic Test", id: 0},

@@ -1,11 +1,5 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-
-import { SetObject } from '../shared/interfaces';
-import { SA2Object } from '../shared/objects';
-import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
-import { ObjectService } from './object.service';
-
-import { CommonModule, KeyValue } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,12 +9,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-/**
- * TODO: Use reactive forms over template-driven.
- * TODO: Replace '0' default with null and use '0' placeholder.
- **/
+import { CoordinateStyle, SetObject } from '../shared/interfaces';
+import { SA2Object } from '../shared/objects';
+import { SA2_LEVELS } from '../shared/sa2-levels';
+import { ObjectService } from './object.service';
 
-/** UI Element that represents a single Set Object. */
+/** Visualization of a single set object. */
 @Component({
   standalone: true,
   selector: 'app-set-object',
@@ -42,7 +36,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class SetObjectComponent {
   @Output() delete = new EventEmitter<number>();
 
-  @Input() levelObjectGroups = new Map<string, Set<SA2Object>>();
+  @Input() levelObjectCategories = new Map<string, Set<SA2Object>>();
   @Input() stage: number = 13;
   @Input() object: SetObject = {
     id: 0,
@@ -54,39 +48,41 @@ export class SetObjectComponent {
       customVariableCount: 3,
     }
   };
+  // Only here to run change detection after coordinate style change.
+  @Input() coordinateStyle: CoordinateStyle = 'game';
 
   userInput = '';
-  filteredObjectGroups = new Map<string, Set<SA2Object>>();
+  stageObjectList = new Set<SA2Object>();
+  filteredObjectCategories = new Map<string, Set<SA2Object>>();
 
   constructor(private readonly objectService: ObjectService) {}
 
   ngOnInit() {
     this.userInput = this.object.type;
+    this.stageObjectList = SA2_LEVELS.get(this.stage) ?? new Set();
   }
 
   filterOptions() {
-    this.filteredObjectGroups.clear();
+    this.filteredObjectCategories.clear();
 
-    for (const [groupName, objectGroup] of this.levelObjectGroups) {
-      const filteredObjects = new Set<SA2Object>();
-      for (const object of objectGroup) {
-        if (object.toLowerCase().includes(this.userInput.toLowerCase())) {
-          filteredObjects.add(object);
-        }
-      }
+    for (const [category, objectList] of this.levelObjectCategories) {
+      const filteredObjects = Array.from(objectList).filter(
+        (object) => object.toLowerCase().includes(this.userInput.toLowerCase())
+      );
 
-      if (filteredObjects.size > 0) {
-        this.filteredObjectGroups.set(groupName, filteredObjects);
+      if (filteredObjects.length) {
+        this.filteredObjectCategories.set(category, new Set(filteredObjects));
       }
     }
   }
 
   setObject() {
     const newObjectType = LOWERCASE_TO_OBJECT.get(this.userInput.toLowerCase());
-    if (this.userInput && newObjectType) {
+    if (this.userInput && newObjectType &&
+        this.stageObjectList.has(newObjectType)) {
       this.object.type = newObjectType;
       this.object.displayInfo = {
-        ...this.objectService.getDisplayInfo(this.levelObjectGroups,
+        ...this.objectService.getDisplayInfo(this.levelObjectCategories,
             this.stage, newObjectType),
         isExpanded: true,
       };
@@ -119,8 +115,8 @@ export class SetObjectComponent {
 }
 
 /**
- * Map used for select autocomplete search.
- * Keyed by object name lowercased and returns original object and object name.
+ * Map used for select autocomplete search. Keyed by object name lowercased and
+ * returns original object and object name.
  */
 const LOWERCASE_TO_OBJECT = new Map(Object.entries(SA2Object).map(
     ([internalName, objectType]) => [objectType.toLowerCase(), objectType]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 
-import { DisplayInfo, SetLabel, SetObject, SortingOption } from '../shared/interfaces';
+import { CoordinateStyle, DisplayInfo, SetLabel, SetObject, SortingOption } from '../shared/interfaces';
 import { CATEGORIZED_OBJECTS } from '../shared/object-categories';
 import { SA2_LEVELS } from '../shared/sa2-levels';
 import { SA2Object } from '../shared/objects';
@@ -14,22 +14,22 @@ import { SORTING_OPTIONS } from '../shared/content';
   providedIn: 'root',
 })
 export class ObjectService {
-  private objectList: SetObject[] = [];
   private nextID = 0;
+  private objectList: SetObject[] = [];
   private sortingOption = SORTING_OPTIONS[0];
+  private coordinateStyle: CoordinateStyle = 'game';
 
   private readonly objectSubject = new ReplaySubject<SetObject[]>();
   readonly objectsEmitter: Observable<SetObject[]> = this.objectSubject;
 
   addBlankObject(levelObjectGroups: Map<string, Set<SA2Object>>,
-        stage: number) {
+      stage: number) {
     const object = {
       id: this.nextID,
       type: DEFAULT_ITEM,
       displayInfo: this.getDisplayInfo(levelObjectGroups, stage, DEFAULT_ITEM),
     }
-    this.nextID++;
-    // Insert object in ways to avoid resorting.
+    // Attempt to insert object without sorting, if not insert then sort.
     switch (this.sortingOption.name) {
       case 'Time created':
         this.objectList.push(object);
@@ -43,6 +43,7 @@ export class ObjectService {
         this.objectList.push(object);
         this.objectList.sort(this.sortingOption.sortingFn);
     }
+    this.nextID++;
     this.objectSubject.next(this.objectList);
   }
 
@@ -51,28 +52,31 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
-  setObjectList(levelObjectGroups: Map<string, Set<SA2Object>>,
-        stage: number, objectList: SetObject[]) {
-    if (this.nextID <= objectList.length) {
-      this.nextID = objectList.length + 1;
-    }
-    for (const object of objectList) {
-      if (object.displayInfo) {
-        continue;
-      }
-      object.displayInfo = this.getDisplayInfo(levelObjectGroups, stage, object.type);
-    }
+  /**
+   * Sets the internal object list, categorizes objects, and calculates
+   * display info.
+   **/
+  setObjectList(levelObjectGroups: Map<string, Set<SA2Object>>, stage: number,
+      objectList: SetObject[]) {
+    objectList.map((object) => {
+      object.displayInfo = object.displayInfo ?? this.getDisplayInfo(
+          levelObjectGroups, stage, object.type);
+      return object;
+    });
+    this.nextID = objectList.length + 1;
     this.objectList = objectList.sort(this.sortingOption.sortingFn);
     this.objectSubject.next(this.objectList);
   }
 
   clearObjectList() {
-    this.objectList.length = 0;
     this.nextID = 0;
+    this.objectList.length = 0;
     this.objectSubject.next(this.objectList);
   }
 
-  // Retrieves an object's levels already categorized.
+  /**
+   * Retrieves all the objects available to use in a given level, categorized.
+   **/
   getLevelObjects(stage: number): Map<string, Set<SA2Object>> {
     const levelObjects = SA2_LEVELS.get(stage);
     if (!levelObjects) {
@@ -80,49 +84,42 @@ export class ObjectService {
       return new Map([
         [
           'Unknown Stage Detected',
-          new Set<SA2Object>([SA2Object.DMYOBJ]),
-        ]
+          new Set([SA2Object.DMYOBJ]),
+        ],
       ]);
     }
 
-    // Go through every object in a level, and find the category it belongs to.
-    // This generates our own subset of categories for the UI to display.
-    const filteredObjectGroups = new Map<string, Set<SA2Object>>();
+    // Go through every object available in the given stage, and categorize it.
+    const objectCategories = new Map<string, Set<SA2Object>>();
     for (const object of levelObjects) {
-      let found = false;
-      for (const [groupName, objectGroup] of CATEGORIZED_OBJECTS) {
-        if (objectGroup.has(object)) {
-          found = true;
-          if (!filteredObjectGroups.has(groupName)) {
-            filteredObjectGroups.set(groupName, new Set<SA2Object>([object]));
-          }
-          else {
-            filteredObjectGroups.get(groupName)!.add(object);
-          }
-          break;
-        }
-      }
-      if (!found) {
-        if (!filteredObjectGroups.has('Uncategorized')) {
-          filteredObjectGroups.set('Uncategorized', new Set<SA2Object>([object]));
+      const objectCategory = this.getCategory(CATEGORIZED_OBJECTS, object);
+      if (objectCategory) {
+        if (!objectCategories.has(objectCategory)) {
+          objectCategories.set(objectCategory, new Set([object]));
         }
         else {
-          filteredObjectGroups.get('Uncategorized')!.add(object);
+          objectCategories.get(objectCategory)!.add(object);
         }
       }
     }
     
-    return new Map([...filteredObjectGroups.entries()].sort(([a], [b]) => 
+    /**
+     * Sort the categories by the order they're outlined in the data. This
+     * allows us to set our own order.
+     **/
+    return new Map([...objectCategories.entries()].sort(([a], [b]) => 
         (SORTED_CATEGORY_INDEX.get(a) ?? Number.MAX_VALUE) -
         (SORTED_CATEGORY_INDEX.get(b) ?? Number.MAX_VALUE)));
   }
 
-  getDisplayInfo(levelObjectGroups: Map<string, Set<SA2Object>>, stage: number, objectType: SA2Object): DisplayInfo {
-     const setLabel = this.getSetLabel(stage, objectType);
-     return {
+  getDisplayInfo(levelObjectGroups: Map<string, Set<SA2Object>>, stage: number,
+      objectType: SA2Object): DisplayInfo {
+    const setLabel = this.getSetLabel(stage, objectType);
+    return {
       isExpanded: false,
       internalName: INTERNAL_NAMES.get(objectType) ?? 'UNKNOWN',
-      categoryClass: this.getCategory(levelObjectGroups, objectType),
+      categoryClass: CATEGORY_CLASSLIST[this.getCategory(
+          levelObjectGroups, objectType)],
       customVariableCount: this.getCustomVariableCount(setLabel ?? {}),
       ...(setLabel !== undefined && {setLabel}),
     };
@@ -134,13 +131,23 @@ export class ObjectService {
     this.objectSubject.next(this.objectList);
   }
 
+  setCoordinateStyle(coordinateStyle: CoordinateStyle) {
+    this.coordinateStyle = coordinateStyle;
+    this.objectList.map((object) => {
+      if (object.displayInfo?.setLabel) {
+        [object.displayInfo.setLabel.y, object.displayInfo.setLabel.z] = [object.displayInfo.setLabel.z, object.displayInfo.setLabel.y];
+        [object.displayInfo.setLabel.yRot, object.displayInfo.setLabel.zRot] = [object.displayInfo.setLabel.zRot, object.displayInfo.setLabel.yRot];
+      }
+    })
+  }
+
   private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>, objectType: SA2Object): string {
-    for (const [groupName, objectGroup] of levelObjectGroups) {
-      if (objectGroup.has(objectType)) {
-        return CATEGORY_CLASSLIST[groupName];
+    for (const [category, objectList] of levelObjectGroups) {
+      if (objectList.has(objectType)) {
+        return category;
       }
     }
-    return '';
+    return 'Uncategorized';
   }
 
   private getSetLabel(stage: number, objectType: SA2Object): SetLabel|undefined {
@@ -150,6 +157,10 @@ export class ObjectService {
 
     const stageLabels = SA2_LABELS.get(objectType)!;
     const setLabel: SetLabel = {...stageLabels.get(-1), ...stageLabels.get(stage)};
+    if (this.coordinateStyle === 'blender') {
+      [setLabel.yRot, setLabel.zRot] = [setLabel.zRot, setLabel.yRot];
+      [setLabel.y, setLabel.z] = [setLabel.z, setLabel.y];
+    }
     return Object.keys(setLabel).length > 0 ? setLabel : undefined;
   }
 
@@ -161,6 +172,7 @@ export class ObjectService {
   }
 }
 
+const DEFAULT_ITEM = SA2Object.RING;
 const INTERNAL_NAMES = new Map<SA2Object, string>(Object.entries(SA2Object).map(
   ([internalName, objectName]) => [objectName, internalName]
 ));
@@ -178,4 +190,3 @@ const CATEGORY_CLASSLIST: Readonly<Record<string, string>> = {
   'Actors': 'decoration',
   'Uncategorized': '',
 };
-const DEFAULT_ITEM = SA2Object.RING;

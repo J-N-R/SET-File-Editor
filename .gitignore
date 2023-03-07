@@ -3,6 +3,7 @@
 # Compiled output
 /dist
 /tmp
+/out
 /out-tsc
 /bazel-out
 src/*.js

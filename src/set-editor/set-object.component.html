@@ -11,7 +11,7 @@
         (click)="togglePanel()">
         {{ object.type }}
     </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent >
+    <ng-template matExpansionPanelContent>
         <div class="form">
             <mat-form-field 
                     appearance="fill"
@@ -28,14 +28,14 @@
                     (ngModelChange)="filterOptions(); setObject()">
                 <mat-autocomplete #autoGroup="matAutocomplete">
                     <mat-optgroup
-                        *ngFor="let category of filteredObjectGroups | keyvalue: noSorting"
+                        *ngFor="let category of filteredObjectCategories | keyvalue: noSorting"
                         [label]="category.key">
-                    <mat-option
-                        *ngFor="let object of category.value"
-                        [value]="object">
-                        {{ object }}
-                    </mat-option>
-                </mat-optgroup>
+                        <mat-option
+                            *ngFor="let object of category.value"
+                            [value]="object">
+                            {{ object }}
+                        </mat-option>
+                    </mat-optgroup>
                 </mat-autocomplete>
             </mat-form-field>
             <mat-form-field
@@ -56,7 +56,7 @@
             </mat-form-field>
             <mat-form-field
                 appearance="fill"
-                [floatLabel]="object.y ? 'always' : 'auto'">
+                [floatLabel]="object.z ? 'always' : 'auto'">
                 <mat-label>z</mat-label>
                 <input matInput placeholder="0" [(ngModel)]="object.z">
             </mat-form-field>
@@ -114,10 +114,10 @@
             <mat-form-field
                 *ngIf="displayInfo.setLabel?.var1 != undefined"
                 appearance="fill"
-                [floatLabel]="object.var1 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var1!"
                 [class.one-variable]="displayInfo.customVariableCount === 1"
-                [class.two-variable]="displayInfo.customVariableCount === 2">
+                [class.two-variable]="displayInfo.customVariableCount === 2"
+                [floatLabel]="object.var1 ? 'always' : 'auto'"
+                [matTooltip]="displayInfo.setLabel?.var1!">
                 <mat-label>
                     Var 1
                     <mat-icon>info</mat-icon>
@@ -127,10 +127,10 @@
             <mat-form-field
                 *ngIf="displayInfo.setLabel?.var2 != undefined"
                 appearance="fill"
-                [floatLabel]="object.var2 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var2!"
                 [class.one-variable]="displayInfo.customVariableCount === 1"
-                [class.two-variable]="displayInfo.customVariableCount === 2">
+                [class.two-variable]="displayInfo.customVariableCount === 2"
+                [floatLabel]="object.var2 ? 'always' : 'auto'"
+                [matTooltip]="displayInfo.setLabel?.var2!">
                 <mat-label>
                     Var 2
                     <mat-icon>info</mat-icon>
@@ -140,10 +140,10 @@
             <mat-form-field
                 *ngIf="displayInfo.setLabel?.var3 != undefined"
                 appearance="fill"
-                [floatLabel]="object.var3 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var3!"
                 [class.one-variable]="displayInfo.customVariableCount === 1"
-                [class.two-variable]="displayInfo.customVariableCount === 2">
+                [class.two-variable]="displayInfo.customVariableCount === 2"
+                [floatLabel]="object.var3 ? 'always' : 'auto'"
+                [matTooltip]="displayInfo.setLabel?.var3!">
                 <mat-label>
                     Var 3
                     <mat-icon>info</mat-icon>

@@ -1,22 +1,23 @@
 <app-header
-    [isIntro]="false"
     [fileName]="fileName"
+    [isIntro]="false"
     [numOfObjects]="numOfObjects"
     (add)="addObject()"
     (clear)="clearObjects()"
+    (coordinates)="setCoordinateStyle($event)"
     (close)="closeFile()"
     (save)="saveFile()"
-    (sort)="setSortingOption($event)"
-    (coordinates)="setCoordinateStyle($event)">
+    (sort)="setSortingOption($event)">
 </app-header>
 <virtual-scroller
     *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
-    [items]="objects"
     [enableUnequalChildrenSizes]="true"
+    [items]="objects"
     #scroll>
         <app-set-object
             *ngFor="let object of scroll.viewPortItems; trackBy: trackById"
-            [levelObjectGroups]="levelObjectGroups"
+            [coordinateStyle]="coordinateStyle"
+            [levelObjectCategories]="levelObjectCategories"
             [object]="object"
             [stage]="stage"
             (delete)="deleteObject($event)">
