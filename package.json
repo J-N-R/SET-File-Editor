@@ -11,11 +11,15 @@
       "!**/.vscode/*",
       "!**/node_modules/*"
     ],
-    "nsis": {
-      "oneClick": false,
-      "perMachine": true,
-      "allowToChangeInstallationDirectory": true,
-      "removeDefaultUninstallWelcomePage": true
+    "mac": {
+      "target": "dmg",
+      "type": "distribution"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "linux": {
+      "target": "AppImage"
     }
   },
   "scripts": {
