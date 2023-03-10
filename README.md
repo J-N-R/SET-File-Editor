@@ -43,3 +43,6 @@ Most interfaces/structs used in the project are defined in src/shared/interfaces
 ## Trademarks
 Sega, Sonic, Sonic the Hedgehog, and Sonic Adventure are either
 trademarks or registered trademarks of SEGA of America, Inc.
+
+## Copyright
+Because I work at Google, the copyright of this project currently belongs to Google LLC. This project is still open source, so feel free to add whatever you'd like, but copyright headers have been added to source code files for legal purposes. As long as you don't touch them, and follow the guidelines in CONTRIBUTING.md, you should be fine.
