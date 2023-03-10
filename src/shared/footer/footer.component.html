@@ -3,11 +3,13 @@
 </div>
 <p class="help mat-h2" tabindex="0">
     For help please visit the
-    <a href="https://discord.gg/gqJCF47">X-Hax</a> Discord.
+    <a href="https://discord.gg/gqJCF47" target="_blank">X-Hax</a> Discord.
 </p>
 <div class="version">
     <p class="mat-h2">
-        <a *ngIf="updateDetected" [href]="RELEASES_URL">New Update Detected!</a>
+        <a *ngIf="updateDetected" [href]="RELEASES_URL" target="_blank">
+            New Update Detected!
+        </a>
         v{{ VERSION }}
     </p>
 </div>

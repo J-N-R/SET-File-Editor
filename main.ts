@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 import { SetObject, SetFile, SetLabel } from './src/shared/interfaces';
@@ -26,8 +26,14 @@ function createWindow() {
     win.setTitle('Modern Set Editor');
     win.maximize();
     win.loadFile('compiled/set-editor/index.html');
+
     win.on('closed', () => {
         win = null;
+    });
+
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url);
+        return { action: 'deny' };
     });
 }
 

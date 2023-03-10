@@ -38,10 +38,14 @@ function createWindow() {
     win.on('closed', function () {
         win = null;
     });
+    win.webContents.setWindowOpenHandler(function (_a) {
+        var url = _a.url;
+        electron_1.shell.openExternal(url);
+        return { action: 'deny' };
+    });
 }
 electron_1.app.on('ready', createWindow);
 electron_1.app.on('window-all-closed', function () {
-    console.log('hello!');
     if (process.platform !== 'darwin') {
         electron_1.app.quit();
     }
