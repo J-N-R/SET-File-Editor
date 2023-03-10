@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/set-editor",
+            "outputPath": "compiled/set-editor",
             "index": "src/index.html",
             "main": "src/root.ts",
             "polyfills": "src/polyfills.ts",

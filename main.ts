@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as fs from 'fs';
+import * as path from 'path';
 import { SetObject, SetFile, SetLabel } from './src/shared/interfaces';
 import { SA2Object } from './src/shared/objects';
 import { SA2_LEVELS } from './src/shared/sa2-levels';
@@ -17,28 +18,28 @@ function createWindow() {
         backgroundColor: '#fff',
         minWidth: 650,
         minHeight: 425,
-        icon: `file://${__dirname}/dist/assets/logo.png`,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         },
     });
+    win.setTitle('Modern Set Editor');
     win.maximize();
-    win.loadURL(`file://${__dirname}/dist/set-editor/index.html`);
-    win.on('closed', function() {
+    win.loadFile('compiled/set-editor/index.html');
+    win.on('closed', () => {
         win = null;
     });
 }
 
 app.on('ready', createWindow);
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-app.on('activate', function() {
+app.on('activate', () => {
     if (win === null) {
         createWindow();
     }

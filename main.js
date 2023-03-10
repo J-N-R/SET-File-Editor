@@ -27,20 +27,21 @@ function createWindow() {
         backgroundColor: '#fff',
         minWidth: 650,
         minHeight: 425,
-        icon: "file://".concat(__dirname, "/dist/assets/logo.png"),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     });
+    win.setTitle('Modern Set Editor');
     win.maximize();
-    win.loadURL("file://".concat(__dirname, "/dist/set-editor/index.html"));
+    win.loadFile('compiled/set-editor/index.html');
     win.on('closed', function () {
         win = null;
     });
 }
 electron_1.app.on('ready', createWindow);
 electron_1.app.on('window-all-closed', function () {
+    console.log('hello!');
     if (process.platform !== 'darwin') {
         electron_1.app.quit();
     }
