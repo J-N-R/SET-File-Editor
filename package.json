@@ -3,7 +3,8 @@
   "author": "Jonathan N Rivera",
   "description": "A modern editor to aid in modding Sonic Adventure 2, used to edit and add objects to Sonic Adventure levels.",
   "version": "1.0.2",
-  "license": "MIT",
+  "copyright": "Google LLC",
+  "license": "APACHE 2.0",
   "main": "main.js",
   "build": {
     "files": [
