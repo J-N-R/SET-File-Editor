@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
 import * as fs from 'fs';
-import * as path from 'path';
 import { SetObject, SetFile, SetLabel } from './src/shared/interfaces';
 import { SA2Object } from './src/shared/objects';
 import { SA2_LEVELS } from './src/shared/sa2-levels';

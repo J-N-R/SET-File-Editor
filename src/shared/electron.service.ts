@@ -3,7 +3,6 @@ import { ipcRenderer } from 'electron';
 import { Observable, from, of } from 'rxjs';
 
 import { SetFile, SetObject } from './interfaces';
-import { SA2Object } from './objects';
 
 /** Manages interfacing with the operating system using Electron. */
 @Injectable({
