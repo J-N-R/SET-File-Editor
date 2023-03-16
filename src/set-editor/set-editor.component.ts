@@ -48,13 +48,12 @@ export default class SetEditorComponent implements OnInit {
 
   constructor(private readonly objectService: ObjectService,
     private readonly electronService: ElectronService,
-    private readonly location: Location,
     private readonly dialog: MatDialog,
     private readonly router: Router,
     readonly changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit() {
-    const queryParams = new URLSearchParams(this.location.path().split('?')[1]);
+    const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
     if (queryParams.has('isSA2Format')) {
       this.isSA2Format = queryParams.get('isSA2Format')! === 'true';
     }
