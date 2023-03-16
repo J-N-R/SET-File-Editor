@@ -8,7 +8,6 @@ describe('SetEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SetEditorComponent ]
     })
     .compileComponents();
 
@@ -17,8 +16,6 @@ describe('SetEditorComponent', () => {
     fixture.detectChanges();
   });
 
-  /** TODO: Test that 'add' adds a new object. */
-  /** TODO: Test that 'clear' asks for permission. */
   /** TODO: Test that query parameters work properly. */
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -8,7 +8,6 @@ describe('FileFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileFormComponent ]
     })
     .compileComponents();
 

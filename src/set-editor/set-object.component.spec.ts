@@ -8,7 +8,6 @@ describe('SetObjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SetObjectComponent ]
     })
     .compileComponents();
 
