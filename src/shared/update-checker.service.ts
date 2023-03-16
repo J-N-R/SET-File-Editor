@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { first, map, catchError } from 'rxjs/operators';
 
-import { VERSION } from './content';
+import { VERSION, VERSION_URL } from './content';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class UpdateCheckerService {
 
   checkForUpdate(): Observable<boolean> {
     return this.httpClient.get(VERSION_URL).pipe(first(),
-      catchError((error) => VERSION), map((detectedVersion) => {
+      catchError((error) => observableOf(VERSION)), map((detectedVersion) => {
         if ((Number(detectedVersion) || 0) > Number(VERSION)) {
           return true;
         }
@@ -21,9 +21,6 @@ export class UpdateCheckerService {
     }));
   }
 }
-
-const VERSION_URL = 'https://raw.githubusercontent.com/J-N-R/' +
-    'SET-File-Editor/master/VERSION.txt';
 
 
 

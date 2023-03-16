@@ -3,6 +3,10 @@ import { SetObject, SetLabel, SortingOption, SetFile } from './interfaces';
 /** Version of the Set Editor. */
 export const VERSION = '1.02';
 
+/** URL to find latest Set Editor version. */
+export const VERSION_URL = 'https://raw.githubusercontent.com/J-N-R/' +
+    'SET-File-Editor/master/VERSION.txt';
+
 /** Keys used to iterate over an object's custom properties. */
 export const CUSTOM_KEYS: (keyof SetLabel)[] = ['var1', 'var2', 'var3'];
 
