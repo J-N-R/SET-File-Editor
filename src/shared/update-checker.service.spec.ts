@@ -50,7 +50,6 @@ describe('UpdateCheckerService', () => {
   });
 
   it('returns false if the internet isn\'t available', () => {
-    console.log('internet test');
     updateCheckerService.checkForUpdate().subscribe(
       (updateDetected) => {
         expect(updateDetected).toBeFalse();
