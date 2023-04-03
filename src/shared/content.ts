@@ -20,7 +20,7 @@ export const SORTING_OPTIONS: SortingOption[] = [
         sortingFn: (a: SetObject, b: SetObject) => a.id - b.id,
     },
     {
-        name: 'Type',
+        name: 'Name',
         sortingFn: (a: SetObject, b: SetObject) => a.type.localeCompare(b.type),
     },
     {
