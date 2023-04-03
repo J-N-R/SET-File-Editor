@@ -31,8 +31,10 @@ All of this was made possible by help from the X-Hax community, whose discord yo
 ## Notes
 This project was made with ElectronJS using Angular, and includes the use of Google-provided material components. If have any questions or requests for this project, please leave an issue or email me directly, and if you have any questions regarding Sonic Adventure, modding, or Set Objects, feel free to ask at the [x-hax discord](https://discord.gg/gqJCF47).
 
-## Source Code Notes
-For any developers who would like to contribute, but are unfamiliar with Angular, see the following:
+## Contributor notes
+Feel free to contribute or write code for the project! There is a "CONTRIBUTING" file that explains best practice. Long story short, make sure you create your own branch, and make sure you run `ng test` after making your changes. This will make sure the rest of the app still works.
+
+If you are unfamiliar with Angular, don't worry! Here's a guide on where the most important logic lies:
 
 * To make changes to how files are saved, see main.ts.
 * To make changes to how the state is stored and handled, see ObjectService.
