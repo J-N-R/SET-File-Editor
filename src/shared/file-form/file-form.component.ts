@@ -158,8 +158,8 @@ export class FileFormComponent implements OnInit {
 const SA1_FORMATS = [
   'Unsupported',
 ];
-const SA2_MODES = new Map<string|null, string>([
-  [null, ''],
+const SA2_MODES = new Map<string|null, string|null>([
+  ['None', null],
   ['2 Player', '2P'],
   ['Hard Mode', 'HD'],
 ]);
