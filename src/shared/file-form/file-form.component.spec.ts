@@ -1,12 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectHarness } from '@angular/material/select/testing';
+import { MatRadioGroupHarness } from '@angular/material/radio/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { HarnessLoader } from '@angular/cdk/testing';
 
 import { FileFormComponent } from './file-form.component';
+import { SetFile } from '../interfaces';
+import { MatInputHarness } from '@angular/material/input/testing';
 
 describe('FileFormComponent', () => {
+  let loader: HarnessLoader;
   let component: FileFormComponent;
   let fixture: ComponentFixture<FileFormComponent>;
+  let fileNameHarness: MatInputHarness;
+  let gameVersionHarness: MatRadioGroupHarness;
+  let selectMenu: MatSelectHarness;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,17 +29,38 @@ describe('FileFormComponent', () => {
 
     fixture = TestBed.createComponent(FileFormComponent);
     component = fixture.componentInstance;
+    loader = TestbedHarnessEnvironment.loader(fixture);
+    fileNameHarness = await loader.getHarness(MatInputHarness);
+    gameVersionHarness = await loader.getHarness(MatRadioGroupHarness);
+    selectMenu = await loader.getHarness(MatSelectHarness);
     fixture.detectChanges();
   });
 
-  /** TODO: Test that form fields are disabled for certain conditions. */
-  /** TODO: Test that input changes the file name. */
-  /** TODO: Test that different form fields pop up for different selections. */
-  /** TODO: Test that getting an opened file will prepopulate the form. */
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should fill form based on opened file', async () => {
+    component.setFile = SET_FILE;
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const fileName = await fileNameHarness.getValue();
+    const isSA2Format = await gameVersionHarness.getCheckedValue();
+    const stage = await selectMenu.getValueText();
+
+    expect(fileName).toEqual('SET0013_S.bin');
+    expect(isSA2Format).toEqual('true');
+    expect(stage).toEqual('City Escape');
+  });
+
+  it('should set file name to (placeholder) by default', async () => {
+    expect(await fileNameHarness.getValue()).toEqual('(placeholder)');
   });
 });
+
+const SET_FILE: SetFile = {
+  fileName: 'SET0013_S.bin',
+  setObjects: [],
+  isSA2Format: true,
+  stage: 13,
+};
 
 
 
