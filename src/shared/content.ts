@@ -54,7 +54,7 @@ export const SORTING_OPTIONS: SortingOption[] = [
 /** Estimates file information from name. */
 export function convertToSetFile(filePath: string): SetFile {
     const fileName = filePath.split('\\').pop() ?? '';
-    const stage = Number(fileName?.match(/\d/g)?.join('') ?? 0);
+    const stage = Number(fileName.split('_')[0].match(/\d/g)?.join('') ?? 0);
     const isSA2Format = fileName.includes('_');
 
     return {

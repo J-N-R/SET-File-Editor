@@ -133,6 +133,14 @@ export class FileFormComponent implements OnInit {
       if (this.setFile.fileName.toLowerCase().includes('_u')) {
         this.fileType?.setValue('Decorative');
       }
+
+      if (this.setFile.fileName.toLowerCase().includes('_2p')) {
+        this.mode?.setValue('2P');
+      }
+
+      if (this.setFile.fileName.toLowerCase().includes('_hd')) {
+        this.mode?.setValue('HD');
+      }
     }
   }
 
@@ -158,7 +166,7 @@ export class FileFormComponent implements OnInit {
 const SA1_FORMATS = [
   'Unsupported',
 ];
-const SA2_MODES = new Map<string|null, string|null>([
+const SA2_MODES = new Map<string, string|null>([
   ['None', null],
   ['2 Player', '2P'],
   ['Hard Mode', 'HD'],
