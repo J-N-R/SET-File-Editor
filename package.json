@@ -28,7 +28,7 @@
     "test": "ng test",
     "build": "tsc main.ts && ng build",
     "electron": "tsc main.ts && ng build && electron .",
-    "package": "electron-builder build"
+    "package": "tsc main.ts && ng build && electron-builder build"
   },
   "private": true,
   "dependencies": {
