@@ -1,7 +1,7 @@
 import { SetObject, SetLabel, SortingOption, SetFile } from './interfaces';
 
 /** Version of the Set Editor. */
-export const VERSION = '1.02';
+export const VERSION = '1.12';
 
 /** URL to find latest Set Editor version. */
 export const VERSION_URL = 'https://raw.githubusercontent.com/J-N-R/' +
