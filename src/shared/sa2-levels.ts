@@ -223,7 +223,6 @@ export const GREEN_FOREST_OBJECTS = new Set<SA2Object>([
     SA2Object.MODMOD,
     SA2Object.SHOUKOU,
     SA2Object.GAKE,
-    SA2Object.KARAMI,
     SA2Object.TOBOKU,
     SA2Object.BANGIETUTA,
     SA2Object.JP,

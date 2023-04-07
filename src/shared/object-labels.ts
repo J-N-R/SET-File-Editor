@@ -137,7 +137,7 @@ export const SA2_LABELS = new Map<SA2Object, Map<number, SetLabel>>([
       [
         32,
         {
-          var1: "How many units for the line to travel before resetting.",
+          var1: "Warning: Must be >= 1, or else the game will crash. Represents how many units for the line to travel before resetting.",
           var2: "Travel speed.",
           var3: "Scales length of the line, centered at -1.",
         },
@@ -1466,7 +1466,7 @@ export const SA2_LABELS = new Map<SA2Object, Map<number, SetLabel>>([
       [
         14,
         {
-          xRot: "Rotation speed.",
+          xRot: "Rotation speed. Warning: This value needs to be divisible by 32. Otherwise, the game may crash.",
           var1: "Scales pillar length. Centered at -1.",
           var2: "XY plane scale. Centered at -1.",
           var3: "",
@@ -1762,21 +1762,6 @@ export const SA2_LABELS = new Map<SA2Object, Map<number, SetLabel>>([
     ]),
   ],
   [
-    SA2Object.KARAMI,
-    new Map([
-      [
-        3,
-        {
-          xRot: "Appears to do the same as Y Rotation",
-          var1: "",
-          yRot: "",
-          var2: "",
-          zRot: "Seems to function the same as ROTULTA's",
-        },
-      ],
-    ]),
-  ],
-  [
     SA2Object.KASOKU,
     new Map([
       [
@@ -2046,9 +2031,11 @@ export const SA2_LABELS = new Map<SA2Object, Map<number, SetLabel>>([
         -1,
         {
           xRot: "Tens/ones digits are brightness level.",
-          var1: "X Scale of cube, radius of sphere.",
           yRot: "Ones digit changes type. Unsure what they do.",
           zRot: "Ones digit % 2 is shape: 0 is cube, 1 is sphere.",
+          var1: "X scale of cube, radius of sphere.",
+          var2: "Y scale of cube.",
+          var3: "Z scale of cube.",
         },
       ],
     ]),
