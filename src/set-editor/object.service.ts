@@ -122,6 +122,7 @@ export class ObjectService {
           levelObjectGroups, objectType)],
       customVariableCount: this.getCustomVariableCount(setLabel ?? {}),
       ...(setLabel !== undefined && {setLabel}),
+      ...(setLabel !== undefined && {fieldIcons: this.getFieldIcons(setLabel)}),
     };
   }
 
@@ -162,6 +163,19 @@ export class ObjectService {
       [setLabel.y, setLabel.z] = [setLabel.z, setLabel.y];
     }
     return Object.keys(setLabel).length > 0 ? setLabel : undefined;
+  }
+
+  private getFieldIcons(setLabel: SetLabel): SetLabel {
+    return {
+      y: setLabel.y === '' ? 'question_mark' : 'info',
+      z: setLabel.z === '' ? 'question_mark' : 'info',
+      xRot: setLabel.xRot === '' ? 'question_mark' : 'info',
+      yRot: setLabel.yRot === '' ? 'question_mark' : 'info',
+      zRot: setLabel.zRot === '' ? 'question_mark' : 'info',
+      var1: setLabel.var1 === '' ? 'question_mark' : 'info',
+      var2: setLabel.var2 === '' ? 'question_mark' : 'info',
+      var3: setLabel.var3 === '' ? 'question_mark' : 'info',
+    }
   }
 
   private getCustomVariableCount(setLabel: SetLabel): number {

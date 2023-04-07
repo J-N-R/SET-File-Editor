@@ -40,6 +40,8 @@ export interface DisplayInfo {
     categoryClass: string,
     customVariableCount: number,
     setLabel?: SetLabel,
+    // Used to determine whether to display a question mark icon or info icon
+    fieldIcons?: SetLabel,
 }
 
 /**

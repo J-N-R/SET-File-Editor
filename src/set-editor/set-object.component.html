@@ -68,7 +68,9 @@
                     <ng-container
                         *ngIf="displayInfo.setLabel?.xRot != undefined; else defaultXTemplate">
                         x Rot
-                        <mat-icon>info</mat-icon>
+                        <mat-icon>
+                            {{ displayInfo.fieldIcons?.xRot }}
+                        </mat-icon>
                     </ng-container>
                     <ng-template #defaultXTemplate>
                         x Rotation
@@ -85,7 +87,9 @@
                     <ng-container
                         *ngIf="displayInfo.setLabel?.yRot != undefined; else defaultYTemplate">
                         y Rot
-                        <mat-icon>info</mat-icon>
+                        <mat-icon>
+                            {{ displayInfo.fieldIcons?.yRot }}
+                        </mat-icon>
                     </ng-container>
                     <ng-template #defaultYTemplate>
                         y Rotation
@@ -102,7 +106,9 @@
                     <ng-container
                         *ngIf="displayInfo.setLabel?.zRot != undefined; else defaultZTemplate">
                         z Rot
-                        <mat-icon>info</mat-icon>
+                        <mat-icon>
+                            {{ displayInfo.fieldIcons?.zRot }}
+                        </mat-icon>
                     </ng-container>
                     <ng-template #defaultZTemplate>
                         z Rotation
@@ -117,10 +123,12 @@
                 [class.one-variable]="displayInfo.customVariableCount === 1"
                 [class.two-variable]="displayInfo.customVariableCount === 2"
                 [floatLabel]="object.var1 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var1!">
+                [matTooltip]="displayInfo.setLabel!.var1!">
                 <mat-label>
                     Var 1
-                    <mat-icon>info</mat-icon>
+                    <mat-icon>
+                        {{ displayInfo.fieldIcons?.var1 }}
+                    </mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var1">
             </mat-form-field>
@@ -130,10 +138,12 @@
                 [class.one-variable]="displayInfo.customVariableCount === 1"
                 [class.two-variable]="displayInfo.customVariableCount === 2"
                 [floatLabel]="object.var2 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var2!">
+                [matTooltip]="displayInfo.setLabel!.var2!">
                 <mat-label>
                     Var 2
-                    <mat-icon>info</mat-icon>
+                    <mat-icon>
+                        {{ displayInfo.fieldIcons?.var2 }}
+                    </mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var2">
             </mat-form-field>
@@ -143,10 +153,12 @@
                 [class.one-variable]="displayInfo.customVariableCount === 1"
                 [class.two-variable]="displayInfo.customVariableCount === 2"
                 [floatLabel]="object.var3 ? 'always' : 'auto'"
-                [matTooltip]="displayInfo.setLabel?.var3!">
+                [matTooltip]="displayInfo.setLabel!.var3!">
                 <mat-label>
                     Var 3
-                    <mat-icon>info</mat-icon>
+                    <mat-icon>
+                        {{ displayInfo.fieldIcons?.var3 }}
+                    </mat-icon>
                 </mat-label>
                 <input matInput [(ngModel)]="object.var3">
             </mat-form-field>
