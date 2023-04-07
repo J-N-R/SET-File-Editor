@@ -8,6 +8,13 @@
             {{ fileName }}
         </h1>
         <h1 class="objects mat-display-1" tabindex="0">
+            <button
+                mat-mini-fab
+                color="primary"
+                aria-label="Clear objects"
+                (click)="emitClear()">
+                <mat-icon>delete</mat-icon>
+            </button>
             {{ numOfObjects }} Objects
         </h1>
     </div>

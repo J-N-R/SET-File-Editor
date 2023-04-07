@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule, MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatChipListboxChange, MatChipsModule } from '@angular/material/chips';
 
@@ -15,8 +17,10 @@ import { SORTING_OPTIONS } from '../content';
   imports: [
     CommonModule,
     FormsModule,
+    MatButtonModule,
     MatButtonToggleModule,
     MatChipsModule,
+    MatIconModule,
   ],
 })
 export class HeaderComponent {
