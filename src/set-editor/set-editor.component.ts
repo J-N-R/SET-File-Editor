@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { VirtualScrollerModule } from '@iharbeck/ngx-virtual-scroller';
+import { VirtualScrollerModule, VirtualScrollerComponent } from '@iharbeck/ngx-virtual-scroller';
 import { debounceTime, first } from 'rxjs/operators';
 
 import { MOCK_OBJECTS } from '../shared/mock-objects';
@@ -15,6 +15,7 @@ import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ObjectService } from './object.service';
 import { ElectronService } from '../shared/electron.service';
+import { SearchDialogComponent } from './search-dialog.component';
 
 /** Main object editing page. */
 @Component({
@@ -30,11 +31,14 @@ import { ElectronService } from '../shared/electron.service';
     HeaderComponent,
     MatDialogModule,
     MatProgressSpinnerModule,
+    SearchDialogComponent,
     SetObjectComponent,
     VirtualScrollerModule,
   ],
 })
 export default class SetEditorComponent implements OnInit {
+  @ViewChild(VirtualScrollerComponent) virtualScroller!: VirtualScrollerComponent;
+
   fileName = '';
   fileType = '';
   loading = true;
@@ -42,6 +46,7 @@ export default class SetEditorComponent implements OnInit {
   stage = 13;
   numOfObjects = 0;
   coordinateStyle: CoordinateStyle = 'game';
+  selectedObjectId: number|undefined = undefined;
   levelObjectCategories = new Map<string, Set<SA2Object>>();
 
   readonly objectsEmitter = this.objectService.objectsEmitter;
@@ -169,6 +174,31 @@ export default class SetEditorComponent implements OnInit {
     this.coordinateStyle = coordinateStyle;
     this.objectService.setCoordinateStyle(coordinateStyle);
   }
+
+  openSearch() {
+    const dialogRef = this.dialog.open(SearchDialogComponent,
+      {autoFocus: false, width: '360px'});
+
+    dialogRef.afterClosed().subscribe((foundId: number|undefined) => {
+      if (foundId !== undefined) {
+        this.virtualScroller.scrollInto(this.objectService.getObject(foundId));
+        this.selectedObjectId = foundId;
+        this.changeDetectorRef.detectChanges();
+        setTimeout(() => {
+          const timer = setInterval(() => {
+            this.selectedObjectId = this.selectedObjectId === undefined ?
+                foundId : undefined;
+            this.changeDetectorRef.detectChanges();
+          }, 800);
+          setTimeout(() => {
+            clearInterval(timer);
+            this.selectedObjectId = undefined;
+          }, 5600);
+        }, 2000);
+      }
+    });
+  }
+
 }
 
 

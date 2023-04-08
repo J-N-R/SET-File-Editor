@@ -28,7 +28,7 @@ export class ObjectService {
       id: this.nextID,
       type: DEFAULT_ITEM,
       displayInfo: this.getDisplayInfo(levelObjectGroups, stage, DEFAULT_ITEM),
-    }
+    } as SetObject;
     // Attempt to insert object without sorting, if not insert then sort.
     switch (this.sortingOption.name) {
       case 'Time created':
@@ -72,6 +72,10 @@ export class ObjectService {
     this.nextID = 0;
     this.objectList.length = 0;
     this.objectSubject.next(this.objectList);
+  }
+
+  getObject(objectId: number): SetObject|undefined {
+    return this.objectList.find(({id}) => id == objectId);
   }
 
   /**
@@ -136,13 +140,16 @@ export class ObjectService {
     this.coordinateStyle = coordinateStyle;
     this.objectList.map((object) => {
       if (object.displayInfo?.setLabel) {
-        [object.displayInfo.setLabel.y, object.displayInfo.setLabel.z] = [object.displayInfo.setLabel.z, object.displayInfo.setLabel.y];
-        [object.displayInfo.setLabel.yRot, object.displayInfo.setLabel.zRot] = [object.displayInfo.setLabel.zRot, object.displayInfo.setLabel.yRot];
+        [object.displayInfo.setLabel.y, object.displayInfo.setLabel.z] =
+            [object.displayInfo.setLabel.z, object.displayInfo.setLabel.y];
+        [object.displayInfo.setLabel.yRot, object.displayInfo.setLabel.zRot] =
+            [object.displayInfo.setLabel.zRot, object.displayInfo.setLabel.yRot];
       }
     })
   }
 
-  private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>, objectType: SA2Object): string {
+  private getCategory(levelObjectGroups: Map<string, Set<SA2Object>>,
+        objectType: SA2Object): string {
     for (const [category, objectList] of levelObjectGroups) {
       if (objectList.has(objectType)) {
         return category;

@@ -1,0 +1,78 @@
+<h1 mat-dialog-title class="title">Find objects</h1>
+<div mat-dialog-content class="description">
+    <mat-form-field 
+        appearance="fill"
+        class="object-select one-variable"
+        [floatLabel]="'always'"
+        (click)="filterOptions()">
+    <mat-label>Object Name</mat-label>
+    <input
+        matInput
+        [matAutocomplete]="autoGroup"
+        [(ngModel)]="userInput"
+        (ngModelChange)="filterOptions()">
+    <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-option
+            *ngFor="let searchObject of filteredObjectList"
+            [mat-dialog-close]="searchObject.id">
+            {{ searchObject.displayValue }}
+        </mat-option>
+        <mat-option
+            *ngIf="userInput && filteredObjectList.length === 0" [value]="null">
+            Not found
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+<h2>Search by:</h2>
+<mat-button-toggle-group
+    value="game"
+    (change)="setSearchType($event)">
+    <mat-button-toggle value="game">
+        Name
+    </mat-button-toggle>
+    <mat-button-toggle value="internal">
+        Internal Name
+    </mat-button-toggle>
+    <mat-button-toggle value="hex">
+        Hex Index
+    </mat-button-toggle>
+</mat-button-toggle-group>
+<mat-slide-toggle
+    color="primary"
+    [(ngModel)]="removeDuplicates"
+    (change)="ngOnInit()">
+    Remove duplicates
+</mat-slide-toggle>
+</div>
+<div mat-dialog-actions class="button-container">
+    <button
+        mat-dialog-close
+        mat-stroked-button>
+        <span class="mat-h2">Cancel</span>
+    </button>
+    <button
+        mat-flat-button
+        class="continue-button"
+        color="primary"
+        [mat-dialog-close]="search()">
+        <span class="mat-h2">Search</span>
+    </button>
+</div>
+
+
+
+<!--
+ * Copyright 2023 Google LLC
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy
+ * of the License at
+ * 
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+-->

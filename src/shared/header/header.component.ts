@@ -30,6 +30,7 @@ export class HeaderComponent {
   @Output() clear = new EventEmitter();
   @Output() sort = new EventEmitter();
   @Output() coordinates = new EventEmitter();
+  @Output() search = new EventEmitter();
 
   @Input() isIntro = false;
   @Input() fileName?: string;
@@ -56,6 +57,10 @@ export class HeaderComponent {
 
   emitSort(event: MatChipListboxChange) {
     this.sort.emit(event.source.value);
+  }
+
+  emitSearch() {
+    this.search.emit();
   }
 
   emitCoordinateStyle(event: MatButtonToggleChange) {

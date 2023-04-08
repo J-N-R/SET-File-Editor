@@ -7,20 +7,27 @@ $interactable-color: mat.get-color-from-palette(mat.$blue-palette, 400);
 $decoration-color: mat.get-color-from-palette(mat.$purple-palette, 300);
 $trigger-color: mat.get-color-from-palette(mat.$orange-palette, 400);
 $shrine-color: mat.get-color-from-palette(mat.$teal-palette, 400);
+$selected-shadow-color: mat.get-color-from-palette(mat.$pink-palette, A400);
 
 $form-field-width: 75px;
 
 :host {
+    border-radius: 8px;
     flex: auto;
     margin: 4px;
     min-width: 285px;
     max-width: 285px;
+    transition: box-shadow 0.5s ease-out;
     width: 285px;
 
     &:hover .delete-button {
         background-color: mat.get-color-from-palette(mat.$red-palette, A200);
         opacity: 1;
         visibility: visible;
+    }
+
+    &.selected {
+        box-shadow: 0px 0px 4px 4px $selected-shadow-color;
     }
 
     ::ng-deep {

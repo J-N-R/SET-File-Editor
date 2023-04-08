@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,6 +35,8 @@ import { ObjectService } from './object.service';
 })
 export class SetObjectComponent {
   @Output() delete = new EventEmitter<number>();
+
+  @HostBinding('class.selected') @Input() isSelected = false;
 
   @Input() levelObjectCategories = new Map<string, Set<SA2Object>>();
   @Input() stage: number = 13;
