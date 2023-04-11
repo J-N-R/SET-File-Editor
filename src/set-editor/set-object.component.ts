@@ -44,7 +44,6 @@ export class SetObjectComponent {
     id: 0,
     type: SA2Object.DMYOBJ,
     displayInfo: {
-      isExpanded: false,
       internalName: 'DMYOBJ',
       categoryClass: '',
       customVariableCount: 3,
@@ -86,7 +85,6 @@ export class SetObjectComponent {
       this.object.displayInfo = {
         ...this.objectService.getDisplayInfo(this.levelObjectCategories,
             this.stage, newObjectType),
-        isExpanded: true,
       };
     }
   }
@@ -102,12 +100,6 @@ export class SetObjectComponent {
 
   emitDelete() {
     this.delete.emit(this.object.id);
-  }
-
-  togglePanel() {
-    if (this.object.displayInfo) {
-      this.object.displayInfo.isExpanded = !this.object.displayInfo.isExpanded;
-    }
   }
 
   // Overrides keyvalue's default sorting behavior.

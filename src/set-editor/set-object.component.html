@@ -2,13 +2,11 @@
     <mat-icon color="warning">close</mat-icon>
 </button>
 <mat-expansion-panel
-    *ngIf="object?.displayInfo as displayInfo"
-    [expanded]="displayInfo.isExpanded">
+    *ngIf="object?.displayInfo as displayInfo">
     <mat-expansion-panel-header
         class="center"
         [ngClass]="displayInfo.categoryClass"
-        [title]="object.type.length > 26 ? object.type : ''"
-        (click)="togglePanel()">
+        [title]="object.type.length > 26 ? object.type : ''">
         {{ object.type }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

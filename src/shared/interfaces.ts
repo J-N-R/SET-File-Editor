@@ -35,7 +35,6 @@ export interface SetLabel {
 
 /** Extra info used in rendering Set Objects. */
 export interface DisplayInfo {
-    isExpanded: boolean,
     internalName: string,
     categoryClass: string,
     customVariableCount: number,

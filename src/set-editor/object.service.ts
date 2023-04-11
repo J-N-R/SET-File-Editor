@@ -120,7 +120,6 @@ export class ObjectService {
       objectType: SA2Object): DisplayInfo {
     const setLabel = this.getSetLabel(stage, objectType);
     return {
-      isExpanded: false,
       internalName: INTERNAL_NAMES.get(objectType) ?? 'UNKNOWN',
       categoryClass: CATEGORY_CLASSLIST[this.getCategory(
           levelObjectGroups, objectType)],
