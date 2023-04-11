@@ -181,7 +181,7 @@ export default class SetEditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((foundId: number|undefined) => {
       if (foundId !== undefined) {
-        this.virtualScroller.scrollInto(this.objectService.getObject(foundId));
+        document.getElementById(foundId.toString())?.scrollIntoView({behavior: "smooth"});
         this.selectedObjectId = foundId;
         this.changeDetectorRef.detectChanges();
         setTimeout(() => {

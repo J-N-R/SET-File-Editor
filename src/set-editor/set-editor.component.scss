@@ -33,17 +33,12 @@
     margin: 10px;
 }
 
-virtual-scroller {
-    height: 100%;
-    text-align: center;
-
-    ::ng-deep .scrollable-content {
-        padding-top: 16px;
-    }
-}
-
-app-set-object {
-    display: inline-table;
+.scroll {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: auto;
+    padding-top: 16px;
 }
 
 

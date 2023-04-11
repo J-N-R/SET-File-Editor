@@ -10,21 +10,20 @@
     (sort)="setSortingOption($event)"
     (search)="openSearch()">
 </app-header>
-<virtual-scroller
+<div
     *ngIf="!loading && (objectsEmitter | async) as objects; else loadingTemplate"
-    [enableUnequalChildrenSizes]="true"
-    [items]="objects"
-    #scroll>
+    class="scroll">
         <app-set-object
-            *ngFor="let object of scroll.viewPortItems; trackBy: trackById"
+            *ngFor="let object of objects; trackBy: trackById"
             [coordinateStyle]="coordinateStyle"
+            [id]="object.id"
             [isSelected]="object.id === selectedObjectId"
             [levelObjectCategories]="levelObjectCategories"
             [object]="object"
             [stage]="stage"
             (delete)="deleteObject($event)">
         </app-set-object>
-</virtual-scroller>
+</div>
 <ng-template #loadingTemplate>
     <div class="center">
         <mat-spinner></mat-spinner>

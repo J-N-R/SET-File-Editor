@@ -13,6 +13,9 @@ $form-field-width: 75px;
 
 :host {
     border-radius: 8px;
+    content-visibility: auto;
+    // Needed for smooth content visibility. No idea why.
+    display: inline-table;
     flex: auto;
     margin: 4px;
     min-width: 285px;
