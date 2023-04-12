@@ -32,6 +32,7 @@ $theme: mat.define-light-theme((
 /** Material component theme imports. */
 @include mat.core-theme($theme);
 @include mat.button-theme($theme);
+@include mat.icon-button-theme($theme);
 @include mat.input-theme($theme);
 @include mat.radio-theme($theme);
 @include mat.select-theme($theme);

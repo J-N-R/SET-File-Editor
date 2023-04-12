@@ -23,17 +23,15 @@ $form-field-width: 75px;
     transition: box-shadow 0.5s ease-out;
     width: 285px;
 
-    &:hover .delete-button {
-        background-color: mat.get-color-from-palette(mat.$red-palette, A200);
-        opacity: 1;
-        visibility: visible;
-    }
-
     &.selected {
         box-shadow: 0px 0px 4px 4px $selected-shadow-color;
     }
 
     ::ng-deep {
+
+        .mat-expansion-indicator {
+            margin-right: 24px;
+        }
 
         // Material Form Field label overrides (to center text)
         .mdc-floating-label {
@@ -87,28 +85,12 @@ $form-field-width: 75px;
 }
 
 .delete-button {
-    box-shadow: none !important;
-    visibility: hidden;
-    float: left;
-    height: 34px;
-    margin: -14px -40px 0 -14px;
+    left: 4px;
     opacity: 0;
+    position: absolute;
+    top: 1px;
     transition: visibility 0s, opacity 0.5s ease;
-    width: 34px;
-    z-index: 1;
-
-    &:active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    mat-icon {
-        color: white;
-        font-size: 22px;
-        height: 22px;
-        padding: 6px;
-        width: 22px;
-    }
+    visibility: hidden;
 }
 
 mat-expansion-panel {
@@ -120,6 +102,7 @@ mat-expansion-panel-header {
     background-color: beige !important;
     font-weight: 500;
     max-height: 48px;
+    padding: 0;
     transition: border-bottom-right-radius 400ms, border-bottom-left-radius 400ms;
 
     &.enemy {
@@ -153,11 +136,16 @@ mat-expansion-panel-header {
         transition: border-bottom-right-radius 0ms, border-bottom-left-radius 0ms !important;
     }
 
+    &:hover .delete-button {
+        opacity: 0.80;
+        visibility: visible;
+    }
+
     ::ng-deep.mat-content {
         display: block;
         font: bold 16px 'Open Sans';
         justify-content: center;
-        margin-right: -8px;
+        margin-right: -32px;
         padding: 0 16px;
         text-overflow: ellipsis;
         width: 205px;

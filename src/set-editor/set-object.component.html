@@ -1,12 +1,12 @@
-<button mat-mini-fab class="delete-button" (click)="emitDelete()">
-    <mat-icon color="warning">close</mat-icon>
-</button>
 <mat-expansion-panel
     *ngIf="object?.displayInfo as displayInfo">
     <mat-expansion-panel-header
         class="center"
         [ngClass]="displayInfo.categoryClass"
         [title]="object.type.length > 26 ? object.type : ''">
+        <button mat-icon-button class="delete-button" (click)="emitDelete($event)">
+            <mat-icon>delete</mat-icon>
+        </button>
         {{ object.type }}
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>

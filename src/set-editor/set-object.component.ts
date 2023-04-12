@@ -98,7 +98,8 @@ export class SetObjectComponent {
     this.userInput = this.object.type;
   }
 
-  emitDelete() {
+  emitDelete(event: Event) {
+    event.stopPropagation();
     this.delete.emit(this.object.id);
   }
 
