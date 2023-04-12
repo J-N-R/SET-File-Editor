@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { VirtualScrollerModule, VirtualScrollerComponent } from '@iharbeck/ngx-virtual-scroller';
 import { debounceTime, first } from 'rxjs/operators';
 
 import { MOCK_OBJECTS } from '../shared/mock-objects';
@@ -33,12 +32,9 @@ import { SearchDialogComponent } from './search-dialog.component';
     MatProgressSpinnerModule,
     SearchDialogComponent,
     SetObjectComponent,
-    VirtualScrollerModule,
   ],
 })
 export default class SetEditorComponent implements OnInit {
-  @ViewChild(VirtualScrollerComponent) virtualScroller!: VirtualScrollerComponent;
-
   fileName = '';
   fileType = '';
   loading = true;

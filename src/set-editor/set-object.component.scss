@@ -85,7 +85,7 @@ $form-field-width: 75px;
 }
 
 .delete-button {
-    left: 4px;
+    left: 0;
     opacity: 0;
     position: absolute;
     top: 1px;
@@ -146,7 +146,7 @@ mat-expansion-panel-header {
         font: bold 16px 'Open Sans';
         justify-content: center;
         margin-right: -32px;
-        padding: 0 16px;
+        padding: 0 40px;
         text-overflow: ellipsis;
         width: 205px;
         white-space: nowrap;
