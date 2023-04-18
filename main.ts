@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, shell, Menu, MenuItemConstructorOptions } from 'electron';
 import * as fs from 'fs';
 import { SetObject, SetFile, SetLabel } from './src/shared/interfaces';
 import { SA2Object } from './src/shared/objects';
@@ -35,6 +35,69 @@ function createWindow() {
         return { action: 'deny' };
     });
 }
+
+const template: MenuItemConstructorOptions[] = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                role: 'quit',
+            }
+        ]
+    },
+    {
+        label: 'Edit',
+    },
+    {
+       label: 'View',
+       submenu: [
+          {
+             role: 'toggleDevTools',
+          },
+          {
+             type: 'separator',
+          },
+          {
+             role: 'zoomIn',
+             accelerator: 'CmdOrCtrl+=',
+          },
+          {
+             role: 'zoomOut',
+          },
+          {
+            role: 'resetZoom',
+          },
+          {
+             type: 'separator',
+          },
+          {
+             role: 'togglefullscreen',
+          },
+       ],
+    },
+    {
+       role: 'window',
+       submenu: [
+          {
+             role: 'minimize',
+          },
+          {
+             role: 'close',
+          },
+       ],
+    },
+    {
+       role: 'help',
+       submenu: [
+          {
+             label: 'Learn More',
+          },
+       ],
+    },
+ ];
+
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
 
 app.on('ready', createWindow);
 

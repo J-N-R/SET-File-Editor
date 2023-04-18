@@ -44,6 +44,67 @@ function createWindow() {
         return { action: 'deny' };
     });
 }
+var template = [
+    {
+        label: 'File',
+        submenu: [
+            {
+                role: 'quit'
+            }
+        ]
+    },
+    {
+        label: 'Edit'
+    },
+    {
+        label: 'View',
+        submenu: [
+            {
+                role: 'toggleDevTools'
+            },
+            {
+                type: 'separator'
+            },
+            {
+                role: 'zoomIn',
+                accelerator: 'CmdOrCtrl+='
+            },
+            {
+                role: 'zoomOut'
+            },
+            {
+                role: 'resetZoom'
+            },
+            {
+                type: 'separator'
+            },
+            {
+                role: 'togglefullscreen'
+            },
+        ]
+    },
+    {
+        role: 'window',
+        submenu: [
+            {
+                role: 'minimize'
+            },
+            {
+                role: 'close'
+            },
+        ]
+    },
+    {
+        role: 'help',
+        submenu: [
+            {
+                label: 'Learn More'
+            },
+        ]
+    },
+];
+var menu = electron_1.Menu.buildFromTemplate(template);
+electron_1.Menu.setApplicationMenu(menu);
 electron_1.app.on('ready', createWindow);
 electron_1.app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') {
