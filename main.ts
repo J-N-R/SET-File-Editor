@@ -9,6 +9,7 @@ import { convertToSetFile } from './src/shared/content';
 let win: BrowserWindow|null;
 const BAMS_TO_DEGREES = 360.0 / 65536.0;
 const DEGREES_TO_BAMS = 65536.0 / 360.0;
+const WIKI_URL = 'https://github.com/J-N-R/SET-File-Editor/wiki';
 
 function createWindow() {
     win = new BrowserWindow({
@@ -25,11 +26,9 @@ function createWindow() {
     win.setTitle('Modern Set Editor');
     win.maximize();
     win.loadFile('compiled/set-editor/index.html');
-
     win.on('closed', () => {
         win = null;
     });
-
     win.webContents.setWindowOpenHandler(({url}) => {
         shell.openExternal(url);
         return { action: 'deny' };
@@ -42,57 +41,65 @@ const template: MenuItemConstructorOptions[] = [
         submenu: [
             {
                 role: 'quit',
-            }
-        ]
+            },
+        ],
     },
     {
         label: 'Edit',
+        submenu: [
+            {
+                label: 'test',
+            },
+        ],
     },
     {
-       label: 'View',
-       submenu: [
-          {
-             role: 'toggleDevTools',
-          },
-          {
-             type: 'separator',
-          },
-          {
-             role: 'zoomIn',
-             accelerator: 'CmdOrCtrl+=',
-          },
-          {
-             role: 'zoomOut',
-          },
-          {
-            role: 'resetZoom',
-          },
-          {
-             type: 'separator',
-          },
-          {
-             role: 'togglefullscreen',
-          },
-       ],
+        label: 'View',
+        submenu: [
+            {
+                role: 'toggleDevTools',
+            },
+            {
+                type: 'separator',
+            },
+            {
+                role: 'zoomIn',
+                accelerator: 'CmdOrCtrl+=',
+            },
+            {
+                role: 'zoomOut',
+            },
+            {
+                role: 'resetZoom',
+            },
+            {
+                type: 'separator',
+            },
+            {
+                 role: 'togglefullscreen',
+            },
+        ],
     },
     {
-       role: 'window',
-       submenu: [
-          {
-             role: 'minimize',
-          },
-          {
-             role: 'close',
-          },
-       ],
+        role: 'window',
+        submenu: [
+            {
+                role: 'minimize',
+            },
+            {
+                role: 'close',
+            },
+        ],
     },
     {
-       role: 'help',
-       submenu: [
-          {
-             label: 'Learn More',
-          },
-       ],
+        role: 'help',
+        submenu: [
+            {
+                label: 'Learn More',
+                click: async () => {
+                    await shell.openExternal(WIKI_URL);
+                },
+            },
+        ],
     },
  ];
 
