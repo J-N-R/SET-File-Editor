@@ -3,7 +3,7 @@ A simple, modern tool for adding objects, enemies, and more to levels in Sonic A
 
 Through the use of abstract and novel UX design, objects are visualized in a way that makes them easy to edit and to understand. To try it for yourself, visit the [releases page](https://github.com/J-N-R/Set-File-Editor/releases).
 
-![GIF Walkthrough](https://github.com/J-N-R/SET-File-Editor/assets/80438344/05640997-c42c-4187-b1f9-83498dfebe6e)
+https://github.com/J-N-R/SET-File-Editor/assets/80438344/5f575c69-f3c5-47e3-89d8-08000387f2e4
 
 ![image](https://user-images.githubusercontent.com/80438344/222892418-098fddb5-ca6c-43b7-8449-df013c9db496.png)
 
